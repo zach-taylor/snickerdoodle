@@ -3,7 +3,11 @@ snickerdoodle
 
 Com S 309 Team 23 Project
 
-## SNV Details
+## Setup Instructions
+* Activate your virtual environment
+* pip install -r requirements.txt
+
+## SVN Details
 
 **URL**: https://repo.cs.iastate.edu/coms309/23/
 
