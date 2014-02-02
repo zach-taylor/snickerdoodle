@@ -1,0 +1,29 @@
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td { margin: 0; padding: 0; }
+html, body {height: 100%;}
+img { border: none; }
+ul { list-style: none; }
+a { text-decoration: none; }
+
+body {
+    font-family: "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    color: #505050;
+    line-height: 22px;
+    background-color: #373B44;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+.container {
+    width: 540px;
+    margin: 0 auto;
+    padding-top: 40px;
+}
+
+div.content {
+    margin: 20px 0;
+    background-color: #FDFDFD;
+    padding: 30px 40px;
+    border-radius: 10px;
+}
