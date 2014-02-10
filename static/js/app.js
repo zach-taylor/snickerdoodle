@@ -26,7 +26,29 @@
             console.log('Auth Connected!');
 
             FB.api('/me', function (resp) {
-                console.log('Good to see you, ' + resp.name + '.');
+                // TODO: Error checking
+                //
+                var context = {
+                    name: resp.name,
+                };
+
+                FB.api('/me/picture', function (resp) {
+                    // TODO: Error checking
+
+                    var source = $('#search-template').html(),
+                        template = Handlebars.compile(source);
+
+                    console.log(source);
+                    console.log(resp);
+                    console.log(template);
+                    context.picture = resp.data.url;
+                    console.log(context);
+
+                    var html = template(context);
+                    console.log(html);
+
+                    $('.content').empty().append(html);
+                });
             });
         } else if (resp.status === 'not_authorized') {
             console.log('Not authorized.');
