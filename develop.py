@@ -78,7 +78,7 @@ def dev_install():
     return install(dev=True)
 
 
-def install(dev=True):
+def install(dev=False):
     # Install VirtualENV
     subprocess.call([sys.executable, VIRTUAL_ENV_PATH, '--system-site-packages', 'ENV'])
 
