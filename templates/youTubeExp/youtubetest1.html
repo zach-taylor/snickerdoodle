@@ -1,0 +1,76 @@
+<!DOCTYPE html>
+<html>
+  <body>
+    <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
+    <div id="player"></div>
+
+    <script>
+      // 2. This code loads the IFrame Player API code asynchronously.
+      var tag = document.createElement('script');
+      var currentVideo;
+
+      tag.src = "https://www.youtube.com/iframe_api";
+      var firstScriptTag = document.getElementsByTagName('script')[0];
+      firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+      // 3. This function creates an <iframe> (and YouTube player)
+      //    after the API code downloads.
+      var player;
+      function onYouTubeIframeAPIReady() {
+        player = new YT.Player('player', {
+          height: '390',
+          width: '640',
+	  videoId: 'M7lc1UVf-VE',
+          events: {
+		'onReady': onPlayerReady,
+		'onStateChange': onPlayerState
+          }
+        });
+      }
+
+      // 4. The API will call this function when the video player is ready. Plays video specified.
+	function onPlayerReady(event) {
+		player.cueVideoByUrl({'mediaContentUrl': '//www.youtube.com/embed/q80hDlittrQ', 'startSeconds': '45'});
+		// Saves video for pause function will be unneeded if seekTo works.
+		currentVideo = '//www.youtube.com/embed/q80hDlittrQ';
+		player.playVideo();
+	
+	}
+	
+	//A function that responds to different states of the player such as ended, playing, paused, ect.
+	function onPlayerState(event) {
+		//For when a video ends.
+		if(YT.PlayerState.ENDED == event.data){
+			player.cueVideoByUrl({'mediaContentUrl': '//www.youtube.com/embed/jofNR_WkoCE', 'startSeconds': '12'});
+			currentVideo = '//www.youtube.com/embed/jofNR_WkoCE'
+			player.playVideo();
+		}
+		//For when a video is paused. It reloads a video at the current time - 5 seconds would be better with seekTo().
+		else if(YT.PlayerState.PAUSED == event.data){
+			var time;
+			if(player.getCurrentTime() > 2){
+				time = parseInt(player.getCurrentTime()-2);
+			} else {
+				time = 0;
+			}
+			//document.write(time);
+			// Inefficient need to figure out seekTo function to make better.
+			//player.cueVideoByUrl({'mediaContentUrl': currentVideo, 'startSeconds': time});
+			player.seekTo(time);
+		}
+		else if(YT.PlayerState.BUFFERING == event.data){
+			while(YT.PlayerState.Buffering == event.data){
+			}
+				var time;
+			if(player.getCurrentTime() > 2){
+				time = parseInt(player.getCurrentTime()-2);
+			} else {
+				time = 0;
+			}
+			player.seekTo(time);
+	}		
+}
+      
+    </script>
+  </body>
+</html>
