@@ -29,4 +29,4 @@ def connect():
 
 if __name__ == "__main__":
     app.debug = DEBUG_MODE
-    manager.run(host='snickerdoodle.com')
+    manager.run()
