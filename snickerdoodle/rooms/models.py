@@ -1,4 +1,4 @@
-from application import db
+from snickerdoodle import db
 
 class Room(db.Model):
     __tablename__ = 'rooms'
