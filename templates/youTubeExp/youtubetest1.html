@@ -16,6 +16,7 @@
       // 3. This function creates an <iframe> (and YouTube player)
       //    after the API code downloads.
       var player;
+      var done = false;
       function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
           height: '390',
@@ -31,8 +32,6 @@
       // 4. The API will call this function when the video player is ready. Plays video specified.
 	function onPlayerReady(event) {
 		player.cueVideoByUrl({'mediaContentUrl': '//www.youtube.com/embed/q80hDlittrQ', 'startSeconds': '45'});
-		// Saves video for pause function will be unneeded if seekTo works.
-		currentVideo = '//www.youtube.com/embed/q80hDlittrQ';
 		player.playVideo();
 	
 	}
@@ -47,30 +46,25 @@
 		}
 		//For when a video is paused. It reloads a video at the current time - 5 seconds would be better with seekTo().
 		else if(YT.PlayerState.PAUSED == event.data){
-			var time;
+			if(!done){
+			var time ;
 			if(player.getCurrentTime() > 2){
-				time = parseInt(player.getCurrentTime()-2);
+				time = parseInt(player.getCurrentTime()-5);
 			} else {
 				time = 0;
 			}
-			//document.write(time);
-			// Inefficient need to figure out seekTo function to make better.
-			//player.cueVideoByUrl({'mediaContentUrl': currentVideo, 'startSeconds': time});
 			player.seekTo(time);
+			done = true;
+			}
 		}
-		else if(YT.PlayerState.BUFFERING == event.data){
-			while(YT.PlayerState.Buffering == event.data){
-			}
-				var time;
-			if(player.getCurrentTime() > 2){
-				time = parseInt(player.getCurrentTime()-2);
-			} else {
-				time = 0;
-			}
-			player.seekTo(time);
-	}		
+		else if(YT.PlayerState.BUFFERING == event.data && !done){
+			
+	}
+		else if(YT.PlayerState.PLAYING == event.data && done){
+			done = false;
+		}
 }
-      
+     
     </script>
   </body>
 </html>
