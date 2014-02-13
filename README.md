@@ -36,9 +36,12 @@ To install Postgres on Linux:
     $ sudo apt-get install postgres
 ```
 
-To install Postgres on Mac: Go [here](http://postgresapp.com/) and download and install the app
+To install Postgres on Mac: Go [here](http://postgresapp.com/) and download and
+install the app
 
-Change "SQLALCHEMY\_DATABASE\_URI" in snickerdoodle/settingslocal.py to use your desired URI (though if you create a blank database called snickerdoodle with postgres as the owner, there's no need to change it)
+Change "SQLALCHEMY\_DATABASE\_URI" in snickerdoodle/settingslocal.py to use your
+desired URI (though if you create a blank database called snickerdoodle with
+postgres as the owner, there's no need to change it)
 
 Then to get the latest schema, run this from your virtualenv console:
 
