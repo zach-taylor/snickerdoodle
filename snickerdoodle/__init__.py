@@ -23,4 +23,7 @@ def hello():
 def connect():
     return render_template('connect.html')
 
+@snickerdoodle.route("/video")
+def video():
+	return render_template('video.html')
 
