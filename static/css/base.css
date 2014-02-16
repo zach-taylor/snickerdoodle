@@ -16,12 +16,12 @@ h1 {
 }
 
 .container {
-    width: 540px;
+    width: 840px;
     margin: 0 auto;
     padding-top: 40px;
 }
 
-div.content {
+.container > .content {
     margin: 20px 0;
     background-color: #FDFDFD;
     padding: 30px 40px;
