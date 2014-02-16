@@ -1,9 +1,25 @@
 <!DOCTYPE html>
-<html>
+<html lang = "en">
+
+<head>
+	<meta charset = "utf-8" />
+	<title>{% block title %} Video - Snickerdoodle{% endblock %}</title>
+	
+	<link res = "stylesheet" href = "/static/css/base.css"/>
+	{% block css %}{% endblock %}
+</head>
+
   <body>
+  	
+  	{% block preamble %}{% endblock %}
+  	<div class = "container">
+  	{% block content %}
     <!-- 1. The <iframe> (and video player) will replace this <div> tag. -->
     <div id="player"></div>
-
+	{% endblock %}
+	</div>
+	
+	{%block js %}
     <script>
       // 2. This code loads the IFrame Player API code asynchronously.
       var tag = document.createElement('script');
@@ -42,7 +58,7 @@
 		if(YT.PlayerState.ENDED == event.data){
 			player.cueVideoByUrl({'mediaContentUrl': '//www.youtube.com/embed/jofNR_WkoCE', 'startSeconds': '12'});
 			currentVideo = '//www.youtube.com/embed/jofNR_WkoCE'
-			player.playVideo();
+			window.alert("Video Ended next video is ready.");
 		}
 		//For when a video is paused. It reloads a video at the current time - 5 seconds would be better with seekTo().
 		else if(YT.PlayerState.PAUSED == event.data){
@@ -54,10 +70,13 @@
 				time = 0;
 			}
 			player.seekTo(time);
+			window.alert("Player is Paused.");
 			done = true;
 			}
 		}
 		else if(YT.PlayerState.BUFFERING == event.data && !done){
+			window.alert("Video is buffering");
+			done = true;
 			
 	}
 		else if(YT.PlayerState.PLAYING == event.data && done){
@@ -66,5 +85,7 @@
 }
      
     </script>
+    {% endblock %}
+    {% block templates %}{%endblock %}
   </body>
 </html>
