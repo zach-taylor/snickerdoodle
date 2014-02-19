@@ -22,6 +22,7 @@ manager.add_command('db', MigrateCommand)
 
 from users.models import User
 from rooms.models import Room
+from videos.models import Video
 
 
 @snickerdoodle.route("/")
