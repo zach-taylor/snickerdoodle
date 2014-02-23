@@ -1,11 +1,38 @@
-{% extends "base.html" %}
+<!doctype html>
 
-{% block title %} Home - Snickerdoodle{% endblock %}
+<html>
+  
+  <head>
+    <title>Home - Snickerdoodle</title>
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/home.css">
+  </head>
+  
+  <body>
+    <div class="container-fluid">
+      <div class="header">
+        <ul class="nav nav-pills pull-right">
+          <li class="active">
+            <a href="#"><span class="glyphicon glyphicon-user"></span> Log in</a>
+          </li>
+        </ul>
+        <h3 class="text-muted"><b>snickerdoodle</b></h3>
+      </div>
+      <div class="jumbotron" id="jumbo-thing">
+        <img class="img-polaroid">
+        <h1>Watch Videos with Your Friends</h1>
+        <p class="lead">Youtube, Vimeo, DailyMotion, Justin.tv, and more. All in one playlist.</p>
+        <p><a class="btn btn-success btn-lg" href="#">Sign up now!</a></p>
+      </div>
+      <div class="row marketing"></div>
+      <div>
+        <p class="lead">&copy; Snickerdoodle 2014</p>
+      </div>
+    </div>
+    <!-- /container -->
+    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
+  </body>
 
-{% block content %}
-<div class="content">
-    <h1>Snickerdoodle</h1>
-
-    <img src="/static/img/cat.jpg" alt="Cat" />
-</div>
-{% endblock %}
+</html>
