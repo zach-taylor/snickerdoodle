@@ -14,4 +14,4 @@ itsdangerous==0.23
 pbr==0.6
 psycopg2==2.5.2
 wsgiref==0.1.2
-gunicorn==18.0
+gunicorn==0.17.2
