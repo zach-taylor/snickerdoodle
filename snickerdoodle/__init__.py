@@ -92,3 +92,34 @@ def new_room():
     }
 
     return jsonify( { 'room': room_json } ), 201
+
+@snickerdoodle.route('/room/<room_id>', methods=['GET'])
+def get_room(room_id):
+    try:
+        room = Room.query.filter(Room.id == room_id).first()
+    except Exception, e:
+        snickerdoodle.logger.warning(e)
+        abort(500)
+
+    room_json = {
+        'id': room.id,
+        'name': room.name,
+        'host_id': room.host_id
+    }
+
+    return jsonify( {'room': room_json} )
+
+@snickerdoodle.route('/user/<user_id>', methods=['GET'])
+def get_user(user_id):
+    try:
+        user = User.query.filter(User.id == user_id).first()
+    except Exception, e:
+        snickerdoodle.logger.warning(e)
+        abort(500)
+
+    user_json = {
+        'id': user.id,
+        'fb_id': user.fb_id
+    }
+
+    return jsonify( {'user': user_json} )
