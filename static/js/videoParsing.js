@@ -3,11 +3,13 @@
 	var videoURL = SiteURL
         var videoSite;
         var videoID;
-        videoSite = videoURL.split("/",3)[2];
-	if (videoSite == "youtu.be") {
-	   videoID = videoURL.split("/",4)[3];
-	} else if (videoSite == "vimeo.com") {
-	   videoID = videoURL.split("/",4)[3];
+        alert(videoURL.split(".",2)[1]);
+	if (videoURL.split(".",2)[1] == "youtube") {
+            videoSite = videoURL.split(".",2)[1];
+            videoID = videoURL.split("=",2)[1];
+	} else if (videoURL.split(".",2)[1] == "vimeo") {
+            videoSite = videoURL.split(".",2)[1];
+            videoID = videoURL.split("/",2)[1];
 	}
         return videoID;
 	}
