@@ -1,7 +1,7 @@
-var next;
+var videoList = [];
 
 function nextVideo(ID){
-        next = ID;
+        videoList.push(ID);
     }
 
 (function (root, $) {
@@ -40,6 +40,7 @@ function nextVideo(ID){
     function onPlayerState(event) {
         //For when a video ends.
         if (YT.PlayerState.ENDED == event.data) {
+            var next = videoList.shift();
             addMessage("Video Ended");
             player.cueVideoById({
                 'videoId' : next,

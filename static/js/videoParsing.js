@@ -3,7 +3,6 @@
 	var videoURL = SiteURL
         var videoSite;
         var videoID;
-        alert(videoURL.split(".",2)[1]);
 	if (videoURL.split(".",2)[1] == "youtube") {
             videoSite = videoURL.split(".",2)[1];
             videoID = videoURL.split("=",2)[1];
