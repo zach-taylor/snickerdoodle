@@ -52,7 +52,7 @@ def video():
 
 
 @snickerdoodle.route('/user', methods=['PUT', 'POST'])
-def new():
+def new_user():
     if not request.json or not 'user' in request.json:
         abort(400)
     try:
@@ -71,3 +71,24 @@ def new():
 
     return jsonify( { 'user': user_json } ), 201
 
+
+@snickerdoodle.route('/room', methods=['PUT', 'POST'])
+def new_room():
+    if not request.json or not 'room' in request.json:
+            abort(400)
+    try:
+        data = request.get_json(force=True)
+        room = Room(data['room']['name'], data['room']['host_id'])
+        db.session.add(room)
+        db.session.commit()
+    except Exception, e:
+        snickerdoodle.logger.warning(e)
+        abort(500)
+
+    room_json = {
+        'id': room.id,
+        'name': room.name,
+        'host_id': room.host_id
+    }
+
+    return jsonify( { 'room': room_json } ), 201
