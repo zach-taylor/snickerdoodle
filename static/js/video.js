@@ -1,5 +1,11 @@
+var next;
+
+function nextVideo(ID){
+        next = ID;
+    }
+
 (function (root, $) {
-    var done = false,
+        var done = false,
         $actions = $('.actions h4');
 
     function addMessage(message) {
@@ -10,6 +16,7 @@
 
         $actions.after(html);
     }
+    
 
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
@@ -34,12 +41,11 @@
         //For when a video ends.
         if (YT.PlayerState.ENDED == event.data) {
             addMessage("Video Ended");
-            player.cueVideoByUrl({
-                'mediaContentUrl': '//www.youtube.com/embed/jofNR_WkoCE',
-                'startSeconds': '12'
+            player.cueVideoById({
+                'videoId' : next,
+                'startSeconds': '0'
             });
 
-            currentVideo = '//www.youtube.com/embed/jofNR_WkoCE'
 
         }
         else if(YT.PlayerState.CUED == event.data){

@@ -9,8 +9,8 @@
 {% block content %}
 <div class="content">
     <div id="player"></div>
-    <div>
-    <input type="button" onclick="addVideo()" value="Add More Videos!"/>
+    <div class="ui action input">
+        <input type="text" placeholder="Search...">
     </div>
     <div class="ui small feed segment actions">
         <h4 class="ui header">YouTube Actions</h4>
@@ -22,7 +22,15 @@
     <script src="/static/js/videoParsing.js"></script>
     <script src="/static/js/video.js"></script>
     <script src="/static/lib/handlebars/handlebars-v1.3.0.js"></script>
-
+    <script>
+       $('.action input').keypress(function (e) {
+  if (e.which == 13) {
+        var siteURL=$('.action input').val();
+        nextVideo(addVideo(siteURL));
+        $('.action input').val("");
+        }
+    });
+    </script>
     <script>
         var tag = document.createElement('script');
         var currentVideo;
