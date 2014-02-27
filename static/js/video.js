@@ -1,12 +1,25 @@
-var videoList = [];
-
-function nextVideo(ID){
-        videoList.push(ID);
-    }
-
 (function (root, $) {
-        var done = false,
+        var done = false;
+        var videoList = [];
         $actions = $('.actions h4');
+        
+        //Button to skip to next video in list
+        $('.button').click(function() {
+            var next = videoList.shift();
+             player.cueVideoById({
+                'videoId' : next,
+                'startSeconds': '0'
+            });
+        });
+        
+        //Take URL from input to add to video.
+         $('.action input').keypress(function (e) {
+            if (e.which == 13) {
+                var siteURL=$('.action input').val();
+                videoList.push(addVideo(siteURL));
+                $('.action input').val("");
+        }
+    });
 
     function addMessage(message) {
         var source = $('#youtube-template').html(),
@@ -35,6 +48,8 @@ function nextVideo(ID){
         player.cueVideoByUrl({'mediaContentUrl': '//www.youtube.com/embed/q80hDlittrQ', 'startSeconds': '45'});
         player.playVideo();
     }
+    
+    
 
     //A function that responds to different states of the player such as ended, playing, paused, ect.
     function onPlayerState(event) {
@@ -64,6 +79,7 @@ function nextVideo(ID){
             addMessage("Player resumed.");
         }
     }
+    
 
     // Expose the function to the YouTube API
     root.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
