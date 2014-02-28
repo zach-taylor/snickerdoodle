@@ -1,4 +1,4 @@
-html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td { margin: 0; padding: 0; }
+html, body, div, h1, h2, h3, h4, h5, h6, ul, ol, dl, li, dt, dd, p, blockquote, pre, form, fieldset, table, th, td {text-align: center; margin: 0; padding: 0; }
 html, body {height: 100%;}
 img { border: none; }
 ul { list-style: none; }
@@ -8,7 +8,7 @@ body {
     font-family: "Droid Sans", "Helvetica Neue", Helvetica, Arial, sans-serif;
     color: #505050;
     line-height: 22px;
-    background: none;
+    background: #927ECB;
 }
 
 h1 {

@@ -17,6 +17,7 @@
             if (e.which == 13) {
                 var siteURL=$('.action input').val();
                 videoList.push(addVideo(siteURL));
+                addMessage("Video added!");
                 $('.action input').val("");
         }
     });
