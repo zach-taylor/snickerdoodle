@@ -3,7 +3,7 @@
 
     snicker.provider = {};
     snicker.providers = {};
-    snicker.socket = io.connect();
+    snicker.socket = io.connect('/video');
 
     snicker.addProvider = function (name, provider) {
         snicker.providers[name] = provider;
