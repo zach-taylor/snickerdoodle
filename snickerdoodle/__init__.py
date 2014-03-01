@@ -3,6 +3,7 @@ from os import path
 from flask import Flask, render_template, jsonify
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
+from flask.ext.socketio import SocketIO, emit
 
 from .extensions import db
 
@@ -22,8 +23,11 @@ snickerdoodle = Flask(__name__,
 snickerdoodle.config.from_pyfile('settings.py')
 
 db.init_app(snickerdoodle)
+
 migrate = Migrate(snickerdoodle, db)
 manager = Manager(snickerdoodle)
+socketio = SocketIO(snickerdoodle)
+
 manager.add_command('db', MigrateCommand)
 
 videos_views.attach_views(snickerdoodle)
@@ -55,3 +59,8 @@ def connect():
 @snickerdoodle.route('/video')
 def video():
     return render_template('video.html')
+
+@socketio.on('video', namespace='/video')
+def test_message(message):
+    print message
+    emit('player', message, namespace='/video', broadcast=True)
