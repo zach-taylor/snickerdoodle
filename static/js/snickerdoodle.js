@@ -1,5 +1,6 @@
 (function (root, $) {
-    var snicker = {};
+    var snicker = {},
+        socket = io.connect();
 
     snicker.providers = {};
 
@@ -29,6 +30,10 @@
 
     snicker.emit = function (action, status) {
         // Send a message to the server using Socket.io
+        socket.emit('video', {
+            action: action,
+            status: status
+        });
     };
 
     // Create our root object
