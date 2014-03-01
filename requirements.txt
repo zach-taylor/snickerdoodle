@@ -12,7 +12,6 @@ alembic==0.6.3
 decorator==3.4.0
 itsdangerous==0.23
 pbr==0.6
-psycopg2==2.5.2
 wsgiref==0.1.2
 gunicorn==0.17.2
-Flask-SocketIO=0.2.2
+Flask-SocketIO==0.2.2
