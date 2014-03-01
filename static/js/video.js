@@ -1,30 +1,43 @@
 (function (root, $) {
-        var done = false;
-        var videoList = [];
-        $actions = $('.actions h4');
+    var done = false;
+    var videoList = [];
+    $actions = $('.actions h4');
 
-        //Button to skip to next video in list
-        $('.button').click(function() {
-            var next = videoList.shift();
-             player.cueVideoById({
-                'videoId' : next,
-                'startSeconds': '0'
-            });
+    //Button to skip to next video in list
+    $('.button').click(function() {
+        var url = $('.action input').val();
+        var provider = root.Snicker.parseUrl(url);
+
+        console.log('Provider: ' + provider);
+
+        return;
+
+        var next = videoList.shift();
+        player.cueVideoById({
+            'videoId' : next,
+            'startSeconds': '0'
         });
+    });
 
-        //Take URL from input to add to video.
-         $('.action input').keypress(function (e) {
-            if (e.which == 13) {
-                var siteURL=$('.action input').val();
-                videoList.push(addVideo(siteURL));
-                addMessage("Video added!");
-                $('.action input').val("");
+    //Take URL from input to add to video.
+    $('.action input').keypress(function (e) {
+        var url = $('.action input').val();
+        var provider = root.Snicker.parseUrl(url);
+
+        console.log('Provider: ' + provider);
+
+        return;
+
+        if (e.which == 13) {
+            videoList.push(addVideo(siteURL));
+            addMessage("Video added!");
+            $('.action input').val("");
         }
     });
 
     function addMessage(message) {
         var source = $('#youtube-template').html(),
-            template = Handlebars.compile(source);
+        template = Handlebars.compile(source);
 
         var html = template({message: message});
 
