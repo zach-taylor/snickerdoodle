@@ -1,8 +1,9 @@
 (function (root, $) {
-    var snicker = {},
-        socket = io.connect();
+    var snicker = {};
 
+    snicker.provider = {};
     snicker.providers = {};
+    snicker.socket = io.connect();
 
     snicker.addProvider = function (name, provider) {
         snicker.providers[name] = provider;
@@ -20,21 +21,51 @@
 
             // Determine if the provider can handle the given URL
             if (provider.checkUrl(url) == true) {
-                return new provider(url);
+                provider.init(url);
+                return name;
             }
         }
 
         // No provider found
-        return undefined;
+        return;
     };
 
-    snicker.emit = function (action, status) {
-        // Send a message to the server using Socket.io
-        socket.emit('video', {
-            action: action,
-            status: status
-        });
+    snicker.changeProvider = function (name) {
+        snicker.provider = snicker.providers[name];
     };
+
+    snicker.addMessage = function (message) {
+        var source = $('#youtube-template').html(),
+        template = Handlebars.compile(source);
+
+        var html = template({message: message});
+
+        $actions.after(html);
+    };
+
+    //
+    // SockerIO Functions
+    //
+
+    snicker.emit = function (event, data) {
+        // Send a message to the server using Socket.io
+        console.log('Sending event:');
+        console.log(data);
+        snicker.socket.emit(event, data);
+    };
+
+    snicker.socket.on('player', function (data) {
+        console.log('SocketIO response:');
+        console.log(data);
+
+        var action = data.action;
+
+        if (action === 'play') {
+            snicker.provider.onPlay();
+        } else if (action === 'pause') {
+            snicker.provider.onPause();
+        }
+    });
 
     // Create our root object
     root.Snicker = snicker;

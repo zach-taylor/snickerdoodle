@@ -8,11 +8,9 @@
     var Base = (function Base() {
         this.name = 'Base';
 
-        function Base(url) {
-            this.url = url;
-        };
+        Base.prototype.init = function () { };
 
-        Base.checkUrl = function (url) {
+        Base.prototype.checkUrl = function (url) {
             console.log('Base Checkurl');
             // Returns boolean if the URL matches the provider's
         };
