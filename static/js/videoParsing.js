@@ -9,7 +9,6 @@
 	} else if (videoURL.split("/",4)[2] == "vimeo.com") {
             videoSite = videoURL.split("/",4)[2];
             videoID = videoURL.split("/",4)[3];
-            alert(videoID);
 	}
         return videoID;
 	}
