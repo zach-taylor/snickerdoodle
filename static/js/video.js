@@ -2,7 +2,7 @@
         var done = false;
         var videoList = [];
         $actions = $('.actions h4');
-        
+
         //Button to skip to next video in list
         $('.button').click(function() {
             var next = videoList.shift();
@@ -11,7 +11,7 @@
                 'startSeconds': '0'
             });
         });
-        
+
         //Take URL from input to add to video.
          $('.action input').keypress(function (e) {
             if (e.which == 13) {
@@ -30,7 +30,7 @@
 
         $actions.after(html);
     }
-    
+
 
     function onYouTubeIframeAPIReady() {
         player = new YT.Player('player', {
@@ -49,8 +49,8 @@
         player.cueVideoByUrl({'mediaContentUrl': '//www.youtube.com/embed/q80hDlittrQ', 'startSeconds': '45'});
         player.playVideo();
     }
-    
-    
+
+
 
     //A function that responds to different states of the player such as ended, playing, paused, ect.
     function onPlayerState(event) {
@@ -80,7 +80,7 @@
             addMessage("Player resumed.");
         }
     }
-    
+
 
     // Expose the function to the YouTube API
     root.onYouTubeIframeAPIReady = onYouTubeIframeAPIReady;
