@@ -37,7 +37,7 @@ To install Postgres on Linux:
 
 ```bash
     $ sudo apt-get update
-    $ sudo apt-get install postgres
+    $ sudo apt-get install postgresql
 ```
 
 To install Postgres on Mac: Go [here](http://postgresapp.com/) and download and
@@ -50,7 +50,7 @@ postgres as the owner, there's no need to change it)
 Then to get the latest schema, run this from your virtualenv console:
 
 ```bash
-    $ python application.py db upgrade
+    $ python manage.py db upgrade
 ```
 
 ## SVN Details
