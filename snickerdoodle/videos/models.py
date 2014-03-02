@@ -1,4 +1,4 @@
-from snickerdoodle import db
+from ..extensions import db
 
 class Video(db.Model):
     __tablename__ = 'videos'

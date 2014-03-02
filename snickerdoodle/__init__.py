@@ -10,6 +10,7 @@ from .extensions import db
 from .videos import views as videos_views
 from .rooms import views as rooms_views
 from .users import views as users_views
+from .friends.models import Friend
 
 
 BASE = path.join(path.dirname(path.abspath(__file__)), '..')
@@ -64,3 +65,4 @@ def video():
 def test_message(message):
     print message
     emit('player', message, namespace='/video', broadcast=True)
+
