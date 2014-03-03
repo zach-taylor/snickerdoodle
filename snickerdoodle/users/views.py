@@ -55,7 +55,6 @@ class UserAPI(MethodView):
 
 def attach_views(app):
     user_view = UserAPI.as_view('user_api')
-    print 'users attach_view'
     app.add_url_rule('/users/', defaults={'user_id': None},
                                 view_func=user_view, methods=['GET',])
     app.add_url_rule('/users/', view_func=user_view, methods=['POST',])
