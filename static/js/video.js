@@ -14,15 +14,11 @@
         snicker.changeProvider(name);
 
         console.log('Calling change video');
-        snicker.provider.changeVideo(url);
+        snicker.provider.swapVideo(url);
 
         console.log('Provider: ' + snicker.provider);
 
         return;
-    });
-
-    $('.button.emit').click(function () {
-        root.Snicker.socket.emit('event', {msg: 'hi'});
     });
 
     //Take URL from input to add to video.
@@ -31,14 +27,6 @@
         var provider = root.Snicker.parseUrl(url);
 
         console.log('Provider: ' + provider);
-
-        return;
-
-        if (e.which == 13) {
-            videoList.push(addVideo(siteURL));
-            addMessage("Video added!");
-            $('.action input').val("");
-        }
     });
 
 }(window, jQuery));

@@ -11,7 +11,6 @@
         //
         // Snickerdoodle API
         //
-        //
 
         YouTube.prototype.init = function () {
             console.log('YT Init');
@@ -38,7 +37,14 @@
             console.log('YT onFinish');
         };
 
-        YouTube.prototype.changeVideo = function (url) {
+        YouTube.prototype.swapVideo = function (url) {
+            Snicker.emit('video', {
+                action: 'change',
+                url: url,
+            });
+        };
+
+        YouTube.prototype.onChangeVideo = function (url) {
             console.log('YT Change Video: ' + url);
             console.log('This: ');
             console.log(this);

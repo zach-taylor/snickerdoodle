@@ -5,6 +5,10 @@
     snicker.providers = {};
     snicker.socket = io.connect('/video');
 
+    //
+    // Snickerdoodle Functions
+    //
+
     snicker.addProvider = function (name, provider) {
         snicker.providers[name] = provider;
     };
@@ -32,14 +36,28 @@
 
     snicker.changeProvider = function (name) {
         snicker.provider = snicker.providers[name];
+
+        // Call setup init
+        snicker.provider.init();
+    };
+
+    snicker.setUrlAndProvider = function (url) {
+        console.log('Setting url and provider');
+        var name = root.Snicker.parseUrl(url);
+
+        if (!name) console.log('Error here');
+
+        snicker.changeProvider(name);
+
+        snicker.provider.changeVideo(url);
     };
 
     snicker.addMessage = function (message) {
         var source = $('#youtube-template').html(),
         template = Handlebars.compile(source);
 
+        // Render template, add to html
         var html = template({message: message});
-
         $actions.after(html);
     };
 
@@ -49,14 +67,14 @@
 
     snicker.emit = function (event, data) {
         // Send a message to the server using Socket.io
-        console.log('Sending event:');
-        console.log(data);
         snicker.socket.emit(event, data);
     };
 
     snicker.socket.on('player', function (data) {
         console.log('SocketIO response:');
         console.log(data);
+        console.log('Sending action to provider:');
+        console.log(snicker.provider);
 
         var action = data.action;
 
@@ -64,11 +82,19 @@
             snicker.provider.onPlay();
         } else if (action === 'pause') {
             snicker.provider.onPause();
+        } else if (action === 'change') {
+            var url = data.url || '';
+
+            snicker.setUrlAndProvider(url);
+
+            // TODO: Error check
+            snicker.provider.onChangeVideo(url);
         }
     });
 
-    // Create our root object
-    root.Snicker = snicker;
+    //
+    // Helper Functions
+    //
 
     // Helper for hasOwnProperty
     root.__hasProp = Object.prototype.hasOwnProperty;
@@ -89,4 +115,11 @@
 
         return child;
     };
+
+    //
+    // Add to Root
+    //
+
+    // Create our root object
+    root.Snicker = snicker;
 }(window, jQuery));
