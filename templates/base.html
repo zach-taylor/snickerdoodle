@@ -10,7 +10,20 @@
 </head>
 <body>
     {% include '_navbar.html'  %}
-    {% block preamble %}{% endblock %}
+
+    {% block preamble %}
+    <div id="fb-root"></div>
+    <script>
+        (function(d){
+            var js, id = 'facebook-jssdk', ref = d.getElementsByTagName('script')[0];
+            if (d.getElementById(id)) {return;}
+            js = d.createElement('script'); js.id = id; js.async = true;
+            js.src = "//connect.facebook.net/en_US/all.js";
+            ref.parentNode.insertBefore(js, ref);
+        }(document));
+    </script>
+    {% endblock %}
+
     <div class="container">
         {% block content %}{% endblock %}
     </div>
