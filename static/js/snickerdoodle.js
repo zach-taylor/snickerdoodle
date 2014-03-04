@@ -3,7 +3,7 @@
 
     snicker.provider = {};
     snicker.providers = {};
-    snicker.socket = io.connect('/video');
+    snicker.socket = io.connect('/watch');
 
     //
     // Snickerdoodle Functions

@@ -38,7 +38,7 @@
         };
 
         YouTube.prototype.swapVideo = function (url) {
-            Snicker.emit('video', {
+            Snicker.emit('watch', {
                 action: 'change',
                 url: url,
             });
@@ -93,14 +93,14 @@
                 Snicker.addMessage("Next video cued. Playing...");
             } else if (YT.PlayerState.PAUSED == event.data) {
                 Snicker.addMessage("Player is Paused.");
-                Snicker.emit('video', {
+                Snicker.emit('watch', {
                     action: 'pause',
                 });
             } else if (YT.PlayerState.BUFFERING == event.data) {
                 Snicker.addMessage("Video is buffering");
             } else if (YT.PlayerState.PLAYING == event.data) {
                 Snicker.addMessage("Player resumed.");
-                Snicker.emit('video', {
+                Snicker.emit('watch', {
                     action: 'play',
                 });
             }

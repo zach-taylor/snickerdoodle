@@ -57,12 +57,12 @@ def connect():
     return render_template('connect.html')
 
 
-@snickerdoodle.route('/video')
+@snickerdoodle.route('/watch')
 def video():
-    return render_template('video.html')
+    return render_template('watch.html')
 
-@socketio.on('video', namespace='/video')
+@socketio.on('watch', namespace='/watch')
 def test_message(message):
     print message
-    emit('player', message, namespace='/video', broadcast=True)
+    emit('player', message, namespace='/watch', broadcast=True)
 
