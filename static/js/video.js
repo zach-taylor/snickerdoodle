@@ -2,7 +2,6 @@
     var done = false;
     var videoList = [];
     var snicker = root.Snicker;
-    $actions = $('.actions h4');
 
     //Button to skip to next video in list
     $('.button.next').click(function() {
