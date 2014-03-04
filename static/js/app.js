@@ -1,5 +1,6 @@
-(function ($) {
-    var handler = {};
+(function (root, $) {
+    var handler = {},
+        $signin = $('.menu > a.facebook');
 
     handler.config = {
         appId: '1409850522596219',
@@ -23,38 +24,13 @@
         console.log('Checking login status...');
 
         if (resp.status === 'connected') {
-            console.log('Auth Connected!');
-
-            FB.api('/me', function (resp) {
-                // TODO: Error checking
-                //
-                var context = {
-                    name: resp.name,
-                };
-
-                FB.api('/me/picture', function (resp) {
-                    // TODO: Error checking
-
-                    var source = $('#search-template').html(),
-                        template = Handlebars.compile(source);
-
-                    console.log(source);
-                    console.log(resp);
-                    console.log(template);
-                    context.picture = resp.data.url;
-                    console.log(context);
-
-                    var html = template(context);
-                    console.log(html);
-
-                    $('.content').empty().append(html);
-                });
-            });
+            // Login success
+            handler.onLoggedIn();
         } else if (resp.status === 'not_authorized') {
-            console.log('Not authorized.');
+            // Not authorized
             FB.login();
         } else {
-            console.log('AuthResponseChange Else');
+            // Something else went wrong, possibly not logged in
             FB.login();
         }
     };
@@ -67,12 +43,39 @@
         }
     };
 
+    handler.onLoggedIn = function () {
+        FB.api('/me', function (resp) {
+            // TODO: Error checking
+            //
+            var context = {
+                name: resp.name,
+            };
+
+            FB.api('/me/picture', function (resp) {
+                // TODO: Error checking
+
+                var source = $('#search-template').html(),
+                template = Handlebars.compile(source);
+
+                console.log(source);
+                console.log(resp);
+                console.log(template);
+                context.picture = resp.data.url;
+                console.log(context);
+
+                var html = template(context);
+                console.log(html);
+
+                $('.content').empty().append(html);
+            });
+        });
+    };
+
     handler.bind = function () {
-        $('.facebook.button').on('click', function () {
-            console.log('Checking status...');
+        $signin.on('click', function () {
             FB.login();
         });
     };
 
-    window.fbAsyncInit = handler.init;
-}(jQuery));
+    root.fbAsyncInit = handler.init;
+}(window, jQuery));
