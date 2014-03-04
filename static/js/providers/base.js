@@ -26,8 +26,13 @@
         Base.prototype.onFinish = function () {
             // Called when server issues an onFinish command
         };
+        
+        Base.prototype.swapVideo = function (){
+            // Called when changing video.
+        };
+        
 
-        Base.prototype.changeVideo = function () {
+        Base.prototype.onChangeVideo = function () {
             // Called when server switches a video
         };
 

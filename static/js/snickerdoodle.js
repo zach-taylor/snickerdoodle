@@ -49,7 +49,7 @@
 
         snicker.changeProvider(name);
 
-        snicker.provider.changeVideo(url);
+        snicker.provider.onChangeVideo(url);
     };
 
     snicker.addMessage = function (message) {

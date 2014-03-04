@@ -13,6 +13,12 @@
         //
 
         YouTube.prototype.init = function () {
+            var tag = document.createElement('script');
+            var currentVideo;
+
+            tag.src = "https://www.youtube.com/iframe_api";
+            var firstScriptTag = document.getElementsByTagName('script')[0];
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
             console.log('YT Init');
         }
 
