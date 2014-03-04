@@ -62,7 +62,7 @@
     };
 
     //
-    // SockerIO Functions
+    // SockertIO Functions
     //
 
     snicker.emit = function (event, data) {
