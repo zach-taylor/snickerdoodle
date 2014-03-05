@@ -1,0 +1,32 @@
+html {
+    background: url(http://placekitten.com/1280/600) no-repeat center center fixed;
+    -webkit-background-size: cover;
+    -moz-background-size: cover;
+    -o-background-size: cover;
+    background-size: cover;
+}
+
+
+/* Space out content a bit */
+body {
+    padding-top: 20px;
+    padding-bottom: 20px;
+    background: none;
+}
+
+.ui.green.segment {
+		background-color: #F0F0F0 ;
+		padding-left: 15px;
+		padding-right: 15px;
+		position: aligned; 
+	
+	}	
+	
+	
+.header h3 {
+    margin-top: 0;
+    margin-bottom: 0;
+    line-height: 40px;
+    padding-bottom: 19px;
+}
+	
