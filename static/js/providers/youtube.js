@@ -1,6 +1,6 @@
 (function (root, $) {
     var Snicker = root.Snicker;
-
+    var id;
     var YouTube = (function () {
         __extends(YouTube, root.Snicker.Base);
 
@@ -59,7 +59,7 @@
             // TODO: Better parsing for video ID
             this.url = url;
             this.id = url.split("=",2)[1];
-
+            id = url.split("=",2)[1];
             this.player.loadVideoById({
                 'videoId' : this.id,
                 'startSeconds': '0'
@@ -83,7 +83,7 @@
             this.player = new YT.Player('player', {
                 height: '390',
                 width: '640',
-                videoId: 'M7lc1UVf-VE',
+                videoId: id,
                 events: {
                     'onReady': YouTube.prototype.onPlayerReady.bind(YouTube),
                     'onStateChange': YouTube.prototype.onPlayerState.bind(YouTube),

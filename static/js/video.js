@@ -12,10 +12,12 @@
 
         snicker.changeProvider(name);
         console.log('Calling change video');
-       // snicker.provider.swapVideo(url);
+        console.log("how long did this take.");
+        snicker.provider.swapVideo(url);
         console.log('Provider: ' + snicker.provider);
         return;
     });
+    
 
     //Take URL from input to add to video.
     $('.action input').keypress(function (e) {
