@@ -35,6 +35,7 @@
         Base.prototype.onChangeVideo = function () {
             // Called when server switches a video
         };
+        
 
         Base.prototype.status = function () {
             // Provides a status object of the currently playing video

@@ -25,7 +25,6 @@
 
             // Determine if the provider can handle the given URL
             if (provider.checkUrl(url) == true) {
-                provider.init(url);
                 return name;
             }
         }

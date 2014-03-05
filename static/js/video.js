@@ -7,16 +7,13 @@
     $('.button.next').click(function() {
         var url = $('.action input').val();
         var name = root.Snicker.parseUrl(url);
-
+        
         if (!name) console.log('Error here');
 
         snicker.changeProvider(name);
-
         console.log('Calling change video');
-        snicker.provider.swapVideo(url);
-
+       // snicker.provider.swapVideo(url);
         console.log('Provider: ' + snicker.provider);
-
         return;
     });
 
