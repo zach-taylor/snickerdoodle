@@ -51,7 +51,7 @@ users_views.attach_views(snickerdoodle)
 def hello():
     return render_template('home.html')
 
-@snickerdoodle.route('home2')
+@snickerdoodle.route('/home2')
 def testhome():
     return render_template('home2.html')
 
