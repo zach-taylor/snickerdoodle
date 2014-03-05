@@ -14,8 +14,7 @@
 
         YouTube.prototype.init = function () {
             var tag = document.createElement('script');
-            var currentVideo;
-
+            //var currentVideo;
             tag.src = "https://www.youtube.com/iframe_api";
             var firstScriptTag = document.getElementsByTagName('script')[0];
             firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);    
@@ -56,7 +55,7 @@
             console.log('This: ');
             console.log(this);
 
-            // TODO: Better parsing for video ID
+            // TODO: Better parsing for video ID, Better initial video loading.
             this.url = url;
             this.id = url.split("=",2)[1];
             id = url.split("=",2)[1];
@@ -81,8 +80,6 @@
             console.log(this);
 
             this.player = new YT.Player('player', {
-                height: '390',
-                width: '640',
                 videoId: id,
                 events: {
                     'onReady': YouTube.prototype.onPlayerReady.bind(YouTube),
