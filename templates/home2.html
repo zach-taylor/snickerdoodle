@@ -1,0 +1,66 @@
+<!doctype html>
+
+{% extends "base.html" %}
+
+{% block title %} Home - Snickerdoodle{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/lib/semantic/css/semantic.css" />
+	<link rel="stylesheet" href="/static/css/home2.css">
+{% endblock %}
+
+{% block js %}
+    <script src="/static/lib/semantic/javascript/semantic.js"></script>
+    <script src="/static/lib/handlebars/handlebars-v1.3.0.js"></script>
+	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
+	<script src="/static/js/home2.js"></script>
+{% endblock %}
+
+<html>
+  
+  <head>
+    <title>Home - Snickerdoodle</title>
+    <meta name="viewport" content="width=device-width">
+   
+  </head>
+  
+  <body>
+   
+      <div class="ui right aligned segment">
+        <div class="ui facebook button">
+        <i class="facebook icon"></i>
+        Facebook
+		</div>
+		
+		
+        <h3 class="text-muted"><b>Snickerdoodle</b></h3>
+      </div>
+	  
+      <div class="ui green segment">
+        <img class="img-polaroid">
+        <h1>Watch Videos with Your Friends</h1>
+        <p class="lead">Youtube, Vimeo, DailyMotion, and more. All in one playlist.</p>
+        
+		<div class="ui vertical animated green mini button signup">
+			<div class="visible content"> Not A Member? </div>
+				<div class="hidden content">
+					<i class="users icon"></i>
+					Join Us!
+				</div>
+		</div>
+      </div>
+	  
+	  <div class="ui horizontal icon divider">
+		<img class="ui avatar image" src="/images/demo/photo2.jpg">
+	</div>
+	  
+      <div class="row marketing"></div>
+      <div>
+        <p class="lead">&copy; Snickerdoodle 2014</p>
+      </div>
+   
+        
+   
+  </body>
+
+</html>
