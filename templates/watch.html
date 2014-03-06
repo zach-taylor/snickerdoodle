@@ -2,6 +2,7 @@
 {% block title %}Video - Snickerdoodle{% endblock %}
 
 {% block css %}
+    <link rel="stylesheet" href="/static/css/watch.css" />
     <link rel="stylesheet" href="/static/lib/semantic/css/semantic.css" />
 {% endblock %}
 
@@ -11,15 +12,96 @@
   Snickerdoodle - Watch Videos with Your Friends!
 </h4>
 
-<div class="content">
-    <div id="player"></div>
-    <div class="ui fluid action input">
-        <input type="text" placeholder="PUT VIDEO URL HERE AND THEN HIT ENTER TO ADD VIDEO!">
-        <div class="ui red button next">Next Video</div>
+<div class="">
+    <div class="row">
+        <div class="ui five connected items">
+            <div class="item">
+                <div class="image">
+                    <img src="/static/img/cat.jpg">
+                </div>
+                <div class="content">
+                    <div class="name">Cute Dog</div>
+                    <p class="description">added by Josh</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="/static/img/cat.jpg">
+                </div>
+                <div class="content">
+                    <div class="name">Faithful Dog</div>
+                    <p class="description">added by Zach</p>
+                </div>
+            </div>
+            <div class="item">
+                <div class="image">
+                    <img src="/static/img/cat.jpg">
+                </div>
+                <div class="content">
+                    <div class="name">Silly Dog</div>
+                    <p class="description">added by Will</p>
+                </div>
+            </div>
+        </div>
     </div>
-    <div class = "ui basic segment">
-        <div class="ui center aligned small feed green inverted segment actions">
-            <h4 class="ui header">YouTube Actions</h4>
+
+    <div class="ui grid">
+        <div class="player eleven wide column">
+            <img src="/static/img/video.jpg">
+        </div>
+
+        <div class="chat five wide column">
+            <div class="ui piled blue segment">
+                <h5 class="ui header">
+                    <i class="icon inverted circular blue comment"></i> Comments
+                </h5>
+                <div class="ui comments">
+                    <div class="comment">
+                        <a class="avatar">
+                            <img src="/images/demo/avatar.jpg">
+                        </a>
+                        <div class="content">
+                            <a class="author">Dog Doggington</a>
+                            <div class="text">
+                                I think this is a great idea and i am voting on it
+                            </div>
+                        </div>
+                    </div>
+                    <form class="ui reply form">
+                        <div class="field">
+                            <textarea></textarea>
+                        </div>
+                        <div class="ui fluid blue labeled submit icon button">
+                            <i class="icon edit"></i> Add Reply
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="four wide column">
+            <div class="ui segment"><b>Column One</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum iaculis sapien.</div>
+        </div>
+        <div class="eight wide column">
+            <div class="ui segment"><b>Column Two</b> Aliquam lobortis commodo sem ac accumsan. Vestibulum non faucibus lorem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur sed lorem lorem. Nam augue erat, dignissim nec aliquam vel, congue et sapien. Integer viverra justo vel nibh suscipit commodo. Nullam ut turpis nibh, in luctus risus. Sed ut risus nec dui mattis porta. Nam nisi magna, ornare mollis congue a, suscipit at nisl.</div>
+        </div>
+        <div class="four wide column">
+            <div class="ui segment"><b>Column Three</b> Donec semper mollis condimentum. Aenean eget rutrum magna. Mauris ornare nibh scelerisque turpis lobortis dignissim. Etiam eleifend justo eget quam semper vulputate. Nulla et risus convallis velit molestie iaculis. Aliquam erat volutpat. </div>
+        </div>
+    </div>
+
+    <div class="content">
+        <div id="player"></div>
+        <div class="ui fluid action input">
+            <input type="text" placeholder="PUT VIDEO URL HERE AND THEN HIT ENTER TO ADD VIDEO!">
+            <div class="ui red button next">Next Video</div>
+        </div>
+        <div class = "ui basic segment">
+            <div class="ui center aligned small feed green inverted segment actions">
+                <h4 class="ui header">YouTube Actions</h4>
+            </div>
         </div>
     </div>
 </div>

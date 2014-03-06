@@ -1,10 +1,10 @@
 (function (root, $) {
     var handler = {},
-        $signin = $('.menu > a.facebook');
+        $status = $('.menu a.status');
 
     handler.config = {
         appId: '1409850522596219',
-        status: false,
+        status: true,
         cookie: true,
         xfbml: false
     };
@@ -54,7 +54,7 @@
             FB.api('/me/picture', function (resp) {
                 // TODO: Error checking
 
-                var source = $('#search-template').html(),
+                var source = $('#signin-template').html(),
                 template = Handlebars.compile(source);
 
                 console.log(source);
@@ -66,13 +66,13 @@
                 var html = template(context);
                 console.log(html);
 
-                $('.content').empty().append(html);
+                $status.replaceWith(html);
             });
         });
     };
 
     handler.bind = function () {
-        $signin.on('click', function () {
+        $status.on('click', function () {
             FB.login();
         });
     };
