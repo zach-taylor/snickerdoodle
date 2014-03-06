@@ -17,7 +17,7 @@
             //var currentVideo;
             tag.src = "https://www.youtube.com/iframe_api";
             var firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);    
+            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
             console.log('YT Init');
         }
 
@@ -43,7 +43,7 @@
         };
 
         YouTube.prototype.swapVideo = function (url) {
-            
+
             Snicker.emit('watch', {
                 action: 'change',
                 url: url,

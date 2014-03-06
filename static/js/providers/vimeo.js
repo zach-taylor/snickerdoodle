@@ -13,6 +13,7 @@
         //
 
         Vimeo.prototype.init = function () {
+            // TODO: NO INLINE HTML
             $('#player').html('<iframe id="player1" type="text/html" width="640" height="390" src="//player.vimeo.com/video/?api=1&player_id=player1"></iframe>');
             iframe = $('#player1')[0],
             player = $f(iframe),
@@ -26,7 +27,7 @@
             var site;
             // TODO: More robust checking
             return (url.split("/",3)[2] === "vimeo.com");
-           
+
         };
 
         Vimeo.prototype.onPlay = function () {
@@ -44,7 +45,7 @@
         };
 
         Vimeo.prototype.swapVideo = function (url) {
-            
+
             Snicker.emit('watch', {
                 action: 'change',
                 url: url,
@@ -59,6 +60,7 @@
             // TODO: Better parsing for video ID, Better initial video loading.
             this.url = url;
             this.id = url.split("/",4)[3];
+            // TODO: NO, JOSH, WE DON'T USE HTML IN JAVASCRIPT, THAT'S WHAT HANDLEBARS IS FOR
             $('#player').html('<iframe id="player1" type="text/html" width="640" height="390" src="//player.vimeo.com/video/' + this.id + '?api=1&player_id=player1"></iframe>');
             iframe = $('#player1')[0],
             player = $f(iframe),
@@ -72,7 +74,7 @@
 
 
         Vimeo.prototype.apiReady = function() {
-        
+
         };
 
         Vimeo.prototype.onPlayerReady = function () {
@@ -88,5 +90,5 @@
 
     // Attach our provider
     root.Snicker.addProvider('Vimeo', vimeo);
-    
+
 }(window, jQuery));
