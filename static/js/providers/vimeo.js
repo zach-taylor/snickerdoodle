@@ -17,6 +17,7 @@
             template = Handlebars.compile(source);
             // Render template, add to html
             var html = template({video: " "});
+            $( "div.player" ).replaceWith(html);
 
         }
 
@@ -53,7 +54,7 @@
         Vimeo.prototype.onChangeVideo = function (url) {
             console.log('vimeo Change Video: ' + url);
             console.log('This: ');
-            console.log(this);
+            console.log(this.id);
 
             // TODO: Better parsing for video ID, Better initial video loading.
             this.url = url;
@@ -62,7 +63,7 @@
             template = Handlebars.compile(source);
             // Render template, add to html
             var html = template({video: this.id});
-            $test.after(html);
+            $( "div.player").replaceWith(html);
             //iframe = $('#player1')[0],
             //player = $f(iframe),
             //status = $('.status');

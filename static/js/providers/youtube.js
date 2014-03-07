@@ -13,6 +13,11 @@
         //
 
         YouTube.prototype.init = function () {
+            var source = $('#youtube-template').html(),
+            template = Handlebars.compile(source);
+            // Render template, add to html
+            var html = template();
+            $( "div.player").replaceWith(html);
             var tag = document.createElement('script');
             //var currentVideo;
             tag.src = "https://www.youtube.com/iframe_api";

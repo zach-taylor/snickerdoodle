@@ -52,7 +52,7 @@
     };
 
     snicker.addMessage = function (message) {
-        var source = $('#youtube-template').html(),
+        var source = $('#message-template').html(),
         template = Handlebars.compile(source);
 
         // Render template, add to html

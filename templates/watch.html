@@ -44,6 +44,11 @@
             </div>
         </div>
     </div>
+    
+    <div class="ui fluid action input">
+        <input type="text" placeholder="PUT VIDEO URL HERE AND THEN HIT ENTER TO ADD VIDEO!">
+        <div class="ui red button next">Next Video</div>
+    </div>
 
     <div class="ui grid">
         <div class="player eleven wide column">
@@ -92,19 +97,11 @@
         </div>
     </div>
 
-    <div class="content">
-        <div id="player"></div>
-        <div class="ui fluid action input">
-            <input type="text" placeholder="PUT VIDEO URL HERE AND THEN HIT ENTER TO ADD VIDEO!">
-            <div class="ui red button next">Next Video</div>
-        </div>
-        <div class = "ui basic segment">
-            <div class="ui center aligned small feed green inverted segment actions">
-                <h4 class="ui header">YouTube Actions</h4>
-            </div>
+    <div class = "ui basic segment">
+        <div class="ui center aligned small feed green inverted segment actions">
+            <h4 class="ui header">YouTube Actions</h4>
         </div>
     </div>
-</div>
 
 {% endblock %}
 
@@ -115,7 +112,7 @@
 
 {% block templates %}
     {% raw %}
-    <script id="youtube-template" type="text/x-handlebars-template">
+    <script id="message-template" type="text/x-handlebars-template">
         <div class="event">
             <div class="content">
                 <div class="summary">
@@ -124,8 +121,17 @@
             </div>
         </div>
     </script>
-      <script id = "vimeo-template" type ="text/x-handlebars-template">
-      <iframe id="player1" type="text/html" width="640" height="390" src="//player.vimeo.com/video/{{video}}?api=1&player_id=player1"></iframe>
+    
+    <script id="vimeo-template" type ="text/x-handlebars-template">
+        <div class="player">
+            <iframe id="player1" type="text/html" width="640" height="390" src="//player.vimeo.com/video/{{video}}"></iframe>
+        </div>
+    </script>
+    
+    <script id="youtube-template" type="text/x-handlebars-template">
+      <div class="player">
+          <div id="player"></div>
+      </div>
     </script>
     {% endraw %}
 {% endblock %}
