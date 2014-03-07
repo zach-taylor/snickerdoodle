@@ -24,12 +24,12 @@
 
         Vimeo.prototype.onPlay = function () {
             console.log('vimeo onPlay');
-            this.player.play();
+            player.api('play');
         };
 
         Vimeo.prototype.onPause = function () {
             console.log('vimeo onPAuse');
-            this.player.pause();
+            player.api('pause');
         };
 
         Vimeo.prototype.onFinish = function () {
@@ -64,9 +64,9 @@
 
             // Listen for messages from the player
             if (window.addEventListener){
-                window.addEventListener('message', Vimeo.prototype.onMessageRecieved, false);
+                window.addEventListener('message', Vimeo.prototype.onMessageRecieved(), false);
             }else {
-                window.attachEvent('onmessage', Vimeo.prototype.onMessageRecieved, false);
+                window.attachEvent('onmessage', Vimeo.prototype.onMessageRecieved(), false);
             }
         };
         
@@ -80,12 +80,25 @@
                    break;
            
                case 'pause':
-                   onPause;
+                    Vimeo.prototype.onPause();
+                    Snicker.addMessage("Player is Paused.");
+                    Snicker.emit('watch', {
+                       action: 'pause',
+                    });
                    break;
            
-               case 'finish':
-                   onFinish();
-                   break;
+               case 'play':
+                    Vimeo.prototype.onPlay();
+                    Snicker.addMessage("Player resumed.");
+                    Snicker.emit('watch', {
+                    action: 'play',
+                    });
+                    break;
+                
+                case 'finish':
+                    Vimeo.prototype.onFinish();
+                    Snicker.addMessage("Next video cued. Playing...");
+                    break;
            }
         }
         
