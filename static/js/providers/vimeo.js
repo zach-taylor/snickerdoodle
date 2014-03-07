@@ -1,6 +1,5 @@
 (function (root, $) {
     var Snicker = root.Snicker;
-    var iframe, player, status;
     var Vimeo = (function () {
         __extends(Vimeo, root.Snicker.Base);
 
@@ -13,12 +12,6 @@
         //
 
         Vimeo.prototype.init = function () {
-            var source = $('#vimeo-template').html(),
-            template = Handlebars.compile(source);
-            // Render template, add to html
-            var html = template({video: " "});
-            $( "div.player" ).replaceWith(html);
-
         }
 
         Vimeo.prototype.checkUrl = function (url) {
@@ -64,11 +57,57 @@
             // Render template, add to html
             var html = template({video: this.id});
             $( "div.player").replaceWith(html);
-            //iframe = $('#player1')[0],
-            //player = $f(iframe),
-            //status = $('.status');
-            //player.api("api_play");
+            
+            var f = $('iframe'),
+            urlPost = f.attr('src').split('?')[0],
+            status = $('.status');
+
+            // Listen for messages from the player
+            if (window.addEventListener){
+                window.addEventListener('message', Vimeo.prototype.onMessageRecieved, false);
+            }else {
+                window.attachEvent('onmessage', Vimeo.prototype.onMessageRecieved, false);
+            }
         };
+        
+        // Handle messages received from the player
+        Vimeo.prototype.onMessageRecieved  = function(e){
+           var data = JSON.parse(e.data);
+    
+           switch (data.event) {
+               case 'ready':
+                   Vimeo.prototype.onReady();
+                   break;
+           
+               case 'pause':
+                   onPause;
+                   break;
+           
+               case 'finish':
+                   onFinish();
+                   break;
+           }
+        }
+        
+        // Helper function for sending a message to the player
+        Vimeo.prototype.onReady = function(){
+            console.log('Here');
+            Vimeo.prototype.ready();    
+            //post('addEventListener', 'pause');
+            //post('addEventListener', 'finish');
+            
+        }
+        
+        /**
+        * Called once a vimeo player is loaded and ready to receive
+        * commands. You can add events and make api calls only after this
+        * function has been called.
+        */
+        Vimeo.prototype.ready = function () {
+            // Keep a reference to Froogaloop for this player
+            var player = $f(vimeoPlayer);
+                player.api('play');
+         };
 
         Vimeo.prototype.status = function () {
             console.log('vimeo Status');
@@ -79,11 +118,8 @@
 
         };
 
-        Vimeo.prototype.onPlayerReady = function () {
-        };
-
         Vimeo.prototype.onPlayerState = function(event) {
-        }
+        };
 
         return Vimeo;
     }());
