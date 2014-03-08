@@ -10,7 +10,6 @@
 {% block js %}
     <script src="/static/lib/semantic/javascript/semantic.js"></script>
     <script src="/static/lib/handlebars/handlebars-v1.3.0.js"></script>
-	<script src="http://code.jquery.com/jquery-1.10.2.min.js"></script>
 	<script src="/static/js/home2.js"></script>
 {% endblock %}
 
@@ -27,6 +26,9 @@
     <img class="img-polaroid">
     <h1>Watch Videos with Your Friends</h1>
     <p class="lead">Youtube, Vimeo, DailyMotion, and more. All in one playlist.</p>
+
+    {% include '_create_room.html' %}
+</div>
 
 <div class="ui vertical animated green mini button signup">
     <div class="visible content"> Not A Member? </div>

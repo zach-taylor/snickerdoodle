@@ -1,9 +1,19 @@
-from flask import Flask, render_template, request, jsonify, abort, make_response, current_app
+from flask import Flask, render_template, request, jsonify, abort, make_response, redirect, current_app, url_for
 from flask.views import View
 from flask.views import MethodView
 
 from .models import Room
+from .forms import RoomForm
 from ..extensions import db
+
+class CreateRoomView(MethodView):
+    def post(self):
+        form = RoomForm()
+        if form.validate_on_submit():
+            print 'success'
+        else:
+            print 'fail'
+        return redirect(url_for('video'))
 
 class RoomAPI(MethodView):
 
@@ -57,9 +67,11 @@ class RoomAPI(MethodView):
         pass
 
 def attach_views(app):
-    room_view = RoomAPI.as_view('room_api')
-    app.add_url_rule('/rooms/', defaults={'room_id': None},
-                                view_func=room_view, methods=['GET',])
-    app.add_url_rule('/rooms/', view_func=room_view, methods=['POST',])
-    app.add_url_rule('/rooms/<int:room_id>', view_func=room_view,
+    room_api = RoomAPI.as_view('room_api')
+    room_view = CreateRoomView.as_view('room_view')
+    app.add_url_rule('/api/rooms/', defaults={'room_id': None},
+                                view_func=room_api, methods=['GET',])
+    app.add_url_rule('/api/rooms/', view_func=room_api, methods=['POST',])
+    app.add_url_rule('/api/rooms/<int:room_id>', view_func=room_api,
                                 methods=['GET', 'PUT', 'DELETE'])
+    app.add_url_rule('/rooms', view_func=room_view, methods=['POST'])

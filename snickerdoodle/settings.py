@@ -8,6 +8,8 @@ SQLALCHEMY_DATABASE_URI = 'postgres://postgres@localhost/snickerdoodle'
 OAUTH_CONSUMER_KEY = os.environ.get('OAUTH_CONSUMER_KEY', '')
 OAUTH_CONSUMER_SECRET = os.environ.get('OAUTH_CONSUMER_SECRET', '')
 
+WTF_CSRF_ENABLED = False
+
 try:
     from settingslocal import *
 except ImportError:
