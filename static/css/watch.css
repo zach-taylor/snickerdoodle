@@ -1,7 +1,13 @@
-.player {
-
+.ui.button.attached.add {
+    position: fixed;
+    top: 50%;
+    right: -20px;
+    z-index: 500;
+    width: 120px;
+    padding: 0.8em .4em;
+    background-color: rgba(102, 102, 102, 0.36);
 }
 
-.ui.grid > div.chat.column .comment {
-    font-size: .8em;
+.ui.button.attached.add i {
+    font-size: 3em;
 }

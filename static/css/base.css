@@ -15,6 +15,9 @@ h1 {
     margin-bottom: 20px;
 }
 
+.left { float: left; }
+.right { float: right; }
+
 .container {
     width: 840px;
     margin: 0 auto;
@@ -28,10 +31,22 @@ h1 {
     border-radius: 10px;
 }
 
-.player {
+.ui.button.attached.menu {
+    position: fixed;
+    top: 63px;
+    left: 0;
+    z-index: 500;
+    width: 120px;
+}
+
+.player .video {
     text-align:center;
 }
 
-.player img {
+.player .video img {
     width: 100%;
+}
+
+.player .controls .left {
+    line-height: 38px;
 }

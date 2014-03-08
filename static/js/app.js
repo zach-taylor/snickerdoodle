@@ -1,6 +1,7 @@
 (function (root, $) {
     var handler = {},
-        $status = $('.menu a.status');
+        $status = $('.menu a.status'),
+        $addMovie = $('.attached.button.add');
 
     handler.config = {
         appId: '1409850522596219',
@@ -74,6 +75,12 @@
     handler.bind = function () {
         $status.on('click', function () {
             FB.login();
+        });
+
+        $addMovie.on('click', function () {
+            console.log('addMovie click');
+
+            $('.sidebar.video').sidebar('toggle');
         });
     };
 

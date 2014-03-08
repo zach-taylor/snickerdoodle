@@ -11,6 +11,10 @@
 <body>
     {% include '_navbar.html'  %}
 
+    {% block left_sidebar %} {% endblock %}
+
+    {% block right_sidebar %} {% endblock %}
+
     {% block preamble %}
     <div id="fb-root"></div>
     <script>
@@ -30,6 +34,7 @@
 
     <!-- 3rd Party Libraries -->
     <script src="//code.jquery.com/jquery-2.1.0.js"></script>
+    <script src="/static/lib/semantic/javascript/semantic.js"></script>
     <script src="/static/lib/socket.io/socket.io.js"></script>
     <script src="/static/lib/Froogaloop/froogaloop.js"></script>
 

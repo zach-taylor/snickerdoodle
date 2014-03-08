@@ -6,22 +6,72 @@
     <link rel="stylesheet" href="/static/lib/semantic/css/semantic.css" />
 {% endblock %}
 
+{% block right_sidebar %}
+<!--
+<div class="video ui red vertical right sidebar menu">
+    <a class="item">
+        <i class="home icon"></i>
+        Home
+    </a>
+    <a class="active item">
+        <i class="heart icon"></i>
+        Current Section
+    </a>
+    <a class="item">
+        <i class="facebook icon"></i>
+        Like us on Facebook
+    </a>
+    <div class="item">
+        <b>More</b>
+        <div class="menu">
+            <a class="item">About</a>
+            <a class="item">Contact Us</a>
+        </div>
+    </div>
+</div>
+-->
+{% endblock %}
+
 {% block content %}
+
+<!--
+<div class="ui black huge launch right attached button menu" style="width: 70px;">
+    <i class="icon list layout"></i>
+    <span class="text" style="display: none;">Menu</span>
+</div>
+-->
+
+<div class="ui black massive launch attached button circular add" style="">
+    <i class="icon add"></i>
+</div>
+
+<div class="ui black massive launch attached button circular add" style="">
+    <i class="icon add"></i>
+</div>
 
 <h4 class="ui center aligned inverted green block header">
   Snickerdoodle - Watch Videos with Your Friends!
 </h4>
 
 <div class="">
-
-    <div class="ui fluid action input">
-        <input type="text" placeholder="Video Address">
-        <div class="ui red button next">Add Video</div>
-    </div>
-
-    <div class="ui grid">
-        <div class="player sixteen wide column">
+    <div class="player">
+        <div class="video ui top attached segment">
             <img class="ui huge" src="/static/img/video.jpg">
+        </div>
+
+        <div class="controls ui bottom attached segment">
+            <div class="left">
+                <h3>Carly Rae Jepsen - Call Me Maybe</h3>
+            </div>
+
+            <div class="right">
+                <div class="ui icon buttons">
+                    <div class="ui black button"><i class="add icon"></i></div>
+                    <div class="ui black button"><i class="step backward icon"></i></div>
+                    <div class="ui black button"><i class="step forward icon"></i></div>
+                    <div class="ui black button"><i class="list icon"></i></div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -72,25 +122,32 @@
             </div>
         </div>
         <div class="chat six wide column">
-            <div class="ui piled blue segment">
-                <h5 class="ui">
-                    <i class="icon inverted circular blue list"></i> Playlist
-                    <div class="ui icon buttons">
-                        <div class="ui button"><i class="step backward icon"></i></div>
-                        <div class="ui button"><i class="step forward icon"></i></div>
-                    </div>
-                </h5>
-                <div class="ui comments">
-                    <div class="comment">
-                        <a class="avatar">
-                            <img src="/static/img/cat.jpg">
-                        </a>
+            <div class="ui inverted segment">
+                <h4 class="ui header">
+                    Playlist
+                </h4>
+            </div>
+            <div class="ui segment">
+                <div class="ui animated list">
+                    <div class="item">
+                        <img class="ui avatar image" src="/static/img/cat.jpg">
                         <div class="content">
-                            <a class="author">Cute Kittens</a>
-                            <div class="text">
-                                A video of some cute kittens.
-                                Added by <strong>Josh</strong>.
-                            </div>
+                            <div class="header">Snickerdoodle</div>
+                            An excellent companion
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img class="ui avatar image" src="/static/img/cat.jpg">
+                        <div class="content">
+                            <div class="header">Poodle</div>
+                            A poodle, its pretty basic
+                        </div>
+                    </div>
+                    <div class="item">
+                        <img class="ui avatar image" src="/static/img/cat.jpg">
+                        <div class="content">
+                            <div class="header">Paulo</div>
+                            He's also a dog
                         </div>
                     </div>
                 </div>
