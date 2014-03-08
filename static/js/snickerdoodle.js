@@ -1,5 +1,6 @@
 (function (root, $) {
-    var snicker = {};
+    var snicker = {},
+        $addMovie = $('.attached.button.add');
 
     snicker.provider = {};
     snicker.providers = {};
@@ -8,6 +9,33 @@
     //
     // Snickerdoodle Functions
     //
+
+    snicker.init = function () {
+        snicker.bind();
+    };
+
+    snicker.bind = function () {
+        console.log('Binding video actions');
+
+        //Button to skip to next video in list
+        $('body').on('click', '.video-search .button.add-video', function () {
+            var url = $('.video-search input.address').val();
+            var name = root.Snicker.parseUrl(url);
+
+            if (!name) {
+                console.log('Error here');
+                return;
+            }
+
+            snicker.changeProvider(name);
+
+            snicker.provider.swapVideo(url);
+
+            snicker.toggleVideoSearch();
+        });
+
+        $addMovie.on('click', snicker.toggleVideoSearch);
+    };
 
     snicker.addProvider = function (name, provider) {
         snicker.providers[name] = provider;
@@ -39,6 +67,10 @@
         // Call setup init
         snicker.provider.init();
     };
+
+    snicker.toggleVideoSearch = function () {
+        $('.sidebar.video-search').sidebar('toggle');
+    }
 
     snicker.setUrlAndProvider = function (url) {
         console.log('Setting url and provider');
@@ -122,4 +154,7 @@
 
     // Create our root object
     root.Snicker = snicker;
+
+    // Call Snicker's On Load
+    $(document).ready(snicker.init);
 }(window, jQuery));
