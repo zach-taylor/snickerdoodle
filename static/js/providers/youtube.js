@@ -13,7 +13,7 @@
         //
 
         YouTube.prototype.init = function () {
-            var source = $('#youtube-template').html(),
+            var source = $('#player-template').html(),
             template = Handlebars.compile(source);
             // Render template, add to html
             var html = template();

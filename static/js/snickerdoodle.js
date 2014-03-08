@@ -79,6 +79,7 @@
 
         if (action === 'play') {
             snicker.provider.onPlay();
+            console.log('called');
         } else if (action === 'pause') {
             snicker.provider.onPause();
         } else if (action === 'change') {

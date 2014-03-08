@@ -1,5 +1,6 @@
 (function (root, $) {
     var Snicker = root.Snicker;
+     var player;
     var Vimeo = (function () {
         __extends(Vimeo, root.Snicker.Base);
 
@@ -57,60 +58,60 @@
             // Render template, add to html
             var html = template({video: this.id});
             $( "div.player").replaceWith(html);
-            
             var f = $('iframe'),
             urlPost = f.attr('src').split('?')[0],
             status = $('.status');
 
             // Listen for messages from the player
             if (window.addEventListener){
-                window.addEventListener('message', Vimeo.prototype.onMessageRecieved(), false);
+                window.addEventListener('message', Vimeo.prototype.onMessageRecieved, false);
             }else {
-                window.attachEvent('onmessage', Vimeo.prototype.onMessageRecieved(), false);
+                window.attachEvent('onmessage', Vimeo.prototype.onMessageRecieved, false);
             }
         };
+        
+        Vimeo.prototype.emitPause = function(){
+            console.log('pause');
+            Snicker.emit('watch',{
+                action: 'pause',
+            });
+        }
+        
+        Vimeo.prototype.emitPlay = function(){
+            Snicker.emit('watch',{
+                action: 'play',
+            });
+        }
         
         // Handle messages received from the player
         Vimeo.prototype.onMessageRecieved  = function(e){
            var data = JSON.parse(e.data);
-    
+
            switch (data.event) {
-               case 'ready':
-                   Vimeo.prototype.onReady();
-                   break;
-           
+                case 'ready':
+                    Vimeo.prototype.onReady();
+                break;
+
                case 'pause':
-                    Vimeo.prototype.onPause();
-                    Snicker.addMessage("Player is Paused.");
-                    Snicker.emit('watch', {
-                       action: 'pause',
-                    });
+                    Vimeo.prototype.emitPause();
                    break;
-           
+
                case 'play':
-                    Vimeo.prototype.onPlay();
-                    Snicker.addMessage("Player resumed.");
-                    Snicker.emit('watch', {
-                    action: 'play',
-                    });
+                    Vimeo.prototype.emitPlay();
                     break;
-                
+
                 case 'finish':
-                    Vimeo.prototype.onFinish();
                     Snicker.addMessage("Next video cued. Playing...");
                     break;
            }
         }
-        
+
         // Helper function for sending a message to the player
         Vimeo.prototype.onReady = function(){
-            console.log('Here');
+            console.log('ready');
             Vimeo.prototype.ready();    
-            //post('addEventListener', 'pause');
-            //post('addEventListener', 'finish');
-            
         }
-        
+
         /**
         * Called once a vimeo player is loaded and ready to receive
         * commands. You can add events and make api calls only after this
@@ -118,9 +119,17 @@
         */
         Vimeo.prototype.ready = function () {
             // Keep a reference to Froogaloop for this player
-            var player = $f(vimeoPlayer);
-                player.api('play');
+            player = $f(vimeoPlayer);
+            player.api('play');
+            player.addEventListener('pause', function() {
+                console.log('pause');
+                Snicker.emit('watch',{
+                    action: 'pause',
+                });
+            });
          };
+         
+         
 
         Vimeo.prototype.status = function () {
             console.log('vimeo Status');
