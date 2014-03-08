@@ -8,12 +8,8 @@
     <link rel="stylesheet" href="/static/css/base.css" />
     {% block css %}{% endblock %}
 </head>
-<body>
+<body class="side">
     {% include '_navbar.html'  %}
-
-    {% block left_sidebar %} {% endblock %}
-
-    {% block right_sidebar %} {% endblock %}
 
     {% block preamble %}
     <div id="fb-root"></div>
@@ -58,5 +54,8 @@
         </a>
     </script>
     {% endraw %}
+
+    {% block left_sidebar %} {% endblock %}
+    {% block right_sidebar %} {% endblock %}
 </body>
 </html>
