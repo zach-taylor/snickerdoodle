@@ -1,11 +1,11 @@
 from os import path
 
-from flask import Flask, render_template, jsonify
+from flask import Flask, render_template, jsonify, session, request, url_for, redirect
 from flask.ext.script import Manager
 from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.socketio import SocketIO, emit
 
-from .extensions import db
+from .extensions import db, facebook
 
 from .videos import views as videos_views
 from .rooms import views as rooms_views
@@ -63,6 +63,28 @@ def connect():
 @snickerdoodle.route('/watch')
 def video():
     return render_template('watch.html')
+
+@snickerdoodle.route('/login')
+def login():
+    return facebook.authorize(callback=url_for('facebook_authorized', _external=True))
+
+
+@snickerdoodle.route('/login/authorized')
+@facebook.authorized_handler
+def facebook_authorized(resp):  #you can/should do registration here
+    if resp is None:
+        return 'Access denied: reason=%s error=%s' % (
+            request.args['error_reason'],
+            request.args['error_description']
+        )
+    session['oauth_token'] = (resp['access_token'], '')
+
+    return redirect(url_for('home'))  # redirect to home/index page
+
+
+@facebook.tokengetter
+def get_facebook_oauth_token():
+    return session.get('oauth_token')
 
 @socketio.on('watch', namespace='/watch')
 def test_message(message):
