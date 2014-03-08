@@ -27,3 +27,11 @@ h1 {
     padding: 30px 40px;
     border-radius: 10px;
 }
+
+.player {
+    text-align:center;
+}
+
+.player img {
+    width: 100%;
+}

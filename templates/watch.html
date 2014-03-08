@@ -13,93 +13,88 @@
 </h4>
 
 <div class="">
-    <div class="row">
-        <div class="ui five connected items">
-            <div class="item">
-                <div class="image">
-                    <img src="/static/img/cat.jpg">
-                </div>
-                <div class="content">
-                    <div class="name">Cute Dog</div>
-                    <p class="description">added by Josh</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="image">
-                    <img src="/static/img/cat.jpg">
-                </div>
-                <div class="content">
-                    <div class="name">Faithful Dog</div>
-                    <p class="description">added by Zach</p>
-                </div>
-            </div>
-            <div class="item">
-                <div class="image">
-                    <img src="/static/img/cat.jpg">
-                </div>
-                <div class="content">
-                    <div class="name">Silly Dog</div>
-                    <p class="description">added by Will</p>
-                </div>
-            </div>
-        </div>
-    </div>
-    
+
     <div class="ui fluid action input">
-        <input type="text" placeholder="PUT VIDEO URL HERE AND THEN HIT ENTER TO ADD VIDEO!">
-        <div class="ui red button next">Next Video</div>
+        <input type="text" placeholder="Video Address">
+        <div class="ui red button next">Add Video</div>
     </div>
 
     <div class="ui grid">
-        <div class="player eleven wide column">
-            <img src="/static/img/video.jpg">
+        <div class="player sixteen wide column">
+            <img class="ui huge" src="/static/img/video.jpg">
         </div>
+    </div>
 
-        <div class="chat five wide column">
+    <div class="ui grid list">
+        <div class="ten wide column">
+            <div class="ui piled blue segment item">
+                <div class="list">
+                    <div class="item">
+                        <h5 class="ui header">
+                            <i class="icon inverted circular blue comment"></i> Chat
+                        </h5>
+                    </div>
+                    <div class="item">
+                        <div class="content">
+                            <div class="description">
+                                <span>Zach</span>:
+                                Hello there!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="content">
+                            <div class="description">
+                                <span>Will</span>:
+                                Hello there!
+                            </div>
+                        </div>
+                    </div>
+                    <div class="item">
+                        <div class="content">
+                            <div class="description">
+                                <span>You</span>:
+                                Hello there!
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="ui basic segment">
+                        <form class="">
+                            <div class="ui action fluid input">
+                                <input type="text" placeholder="Reply">
+                                <div class="ui button">Reply</div>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="chat six wide column">
             <div class="ui piled blue segment">
-                <h5 class="ui header">
-                    <i class="icon inverted circular blue comment"></i> Comments
+                <h5 class="ui">
+                    <i class="icon inverted circular blue list"></i> Playlist
+                    <div class="ui icon buttons">
+                        <div class="ui button"><i class="step backward icon"></i></div>
+                        <div class="ui button"><i class="step forward icon"></i></div>
+                    </div>
                 </h5>
                 <div class="ui comments">
                     <div class="comment">
                         <a class="avatar">
-                            <img src="/images/demo/avatar.jpg">
+                            <img src="/static/img/cat.jpg">
                         </a>
                         <div class="content">
-                            <a class="author">Dog Doggington</a>
+                            <a class="author">Cute Kittens</a>
                             <div class="text">
-                                I think this is a great idea and i am voting on it
+                                A video of some cute kittens.
+                                Added by <strong>Josh</strong>.
                             </div>
                         </div>
                     </div>
-                    <form class="ui reply form">
-                        <div class="field">
-                            <textarea></textarea>
-                        </div>
-                        <div class="ui fluid blue labeled submit icon button">
-                            <i class="icon edit"></i> Add Reply
-                        </div>
-                    </form>
                 </div>
             </div>
-        </div>
-    </div>
-
-    <div class="row">
-        <div class="four wide column">
-            <div class="ui segment"><b>Column One</b> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Vestibulum iaculis sapien.</div>
-        </div>
-        <div class="eight wide column">
-            <div class="ui segment"><b>Column Two</b> Aliquam lobortis commodo sem ac accumsan. Vestibulum non faucibus lorem. Cum sociis natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Curabitur sed lorem lorem. Nam augue erat, dignissim nec aliquam vel, congue et sapien. Integer viverra justo vel nibh suscipit commodo. Nullam ut turpis nibh, in luctus risus. Sed ut risus nec dui mattis porta. Nam nisi magna, ornare mollis congue a, suscipit at nisl.</div>
-        </div>
-        <div class="four wide column">
-            <div class="ui segment"><b>Column Three</b> Donec semper mollis condimentum. Aenean eget rutrum magna. Mauris ornare nibh scelerisque turpis lobortis dignissim. Etiam eleifend justo eget quam semper vulputate. Nulla et risus convallis velit molestie iaculis. Aliquam erat volutpat. </div>
-        </div>
-    </div>
-
-    <div class = "ui basic segment">
-        <div class="ui center aligned small feed green inverted segment actions">
-            <h4 class="ui header">YouTube Actions</h4>
         </div>
     </div>
 
@@ -121,13 +116,13 @@
             </div>
         </div>
     </script>
-    
+
     <script id="vimeo-template" type ="text/x-handlebars-template">
         <div class="player">
             <iframe id="vimeoPlayer" src="http://player.vimeo.com/video/{{video}}?api=1&player_id=vimeoPlayer" type="text/html" width="540" height="304" ></iframe>
         </div>
     </script>
-    
+
     <script id="player-template" type="text/x-handlebars-template">
       <div class="player">
           <div id="player"></div>
