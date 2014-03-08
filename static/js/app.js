@@ -80,7 +80,7 @@
         $addMovie.on('click', function () {
             console.log('addMovie click');
 
-            $('.sidebar.video').sidebar('toggle');
+            $('.sidebar.video-search').sidebar('toggle');
         });
     };
 
