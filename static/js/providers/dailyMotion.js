@@ -13,6 +13,8 @@
         //
 
         DailyMotion.prototype.init = function () {
+            console.log('DM Init');
+
             var source = $('#player-template').html(),
             template = Handlebars.compile(source);
             // Render template, add to html
@@ -22,7 +24,7 @@
             e.src = document.location.protocol + '//api.dmcdn.net/all.js';
             var s = document.getElementsByTagName('script')[0]; s.parentNode.insertBefore(e, s);
         }
-            
+
 
         DailyMotion.prototype.checkUrl = function (url) {
             console.log('DM checkUrl');
@@ -73,16 +75,16 @@
         // DailyMotion Specific API
         //
 
-        DailyMotion.prototype.window.dmAsyncInit = function() {
-        // PARAMS is a javascript object containing parameters to pass to the player if any (eg: {autoplay: 1})
-        DM.init({apiKey: 'your app id', status: true, cookie: true});
-        var player = DM.player("player", {video: "VIDEO_ID", width: "WIDTH", height: "HEIGHT", params: PARAMS});
+        root.dmAsyncInit = function() {
+            // PARAMS is a javascript object containing parameters to pass to the player if any (eg: {autoplay: 1})
+            DM.init({apiKey: 'your app id', status: true, cookie: true});
+            var player = DM.player("player", {video: "VIDEO_ID", width: "WIDTH", height: "HEIGHT", params: PARAMS});
 
-        // 4. We can attach some events on the player (using standard DOM events)
-        player.addEventListener("apiready", function(e)
-        {
-            e.target.play();
-        });
+            // 4. We can attach some events on the player (using standard DOM events)
+            player.addEventListener("apiready", function(e)
+                                    {
+                                        e.target.play();
+                                    });
         };
 
         DailyMotion.prototype.onPlayerReady = function () {
@@ -117,5 +119,6 @@
     root.Snicker.addProvider('DailyMotion', dailymotion);
 
     // Expose the function to the DailyMotion API
-    root.onDailyMotionIframeAPIReady = dailymotion.apiReady.bind(dailymotion);
+    // Comment out because of JS error...
+    //root.onDailyMotionIframeAPIReady = dailymotion.apiReady.bind(dailymotion);
 }(window, jQuery));

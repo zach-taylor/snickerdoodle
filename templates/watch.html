@@ -7,32 +7,23 @@
 {% endblock %}
 
 {% block right_sidebar %}
-<div class="video-search ui styled right sidebar">
+<div class="video-search ui styled right wide sidebar">
     <h3 class="ui header">Add Videos</h3>
-    <div class="ui fluid vertical menu">
-        <a class="item">
-            <i class="chat outline icon"></i>
-            More by this author
-        </a>
-        <a class="item">
-            <i class="text file icon"></i>
-            Suggested Articles
-        </a>
-    </div>
-    <h3 class="ui header">Contact Us</h3>
-    <div class="ui form">
+    <div class="ui tertiary form segment">
         <div class="field">
-            <label>Name</label>
-            <div class="ui icon input">
-                <i class="user icon"></i>
-                <input type="text" data-placeholder="Name">
+            <label>Paste Video</label>
+            <div class="ui left labeled input">
+                <input class="address" type="text" placeholder="Video Address">
             </div>
         </div>
-        <div class="field">
-            <label>Message</label>
-            <textarea></textarea>
-        </div>
-        <div class="ui black fluid button">Done</div>
+        <div class="add-video ui blue submit button">Add</div>
+    </div>
+    <div class="ui horizontal divider">
+        Or
+    </div>
+    <div class="ui teal labeled icon button">
+        Search for One
+        <i class="add icon"></i>
     </div>
 </div>
 {% endblock %}
@@ -185,9 +176,7 @@
     </script>
 
     <script id="player-template" type="text/x-handlebars-template">
-      <div class="player">
-          <div id="player"></div>
-      </div>
+        <div id="player"></div>
     </script>
     {% endraw %}
 {% endblock %}

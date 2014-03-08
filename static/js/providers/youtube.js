@@ -12,23 +12,32 @@
         // Snickerdoodle API
         //
 
+        /**
+         * Init YouTube player by adding the player location then loading the
+         * YouTube API asynchronously.
+         */
         YouTube.prototype.init = function () {
+            this.$player = $('.player .video');
+
+            // Grab YT player template
             var source = $('#player-template').html(),
             template = Handlebars.compile(source);
+
             // Render template, add to html
             var html = template();
-            $( "div.player").replaceWith(html);
+
+            this.$player
+                .empty()
+                .append(html);
+
+            // Asynchronously load YT scripts
             var tag = document.createElement('script');
-            //var currentVideo;
             tag.src = "https://www.youtube.com/iframe_api";
-            var firstScriptTag = document.getElementsByTagName('script')[0];
-            firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
-            console.log('YT Init');
+            var first = document.getElementsByTagName('script')[0];
+            first.parentNode.insertBefore(tag, first);
         }
 
         YouTube.prototype.checkUrl = function (url) {
-            console.log('YT checkUrl');
-
             // TODO: More robust checking
             return (url.split(".",2)[1] === "youtube");
         };
@@ -48,26 +57,38 @@
         };
 
         YouTube.prototype.swapVideo = function (url) {
-
-            Snicker.emit('watch', {
+            Snicker.emit('video', {
                 action: 'change',
                 url: url,
             });
         };
 
         YouTube.prototype.onChangeVideo = function (url) {
-            console.log('YT Change Video: ' + url);
-            console.log('This: ');
+            console.log('OnChangeVideo');
+            console.log('This:');
             console.log(this);
+
+            var youtube = this,
+                loadVideo = function () {
+                    console.log('In Load Video')
+                    console.log(youtube.player);
+                    youtube.player.loadVideoById({
+                        'videoId' : youtube.id,
+                        'startSeconds': '0'
+                    });
+            };
 
             // TODO: Better parsing for video ID, Better initial video loading.
             this.url = url;
             this.id = url.split("=",2)[1];
-            id = url.split("=",2)[1];
-            this.player.loadVideoById({
-                'videoId' : this.id,
-                'startSeconds': '0'
-            });
+
+            if (this.hasLoaded) {
+                console.log('API Has Loaded');
+                loadVideo.call(this);
+            } else {
+                console.log('API Not Loaded, Waiting');
+                this.waiting = loadVideo.bind(this);
+            }
         };
 
         YouTube.prototype.status = function () {
@@ -80,36 +101,44 @@
 
         YouTube.prototype.apiReady = function() {
             var youtube = this;
-            console.log('Api Ready');
-            console.log('This: ');
-            console.log(this);
 
             this.player = new YT.Player('player', {
-                videoId: id,
+                width: youtube.$player.width(),
+                height: youtube.$player.width() / (16/9),
                 events: {
-                    'onReady': YouTube.prototype.onPlayerReady.bind(YouTube),
-                    'onStateChange': YouTube.prototype.onPlayerState.bind(YouTube),
+                    'onReady': YouTube.prototype.onPlayerReady.bind(youtube),
+                    'onStateChange': YouTube.prototype.onPlayerState.bind(youtube),
                 }
             });
+
         };
 
         YouTube.prototype.onPlayerReady = function () {
+            console.log('OnPlayerReady');
+
+            this.hasLoaded = true;
+
+            if (this.waiting) {
+                this.waiting();
+            }
         };
 
         YouTube.prototype.onPlayerState = function(event) {
             //For when a video ends.
             if (YT.PlayerState.ENDED == event.data) {
             } else if (YT.PlayerState.CUED == event.data) {
-                Snicker.addMessage("Next video cued. Playing...");
+                console.log('YT Video added');
             } else if (YT.PlayerState.PAUSED == event.data) {
-                Snicker.addMessage("Player is Paused.");
+                console.log('YT Paused');
+
                 Snicker.emit('watch', {
                     action: 'pause',
                 });
             } else if (YT.PlayerState.BUFFERING == event.data) {
-                Snicker.addMessage("Video is buffering");
+                console.log('YT Buffering');
             } else if (YT.PlayerState.PLAYING == event.data) {
-                Snicker.addMessage("Player resumed.");
+                console.log('YT Playing');
+
                 Snicker.emit('watch', {
                     action: 'play',
                 });

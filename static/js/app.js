@@ -5,20 +5,19 @@
 
     handler.config = {
         appId: '1409850522596219',
-        status: true,
         cookie: true,
         xfbml: false
     };
 
     handler.init = function () {
         console.log('Handler.init...');
-        FB.init(handler.config);
+        //FB.init(handler.config);
         handler.setup();
         handler.bind();
     };
 
     handler.setup = function () {
-        FB.Event.subscribe('auth.authResponseChange', handler.status);
+        //FB.Event.subscribe('auth.authResponseChange', handler.status);
     };
 
     handler.status = function (resp) {
@@ -73,6 +72,7 @@
     };
 
     handler.bind = function () {
+        console.log('Bind called');
         $status.on('click', function () {
             FB.login();
         });
@@ -84,5 +84,5 @@
         });
     };
 
-    root.fbAsyncInit = handler.init;
+    $(document).ready(handler.init);
 }(window, jQuery));

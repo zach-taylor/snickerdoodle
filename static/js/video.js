@@ -3,19 +3,23 @@
     var videoList = [];
     var snicker = root.Snicker;
 
+    console.log('Binding video actions');
+
     //Button to skip to next video in list
-    $('.button.next').click(function() {
-        var url = $('.action input').val();
+    $('body').on('click', '.video-search .button.add-video', function () {
+        var url = $('.video-search input.address').val();
         var name = root.Snicker.parseUrl(url);
 
-        if (!name) console.log('Error here');
+        if (!name) {
+            console.log('Error here');
+            return;
+        }
 
         snicker.changeProvider(name);
         console.log('Calling change video');
-        console.log("how long did this take.");
         snicker.provider.swapVideo(url);
-        console.log('Provider: ' + snicker.provider);
-        return;
+        console.log('Provider: ');
+        console.log(snicker.provider);
     });
 
 
