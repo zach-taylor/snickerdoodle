@@ -10,7 +10,7 @@
     </a>
     {% else %}
     <a class="right floated text item status" href="/logout">
-        Name Goes Here
+        {{ user.first_name }} {{ user.last_name }}
     </a>
     {% endif %}
 </nav>
