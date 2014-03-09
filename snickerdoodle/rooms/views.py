@@ -1,5 +1,4 @@
 from flask import Flask, render_template, request, jsonify, abort, make_response, redirect, current_app, url_for
-from flask.views import View
 from flask.views import MethodView
 
 from .models import Room
@@ -10,16 +9,19 @@ class CreateRoomView(MethodView):
     def post(self):
         form = RoomForm()
         if form.validate_on_submit():
-            print 'success'
+            room = Room(form.name.data, host_id=3)
+            db.session.add(room)
+            db.session.commit()
+            return redirect(url_for('watch'))
         else:
             print 'fail'
-        return redirect(url_for('video'))
+            return redirect(url_for('home'))
 
 class RoomAPI(MethodView):
 
     def get(self, room_id):
         if room_id is None:
-            # return a list of rooms
+            # TODO: return a list of rooms
             pass
         else:
             # expose a single room
@@ -59,11 +61,11 @@ class RoomAPI(MethodView):
         return jsonify( { 'room': room_json } ), 201
 
     def delete(self, room_id):
-        # delete a single user
+        # TODO: delete a single user
         pass
 
     def put(self, room_id):
-        # update a single room
+        # TODO: update a single room
         pass
 
 def attach_views(app):
