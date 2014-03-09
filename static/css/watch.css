@@ -11,3 +11,13 @@
 .ui.button.attached.add i {
     font-size: 3em;
 }
+
+.video-search.sidebar .icon.close {
+    cursor: pointer;
+    position: absolute;
+    top: 1em;
+    right: .5em;
+    opacity: .7;
+    -webkit-transition: opacity .1s linear;
+    transition: opacity .1s linear;
+}

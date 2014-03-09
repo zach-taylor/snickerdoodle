@@ -15,8 +15,8 @@ h1 {
     margin-bottom: 20px;
 }
 
-.left { float: left; }
-.right { float: right; }
+.float-left { float: left; }
+.float-right { float: right; }
 
 .container {
     width: 840px;

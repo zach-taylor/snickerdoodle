@@ -1,16 +1,18 @@
-<nav class="ui inverted menu">
-    <h3 class="header left floated item">Snickerdoodle</h3>
+<nav class="ui transparent inverted main menu">
+    <div class="container">
+        <h3 class="header left floated item">Snickerdoodle</h3>
 
-    <a class="active item"><i class="play icon"></i> Watch</a>
-    <a class="item"><i class="settings basic icon"></i> Settings</a>
-    <a class="item"><i class="video icon"></i> Trending</a>
-    {% if not user %}
-    <a class="right floated text item status" href="{{ login_url }}">
-        <i class="facebook blue icon"></i> Sign In
-    </a>
-    {% else %}
-    <a class="right floated text item status" href="/logout">
-        {{ user.first_name }} {{ user.last_name }}
-    </a>
-    {% endif %}
+        <a class="active item"><i class="play icon"></i> Watch</a>
+        <a class="item"><i class="settings basic icon"></i> Settings</a>
+        <a class="item"><i class="video icon"></i> Trending</a>
+        {% if not user %}
+        <a class="right floated text item status" href="{{ login_url }}">
+            <i class="facebook blue icon"></i> Sign In
+        </a>
+        {% else %}
+        <a class="right floated text item status" href="/logout">
+            {{ user.first_name }} {{ user.last_name }}
+        </a>
+        {% endif %}
+    </div>
 </nav>

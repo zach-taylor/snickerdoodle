@@ -7,23 +7,17 @@
 {% endblock %}
 
 {% block right_sidebar %}
-<div class="video-search ui styled right wide sidebar">
+<div class="video-search ui right wide styled floating sidebar">
+    <i class="close icon"></i>
     <h3 class="ui header">Add Videos</h3>
     <div class="ui tertiary form segment">
         <div class="field">
-            <label>Paste Video</label>
-            <div class="ui left labeled input">
-                <input class="address" type="text" placeholder="Video Address">
+            <label>Search</label>
+            <div class="ui action input">
+                <input type="text" placeholder="Keyword or Link...">
+                <div class="ui icon blue button"><i class="search icon"></i></div>
             </div>
         </div>
-        <div class="add-video ui blue submit button">Add</div>
-    </div>
-    <div class="ui horizontal divider">
-        Or
-    </div>
-    <div class="ui teal labeled icon button">
-        Search for One
-        <i class="add icon"></i>
     </div>
 </div>
 {% endblock %}

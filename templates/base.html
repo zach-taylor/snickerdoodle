@@ -8,8 +8,11 @@
     <link rel="stylesheet" href="/static/css/base.css" />
     {% block css %}{% endblock %}
 </head>
-<body class="side">
+<body class="">
     {% include '_navbar.html'  %}
+
+    {% block left_sidebar %} {% endblock %}
+    {% block right_sidebar %} {% endblock %}
 
     {% block preamble %} {% endblock %}
 
@@ -43,8 +46,5 @@
         </a>
     </script>
     {% endraw %}
-
-    {% block left_sidebar %} {% endblock %}
-    {% block right_sidebar %} {% endblock %}
 </body>
 </html>

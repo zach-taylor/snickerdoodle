@@ -17,7 +17,7 @@
     snicker.bind = function () {
         console.log('Binding video actions');
 
-        //Button to skip to next video in list
+        // Button to skip to next video in list
         $('body').on('click', '.video-search .button.add-video', function () {
             var url = $('.video-search input.address').val();
             var name = root.Snicker.parseUrl(url);
@@ -31,6 +31,11 @@
 
             snicker.provider.swapVideo(url);
 
+            snicker.toggleVideoSearch();
+        });
+
+        // Close button on Video Search Sidebar
+        $('body').on('click', '.video-search .icon.close', function () {
             snicker.toggleVideoSearch();
         });
 
