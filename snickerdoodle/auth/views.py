@@ -1,6 +1,7 @@
 from flask import jsonify, redirect, request, session
 
-from snickerdoodle import facebook
+from snickerdoodle.lib import facebook
+
 from snickerdoodle.users.models import User
 
 #

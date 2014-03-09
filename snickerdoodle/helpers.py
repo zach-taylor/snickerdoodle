@@ -1,6 +1,6 @@
 from flask import session
 
-from snickerdoodle.facebook import login_url
+from snickerdoodle.lib.facebook import login_url
 
 
 def default_context():
