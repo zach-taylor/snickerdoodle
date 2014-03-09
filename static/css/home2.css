@@ -15,12 +15,12 @@ body {
 }
 
 .ui.green.segment {
-		background-color: #F0F0F0 ;
-		padding-left: 15px;
-		padding-right: 15px;
-		position: aligned; 
-	
-	}	
+	background-color: #F0F0F0 ;
+	padding-left: 15px;
+	padding-right: 15px;
+	position: aligned; 
+	text-align:center;
+}	
 	
 	
 .header h3 {
@@ -29,4 +29,7 @@ body {
     line-height: 40px;
     padding-bottom: 19px;
 }
-	
+.header h1 {
+	text-align:center;
+
+}	
