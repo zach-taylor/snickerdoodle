@@ -2,6 +2,7 @@ import urllib
 import urlparse
 import requests
 
+GRAPH_ROOT = 'https://graph.facebook.com/'
 OAUTH_ROOT = 'https://graph.facebook.com/oauth/access_token'
 DIALOG_ROOT = 'https://www.facebook.com/dialog/oauth'
 
@@ -60,6 +61,21 @@ def login_url():
 
 
 class GraphApi(object):
-    pass
 
+    def __init__(self, access_token):
+        self.token = access_token
 
+    def get_graph_info(self, node, fields):
+        return self.request(node, fields=fields)
+
+    def put_graph_info(self):
+        pass
+
+    def request(self, node, fields=None, data=None, method='get'):
+        fields['access_token'] = self.token
+
+        url = '{root}/{node}'.format(root=GRAPH_ROOT, node=node.strip('/'))
+
+        response = requests.request(method, url, params=fields, data=data)
+
+        return response.json()
