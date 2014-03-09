@@ -13,12 +13,22 @@ SETTINGS = {
 
 
 def configure(app_id, app_secret, oauth_redirect):
+    """
+    Basic helper function to make configuring the Facebook API easier.
+
+    """
     SETTINGS['app_id'] = app_id
     SETTINGS['app_secret'] = app_secret
     SETTINGS['oauth_redirect'] = oauth_redirect
 
 
 def access_token(code):
+    """
+    Use the code given to us by the Facebook OAuth callback and ask for the
+    real OAuth Access token that will actually let us get data.
+
+    """
+
     params = {
         'client_id': SETTINGS['app_id'],
         'client_secret': SETTINGS['app_secret'],
@@ -27,9 +37,6 @@ def access_token(code):
     }
 
     response = requests.get(OAUTH_ROOT, params=params)
-    print response
-    print response.content
-    print response.text
 
     # TODO: Better error checking & return object
     if response.status_code == 200:
@@ -40,6 +47,10 @@ def access_token(code):
 
 
 def login_url():
+    """
+    Helper function to generate the OAuth login URL.
+
+    """
     params = {
         'client_id': SETTINGS['app_id'],
         'redirect_uri': SETTINGS['oauth_redirect'],
