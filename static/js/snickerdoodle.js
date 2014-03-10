@@ -13,7 +13,8 @@
     snicker.init = function () {
         snicker.bind();
     };
-
+    
+    
     snicker.bind = function () {
         console.log('Binding video actions');
 
@@ -33,6 +34,12 @@
 
             if (providerName) snicker.addVideoToPlaylist(val);
             else snicker.search(val);
+        });
+        
+        $('body').on('click', '.video-search .add.icon', function (){
+            var VideoUrl = $(this).attr( "videoURL" );
+           console.log('clicked');
+           console.log(VideoUrl);
         });
 
         $addMovie.on('click', snicker.toggleVideoSearch);
