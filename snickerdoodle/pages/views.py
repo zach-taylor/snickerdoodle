@@ -30,6 +30,11 @@ def watch():
 
     return render_template('watch.html', **context)
 
+def chat():
+    context = helpers.default_context()
+    
+    return render_template('chat.html', **context)
+
 
 #
 # Routing + Views
@@ -40,3 +45,5 @@ def attach_views(app):
     app.add_url_rule('/home2', view_func=home2)
     app.add_url_rule('/connect', view_func=connect)
     app.add_url_rule('/watch', view_func=watch)
+    app.add_url_rule('/chat', view_func=chat)
+
