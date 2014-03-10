@@ -10,16 +10,27 @@
 	
 
 	 $('form#reply').submit(function(event){
-	   socket.emit('Reply Event', {data: $('#replymsg').val()});
+	   chat.socket.emit('Reply Event', {data: $('#replymsg').val()});
 	   return false;
-	}
+	});
 
 	 $('form#broadcast').submit(function(event) {
-                socket.emit('my broadcast event', {data: $('#broadcast_data').val()});
+                chat.socket.emit('my broadcast event', {data: $('#broadcast_data').val()});
                 return false;
          });
-});
+
 
 }(window, jQuery));
 
-
+$(document).ready(function(){
+	var chat.socket = io.connect ('/chat');
+	chat.socket.on('my response', function(msg) {
+		$('#log').append('<br> Received #' + msg.count + ': ' + msg.data);
+	});
+	
+	$('form$reply').submit(fuction(event){
+		chatsocket.emit('my reply even', {data: $('#reply_data').val()});
+		return false;
+	});
+	
+});
