@@ -26,9 +26,7 @@
             // Render template, add to html
             var html = template();
 
-            this.$player
-                .empty()
-                .append(html);
+            this.$player.replaceWith(html);
 
             // Asynchronously load YT scripts
             var tag = document.createElement('script');
