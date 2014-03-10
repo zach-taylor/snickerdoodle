@@ -32,6 +32,16 @@ facebook.configure(FACEBOOK_APP_ID,
                    FACEBOOK_OAUTH_REDIRECT)
 
 #
+# YouTube Data API
+#
+
+from snickerdoodle.lib import youtube
+
+DEVELOPER_KEY = "AIzaSyBPDbLcke_kIARBVWh9BZnY110bnKqEPDA"
+
+youtube.configure(DEVELOPER_KEY)
+
+#
 # WTForm Settings
 #
 
