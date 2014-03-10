@@ -170,7 +170,7 @@
 
     <script id="search-results-template" type="text/x-handlebars-template">
         {{#each results}}
-            <div class="ui attached segment {{#if @first }}top{{/if}}{{#if @last }}bottom{{/if}}">
+        <div data-id="{{@index}}" class="result ui attached segment {{#if @first }}top{{/if}}{{#if @last }}bottom{{/if}}">
                 <img class="ui image rounded small left floated" src="{{ icon }}">
                 <p>{{ title }}</p>
                 <div class="float-right">
