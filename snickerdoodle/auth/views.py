@@ -10,7 +10,7 @@ from snickerdoodle.users.models import User
 
 
 def login():
-    return jsonify(dialog_url=facebook.dialog_url())
+    return redirect(facebook.dialog_url())
 
 
 def oauth_callback():

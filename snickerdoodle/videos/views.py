@@ -1,6 +1,8 @@
 from flask import Flask, render_template, request, jsonify, abort, make_response, current_app
 from flask.views import MethodView
 
+from snickerdoodle.lib import youtube
+
 from .models import Video
 from ..extensions import db
 
@@ -54,10 +56,28 @@ class VideoAPI(MethodView):
         # update a single video
         pass
 
+
+class VideoSearch(MethodView):
+
+    def get(self):
+        q = request.args.get('q', '')
+
+        if not q:
+            results = {}
+        else:
+            results = youtube.search_for_video(q)
+
+        return jsonify(results=results)
+
+
 def attach_views(app):
     video_view = VideoAPI.as_view('video_api')
+
     app.add_url_rule('/videos/', defaults={'video_id': None},
                                 view_func=video_view, methods=['GET',])
     app.add_url_rule('/videos/', view_func=video_view, methods=['POST',])
     app.add_url_rule('/videos/<int:video_id>', view_func=video_view,
                                 methods=['GET', 'PUT', 'DELETE'])
+
+    video_search = VideoSearch.as_view('video_search')
+    app.add_url_rule('/videos/search', view_func=video_search)
