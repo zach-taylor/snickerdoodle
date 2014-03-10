@@ -8,8 +8,6 @@ from flask.ext.script import Manager
 
 from .extensions import db
 
-from .friends.models import Friend
-
 from .auth import views as auth_views
 from .pages import views as main_views
 from .rooms import views as rooms_views

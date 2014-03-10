@@ -1,6 +1,11 @@
 from snickerdoodle import db
 
 
+friends = db.Table('friends',
+    db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('friend_id', db.Integer, db.ForeignKey('users.id'))
+)
+
 class User(db.Model):
     __tablename__ = 'users'
 
@@ -9,6 +14,12 @@ class User(db.Model):
     fb_id = db.Column(db.String(255), unique=True)
     fb_username = db.Column(db.String(255))
     oauth_token = db.Column(db.Text())
+    friended = db.relationship('User',
+        secondary = friends,
+        primaryjoin = (friends.c.user_id == id),
+        secondaryjoin = (friends.c.friend_id == id),
+        backref = db.backref('friends', lazy = 'dynamic'),
+        lazy = 'dynamic')
 
     def __init__(self, fb_id=None):
         self.fb_id = fb_id
