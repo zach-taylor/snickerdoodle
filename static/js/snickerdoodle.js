@@ -1,7 +1,7 @@
 (function (root, $) {
     var snicker = {},
         $addMovie = $('.attached.button.add');
-    var oldName;   
+
     snicker.provider = {};
     snicker.providers = {};
     snicker.socket = io.connect('/video');
@@ -20,7 +20,7 @@
         // Button to skip to next video in list
         $('body').on('click', '.video-search .button.add-video', function () {
         });
-            
+
         // Close button on Video Search Sidebar
         $('body').on('click', '.video-search .icon.close', snicker.toggleVideoSearch);
 
@@ -98,8 +98,6 @@
             // Determine if the provider can handle the given URL
             if (provider.checkUrl(url) == true) {
                 return name;
-            }else{
-                snicker.changeProvider(name);
             }
         }
 
