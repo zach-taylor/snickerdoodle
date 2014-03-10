@@ -23,13 +23,13 @@
 }(window, jQuery));
 
 $(document).ready(function(){
-	var chat.socket = io.connect ('/chat');
-	chat.socket.on('my response', function(msg) {
+	var chat.socket2 = io.connect ('/chat');
+	chat.socket2.on('my response', function(msg) {
 		$('#log').append('<br> Received #' + msg.count + ': ' + msg.data);
 	});
 	
 	$('form$reply').submit(fuction(event){
-		chatsocket.emit('my reply even', {data: $('#reply_data').val()});
+		chats.socket2.emit('my reply even', {data: $('#reply_data').val()});
 		return false;
 	});
 	
