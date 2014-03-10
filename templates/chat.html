@@ -1,0 +1,58 @@
+
+{% block css %}
+    <link rel="stylesheet" href="/static/css/chat.css" />
+    <link rel="stylesheet" href="/static/lib/semantic/css/semantic.css" />
+{% endblock %}
+
+{% block js %}
+    <script src="/static/lib/semantic/javascript/semantic.js"></script>
+    <script src="/static/lib/handlebars/handlebars-v1.3.0.js"></script> 
+    <script src="/static/js/chat.js"></script> 
+    <script src="/static/lib/socket.io.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.0.js"></script>
+    
+{% endblock %}
+
+{% block content %}
+
+
+
+
+
+<!--
+<div class = "<div class="ui grid list">
+    <div class="ten wide column">
+        <div class="ui piled blue segment item">
+            <div class="list">
+                <div class="item">
+                    <h5 class="ui header">
+                        <i class="icon inverted circular blue comment"></i> Chat
+                    </h5>
+                </div>
+                <div class="item">
+                   
+                </div>
+            </div>
+            <div class="item">
+                <div class="ui basic segment">
+                    <form id="reply" method='POST' action='#'>
+                        <div class="fluid">
+                            <input type="text" name='replymsg' id='replymsg' placeholder="Enter Message Here">
+                            <input type='submit' class="ui blue button" form="reply" value="Reply">
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+-->
+
+<form id='reply' method='POST' action='#'>
+	<input type="text" name="reply_data" id="reply_data" placeholder="Message Here">
+	<input type="sumbit" value="reply">
+</form>
+	
+
+
+{% endblock %}
