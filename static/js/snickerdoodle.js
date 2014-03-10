@@ -19,24 +19,20 @@
 
         // Button to skip to next video in list
         $('body').on('click', '.video-search .button.add-video', function () {
-            var url = $('.video-search input.address').val();
-            var name = root.Snicker.parseUrl(url);
-
-            if (!name) {
-                console.log('Error here');
-                return;
-            }
-
-            snicker.changeProvider(name);
-
-            snicker.provider.swapVideo(url);
-
-            snicker.toggleVideoSearch();
         });
 
         // Close button on Video Search Sidebar
-        $('body').on('click', '.video-search .icon.close', function () {
-            snicker.toggleVideoSearch();
+        $('body').on('click', '.video-search .icon.close', snicker.toggleVideoSearch);
+
+        $('.video-search form').on('submit', snicker.searchEvent);
+
+        $('body').on('click', '.video-search .button.submit', function () {
+            var val = $('.video-search input.search').val();
+
+            var providerName = root.Snicker.parseUrl(val);
+
+            if (providerName) snicker.addVideoToPlaylist(val);
+            else snicker.search(val);
         });
 
         $addMovie.on('click', snicker.toggleVideoSearch);
@@ -44,6 +40,49 @@
 
     snicker.addProvider = function (name, provider) {
         snicker.providers[name] = provider;
+    };
+
+    snicker.addVideoToPlaylist = function (val) {
+        console.log('Should add video to playlist: ' + val);
+    };
+
+    snicker.searchEvent = function (e) {
+        var val = $('.video-search input.search').val();
+        snicker.search(val);
+        e.preventDefault();
+
+        return false;
+    };
+
+    snicker.search = function (val) {
+        $.ajax({
+            type: 'GET',
+            url: '/videos/search',
+            data: {q: val},
+            success: snicker.searchResults,
+            error: snicker.searchError,
+        });
+    };
+
+    snicker.searchResults = function (data) {
+        var $results = $('.video-search .search.results');
+
+        console.log('Search results');
+        console.log(data);
+
+        // Clear out past results
+        $results.empty();
+
+        var source = $('#search-results-template').html(),
+        template = Handlebars.compile(source);
+
+        // Render template, add to html
+        var html = template(data);
+        $results.append(html);
+    };
+
+    snicker.searchError = function () {
+        console.log('Search error...');
     };
 
     snicker.parseUrl = function (url) {

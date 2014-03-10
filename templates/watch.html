@@ -10,14 +10,17 @@
 <div class="video-search ui right wide styled floating sidebar">
     <i class="close icon"></i>
     <h3 class="ui header">Add Videos</h3>
-    <div class="ui tertiary form segment">
+    <form class="ui tertiary form segment">
         <div class="field">
             <label>Search</label>
             <div class="ui action input">
-                <input type="text" placeholder="Keyword or Link...">
-                <div class="ui icon blue button"><i class="search icon"></i></div>
+                <input class="search" type="text" placeholder="Keyword or Link...">
+                <div class="ui icon blue button submit"><i class="search icon"></i></div>
             </div>
         </div>
+    </form>
+
+    <div class="search results">
     </div>
 </div>
 {% endblock %}
@@ -35,10 +38,6 @@
     <i class="icon add"></i>
 </div>
 
-<h4 class="ui center aligned inverted green block header">
-  Snickerdoodle - Watch Videos with Your Friends!
-</h4>
-
 <div class="player">
     <div class="video ui top attached segment">
         <img class="ui huge" src="/static/img/video.jpg">
@@ -49,7 +48,7 @@
             <h3>Carly Rae Jepsen - Call Me Maybe</h3>
         </div>
 
-        <div class="right">
+        <div class="float-right">
             <div class="ui icon buttons">
                 <div class="ui black button"><i class="add icon"></i></div>
                 <div class="ui black button"><i class="step backward icon"></i></div>
@@ -167,6 +166,15 @@
 
     <script id="player-template" type="text/x-handlebars-template">
         <div id="player"></div>
+    </script>
+
+    <script id="search-results-template" type="text/x-handlebars-template">
+        {{#each results}}
+            <div class="ui attached segment {{#if @first }}top{{/if}}{{#if @last }}bottom{{/if}}">
+                <img class="ui image rounded small left floated" src="{{ icon }}">
+                <p>{{ title }}</p>
+            </div>
+        {{/each}}
     </script>
     {% endraw %}
 {% endblock %}
