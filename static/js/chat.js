@@ -1,33 +1,33 @@
+
 (function (root, $) {
 
-	var chatsocket = io.connect ('/chat');
-	
+$(document).ready(function(){
+   var io = socketio.listen(server);
+   var socket = io.connect("http://127.0.0.1:5000/chat")
 
-	chatsocket.on('chat', function(msg) {
-	   $('#log').append('<br> CHANGE THIS TO USER NAME' + ': ' + msg.data);
+	socket.on('Response', funciton(msg) {
+	    	$('#log').append('Received : ' + msg.data);
 	});
 
-	
-
-	 $('form#reply').submit(function(event){
-	   chatsocket.emit('Reply Event', {data: $('#replymsg').val()});
-	   return false;
+	socket.on('Response', funciton(msgs) {
+	    	$('#log2').append('Received : ' + msgs.data);
 	});
 
-	 
+
+	$('form#reply').submit(function(event){
+		socket.emit('my reply event', {data: $('#reply_data').val()});
+		return false;
+	});
+
+	 $('form#reply2').submit(function(event){
+	   	socket.emit('Reply Event', {data: $('#replymsg').val()});
+	   	return false;
+	});
+	
+});
 
 
 }(window, jQuery));
 
-$(document).ready(function(){
-	var chatsocket2 = io.connect ('/chat');
-	chatsocket2.on('my response', function(msgs) {
-		$('#log2').append('<br> Received #' + msgs.count + ': ' + msgs.data);
-	});
-	
-	$('form$reply').submit(function(event){
-		chatsocket2.emit('my reply even', {data: $('#reply_data').val()});
-		return false;
-	});
-	
-});
+
+

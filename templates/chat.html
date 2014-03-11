@@ -1,12 +1,12 @@
 
 {% block css %}
-    <link rel="stylesheet" href="/static/css/chat.css" />
     <link rel="stylesheet" href="/static/lib/semantic/css/semantic.css" />
+    <link rel="stylesheet" href="/static/css/chat.css" />
 {% endblock %}
 
 {% block js %}
     <script src="/static/lib/socket.io/socket.io.js"></script>
-    <script src="http://code.jquery.com/jquery-2.1.0.js"></script>
+    <script src="//code.jquery.com/jquery-2.1.0.js"></script>
     <script src="/static/lib/semantic/javascript/semantic.js"></script>
     <script src="/static/lib/handlebars/handlebars-v1.3.0.js"></script> 
     <script src="/static/js/chat.js"></script> 
@@ -16,7 +16,6 @@
 {% endblock %}
 
 {% block content %}
-
 
 
 
@@ -38,10 +37,10 @@
             </div>
             <div class="item">
                 <div class="ui basic segment">
-                    <form id="reply" method='POST' action='#'>
+                    <form id="reply2" method='POST' action='#'>
                         <div class="fluid">
-                            <input type="text" name='replymsg' id='replymsg' placeholder="Enter Message Here">
-                            <input type='submit' class="ui blue button" form="reply" value="Reply">
+                            <input type="text" name='reply_msg' id='reply_msg' placeholder="Enter Message Here">
+                            <input type='submit' class="ui blue button" form="reply2" value="Reply">
                         </div>
                     </form>
                 </div>
@@ -57,14 +56,14 @@
 
 
 <h2> Send: </h2>
-<form id='reply' method='POST' action='#'>
+<form id="reply" method='post' action='#'>
 	<input type="text" name="reply_data" id="reply_data" placeholder="Message Here">
-	<input type="submit" value="reply"></div>
+	<input type="submit" value="Send"></div>
 </form>
 
 <h2> Chat Log:</h2>
-<div id="log2"></div>
-	
+<div id="log"></div>
+
 
 
 {% endblock %}
