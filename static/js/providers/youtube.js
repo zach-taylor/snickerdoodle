@@ -63,14 +63,14 @@
             console.log('YT onFinish');
         };
 
-        YouTube.prototype.swapVideo = function (url) {
+        YouTube.prototype.swapVideo = function (id) {
             Snicker.emit('video', {
                 action: 'change',
-                url: url,
+                id: id,
             });
         };
 
-        YouTube.prototype.onChangeVideo = function (url) {
+        YouTube.prototype.onChangeVideo = function (id) {
             console.log('OnChangeVideo');
             console.log('This:');
             console.log(this);
@@ -84,17 +84,8 @@
                         'startSeconds': '0'
                     });
             };
-
-            // TODO: Better parsing for video ID, Better initial video loading.
-            this.url = url;
             
-            if (url.split(".",2)[1] === "youtube"){
-                this.id = url.split("=",2)[1];
-            } else if (url.split(".",2)[1] === "ytimg") {
-                this.id = url.split("/",5)[4];
-            }
-            
-            this.id = url.split("=",2)[1];
+            this.id = id;
 
             if (this.hasLoaded) {
                 console.log('API Has Loaded');

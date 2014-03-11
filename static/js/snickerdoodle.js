@@ -42,9 +42,13 @@
                 $parent = $this.closest('.result'),
                 index = $parent.attr('data-id');
                 console.log(resultList.results[index].icon);
+                var site = resultList.results[index].provider;
                 var url = resultList.results[index].icon;
-                console.log(url);
-                var name = root.Snicker.parseUrl(url);
+                if (site === "YouTube") {
+                    snicker.changeProvider("YouTube");
+                    snicker.provider.init();
+                    snicker.provider.swapVideo(resultList.results[index].id);
+                }
 
         if (!name) console.log('Error here');
 
@@ -127,7 +131,7 @@
 
     snicker.changeProvider = function (name) {
         snicker.provider = snicker.providers[name];
-
+        
         // Call setup init
         snicker.provider.init();
     };

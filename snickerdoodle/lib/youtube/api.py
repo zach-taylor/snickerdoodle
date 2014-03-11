@@ -58,7 +58,7 @@ def search_for_video(q):
         result['icon'] = item['snippet']['thumbnails']['default']['url']
         
         # Provider
-        result['provider'] = "youtube";
+        result['provider'] = "YouTube";
         # Add the result
         results.append(result)
 
