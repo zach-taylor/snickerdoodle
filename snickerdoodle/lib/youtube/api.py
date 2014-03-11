@@ -29,7 +29,7 @@ def search_for_video(q):
     options['part'] = 'id,snippet'
 
     # Default is 5, we want more
-    options['maxResults'] = 25
+    options['maxResults'] = 10
 
     # Only videos
     options['type'] = 'video'
@@ -47,9 +47,17 @@ def search_for_video(q):
 
     for item in response.get('items', []):
         result = {}
+
+        # Video ID
+        result['id'] = item['id']
+
+        # Video Title
         result['title'] = item['snippet']['title']
+
+        # Default Thumbnail
         result['icon'] = item['snippet']['thumbnails']['default']['url']
 
+        # Add the result
         results.append(result)
 
     return results
