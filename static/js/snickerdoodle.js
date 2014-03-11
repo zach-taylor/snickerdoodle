@@ -5,6 +5,7 @@
     snicker.provider = {};
     snicker.providers = {};
     snicker.socket = io.connect('/video');
+    var resultList;
 
     //
     // Snickerdoodle Functions
@@ -40,7 +41,16 @@
             var $this = $(this),
                 $parent = $this.closest('.result'),
                 index = $parent.attr('data-id');
+                console.log(resultList.results[index].icon);
+                var url = resultList.results[index].icon;
+                console.log(url);
+                var name = root.Snicker.parseUrl(url);
 
+        if (!name) console.log('Error here');
+
+        snicker.changeProvider(name);
+
+        snicker.provider.onChangeVideo(url);
             console.log('Clicked index: ' + index);
         });
 
@@ -78,7 +88,8 @@
 
         console.log('Search results');
         console.log(data);
-
+        console.log(data.results[0].icon);
+        resultList = data;
         // Clear out past results
         $results.empty();
 

@@ -56,7 +56,9 @@ def search_for_video(q):
 
         # Default Thumbnail
         result['icon'] = item['snippet']['thumbnails']['default']['url']
-
+        
+        # Provider
+        result['provider'] = "youtube";
         # Add the result
         results.append(result)
 

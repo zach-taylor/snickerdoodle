@@ -39,7 +39,14 @@
 
         YouTube.prototype.checkUrl = function (url) {
             // TODO: More robust checking
-            return (url.split(".",2)[1] === "youtube");
+            if (url.split(".",2)[1] === "youtube"){
+                return true;
+            } else if (url.split(".",2)[1] === "ytimg") {
+                return true;
+            } else {
+                return false;
+            }
+        
         };
 
         YouTube.prototype.onPlay = function () {
@@ -80,6 +87,13 @@
 
             // TODO: Better parsing for video ID, Better initial video loading.
             this.url = url;
+            
+            if (url.split(".",2)[1] === "youtube"){
+                this.id = url.split("=",2)[1];
+            } else if (url.split(".",2)[1] === "ytimg") {
+                this.id = url.split("/",5)[4];
+            }
+            
             this.id = url.split("=",2)[1];
 
             if (this.hasLoaded) {
