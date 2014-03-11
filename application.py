@@ -4,5 +4,3 @@ from snickerdoodle import snickerdoodle, socket
 
 if __name__ == '__main__':
     socket.run(snickerdoodle)
-    
-   
