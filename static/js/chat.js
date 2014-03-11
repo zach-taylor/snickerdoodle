@@ -14,22 +14,19 @@
 	   return false;
 	});
 
-	 $('form#broadcast').submit(function(event) {
-                chatsocket.emit('my broadcast event', {data: $('#broadcast_data').val()});
-                return false;
-         });
+	 
 
 
 }(window, jQuery));
 
 $(document).ready(function(){
 	var chatsocket2 = io.connect ('/chat');
-	chatsocket2.on('my response', function(msg) {
-		$('#log2').append('<br> Received #' + msg.count + ': ' + msg.data);
+	chatsocket2.on('my response', function(msgs) {
+		$('#log2').append('<br> Received #' + msgs.count + ': ' + msgs.data);
 	});
 	
-	$('form$reply').submit(fuction(event){
-		chatssocket2.emit('my reply even', {data: $('#reply_data').val()});
+	$('form$reply').submit(function(event){
+		chatsocket2.emit('my reply even', {data: $('#reply_data').val()});
 		return false;
 	});
 	
