@@ -1,21 +1,21 @@
 (function (root, $) {
 
-	var chat.socket = io.connect ('/chat');
+	var chatsocket = io.connect ('/chat');
 	
 
-	chat.socket.on('chat', function(msg) {
+	chatsocket.on('chat', function(msg) {
 	   $('#log').append('<br> CHANGE THIS TO USER NAME' + ': ' + msg.data);
 	});
 
 	
 
 	 $('form#reply').submit(function(event){
-	   chat.socket.emit('Reply Event', {data: $('#replymsg').val()});
+	   chatsocket.emit('Reply Event', {data: $('#replymsg').val()});
 	   return false;
 	});
 
 	 $('form#broadcast').submit(function(event) {
-                chat.socket.emit('my broadcast event', {data: $('#broadcast_data').val()});
+                chatsocket.emit('my broadcast event', {data: $('#broadcast_data').val()});
                 return false;
          });
 
@@ -23,13 +23,13 @@
 }(window, jQuery));
 
 $(document).ready(function(){
-	var chat.socket2 = io.connect ('/chat');
-	chat.socket2.on('my response', function(msg) {
-		$('#log').append('<br> Received #' + msg.count + ': ' + msg.data);
+	var chatsocket2 = io.connect ('/chat');
+	chatsocket2.on('my response', function(msg) {
+		$('#log2').append('<br> Received #' + msg.count + ': ' + msg.data);
 	});
 	
 	$('form$reply').submit(fuction(event){
-		chats.socket2.emit('my reply even', {data: $('#reply_data').val()});
+		chatssocket2.emit('my reply even', {data: $('#reply_data').val()});
 		return false;
 	});
 	
