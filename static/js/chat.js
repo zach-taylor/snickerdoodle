@@ -1,32 +1,29 @@
 
 (function (root, $) {
+   var socket = io.connect("/chat");
 
-$(document).ready(function(){
-   var io = socketio.listen(server);
-   var socket = io.connect("http://127.0.0.1:5000/chat")
-
-    socket.on('Response', funciton(msg) {
+    socket.on('reply', function(msg) {
             $('#log').append('Received : ' + msg.data);
     });
 
-    socket.on('Response', funciton(msgs) {
+    socket.on('reply', function(msgs) {
             $('#log2').append('Received : ' + msgs.data);
     });
 
 
-    $('form#reply').submit(function(event){
-        socket.emit('my reply event', {data: $('#reply_data').val()});
-        return false;
+    $('#reply').submit(function(event){
+        console.log('Replying...');
+        socket.emit('chat', {data: $('#reply_data').val()});
+
+        event.preventDefault();
     });
 
-     $('form#reply2').submit(function(event){
-        socket.emit('Reply Event', {data: $('#replymsg').val()});
-        return false;
+     $('#reply2').submit(function(event){
+         console.log('Replying2...');
+         socket.emit('chat', {data: $('#replymsg').val()});
+
+         event.preventDefault();
     });
-
-});
-
-
 }(window, jQuery));
 
 
