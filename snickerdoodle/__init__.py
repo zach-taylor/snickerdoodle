@@ -2,7 +2,7 @@ from os import path
 
 from flask import Flask, render_template, jsonify, session, request, url_for, redirect
 
-from flask.ext import socketio
+from flask.ext.socketio import SocketIO, emit
 from flask.ext.migrate import Migrate, MigrateCommand
 from flask.ext.script import Manager
 
@@ -33,7 +33,7 @@ db.init_app(snickerdoodle)
 
 migrate = Migrate(snickerdoodle, db)
 manager = Manager(snickerdoodle)
-socket = socketio.SocketIO(snickerdoodle)
+socket = SocketIO(snickerdoodle)
 
 manager.add_command('db', MigrateCommand)
 
