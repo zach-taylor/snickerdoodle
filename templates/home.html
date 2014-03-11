@@ -1,38 +1,36 @@
-<!doctype html>
+{% extends "base.html" %}
 
-<html>
-  
-  <head>
-    <title>Home - Snickerdoodle</title>
-    <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="//netdna.bootstrapcdn.com/bootstrap/3.0.1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/css/home.css">
-  </head>
-  
-  <body>
-    <div class="container-fluid">
-      <div class="header">
-        <ul class="nav nav-pills pull-right">
-          <li class="active">
-            <a href="#"><span class="glyphicon glyphicon-user"></span> Log in</a>
-          </li>
-        </ul>
-        <h3 class="text-muted"><b>snickerdoodle</b></h3>
-      </div>
-      <div class="jumbotron" id="jumbo-thing">
-        <img class="img-polaroid">
-        <h1>Watch Videos with Your Friends</h1>
-        <p class="lead">Youtube, Vimeo, DailyMotion, and more. All in one playlist.</p>
-        <p><a class="btn btn-success btn-lg" href="#">Sign up now!</a></p>
-      </div>
-      <div class="row marketing"></div>
-      <div>
-        <p class="lead">&copy; Snickerdoodle 2014</p>
-      </div>
+{% block title %} Home - Snickerdoodle {% endblock %}
+
+{% block css %}
+<link rel="stylesheet" href="/static/lib/semantic/css/semantic.css" />
+<link rel="stylesheet" href="/static/css/home.css">
+{% endblock %}
+
+{% block js %}
+<script src="/static/lib/semantic/javascript/semantic.js"></script>
+<script src="/static/lib/handlebars/handlebars-v1.3.0.js"></script>
+<script src="/static/js/home2.js"></script>
+{% endblock %}
+
+{% block content %}
+<div class="ui grid">
+    <div class="column">
+        <div class="ui center aligned teal segment">
+            <h1>Watch Videos with Your Friends</h1>
+            <p class="lead">Youtube, Vimeo, DailyMotion, and more. All in one playlist.</p>
+
+            {% include '_create_room.html' %}
+        </div>
     </div>
-    <!-- /container -->
-    <script type="text/javascript" src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
-    <script type="text/javascript" src="//netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js"></script>
-  </body>
+</div>
 
-</html>
+<div class="ui horizontal icon divider">
+    <img class="ui avatar image" src="/static/img/doge.jpeg">
+</div>
+
+<div class="row marketing"></div>
+<div class="ui ribbon black label">
+    <p class="lead">&copy; Snickerdoodle 2014</p>
+</div>
+{% endblock %}
