@@ -61,12 +61,26 @@ class RoomAPI(MethodView):
         return jsonify( { 'room': room_json } ), 201
 
     def delete(self, room_id):
-        # TODO: delete a single user
+        # TODO: delete a single room
         pass
 
     def put(self, room_id):
-        # TODO: update a single room
-        pass
+        if not request.json or not 'room' in request.json:
+            abort(400)
+
+        if 'name' in request.json and type(request.json['name']) != unicode:
+            abort(400)
+
+        try:
+            room = Room.query.filter(Room.id == room_id).first()
+        except Exception, e:
+            current_app.logger.warning(e)
+            abort(500)
+
+        room.name = request.json['name']
+        db.session.commit()
+
+        return jsonify({}), 204
 
 def attach_views(app):
     room_api = RoomAPI.as_view('room_api')

@@ -73,10 +73,10 @@ class VideoSearch(MethodView):
 def attach_views(app):
     video_view = VideoAPI.as_view('video_api')
 
-    app.add_url_rule('/videos/', defaults={'video_id': None},
+    app.add_url_rule('/api/videos/', defaults={'video_id': None},
                                 view_func=video_view, methods=['GET',])
-    app.add_url_rule('/videos/', view_func=video_view, methods=['POST',])
-    app.add_url_rule('/videos/<int:video_id>', view_func=video_view,
+    app.add_url_rule('/api/videos/', view_func=video_view, methods=['POST',])
+    app.add_url_rule('/api/videos/<int:video_id>', view_func=video_view,
                                 methods=['GET', 'PUT', 'DELETE'])
 
     video_search = VideoSearch.as_view('video_search')
