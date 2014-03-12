@@ -86,6 +86,7 @@
             };
             
             this.id = id;
+            console.log(this.id);
 
             if (this.hasLoaded) {
                 console.log('API Has Loaded');

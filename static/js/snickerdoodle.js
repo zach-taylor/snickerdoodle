@@ -43,18 +43,17 @@
                 index = $parent.attr('data-id');
                 console.log(resultList.results[index].icon);
                 var site = resultList.results[index].provider;
-                var url = resultList.results[index].icon;
+                console.log(site);
+                var id = resultList.results[index].id;
+                console.log(id);
                 if (site === "YouTube") {
-                    snicker.changeProvider("YouTube");
-                    snicker.provider.init();
-                    snicker.provider.swapVideo(resultList.results[index].id);
+                    snicker.changeProvider(site);
+                    snicker.provider.swapVideo(id);
                 }
 
-        if (!name) console.log('Error here');
+        //if (!name) console.log('Error here');
 
-        snicker.changeProvider(name);
-
-        snicker.provider.onChangeVideo(url);
+        //snicker.provider.onChangeVideo(url);
             console.log('Clicked index: ' + index);
         });
 
@@ -183,12 +182,13 @@
         } else if (action === 'pause') {
             snicker.provider.onPause();
         } else if (action === 'change') {
-            var url = data.url || '';
+            var id = data.id || '';
 
-            snicker.setUrlAndProvider(url);
+            //snicker.setUrlAndProvider(url);
 
             // TODO: Error check
-            snicker.provider.onChangeVideo(url);
+            console.log('changeing');
+            snicker.provider.onChangeVideo(id);
         }
     });
 

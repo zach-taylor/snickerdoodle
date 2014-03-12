@@ -49,7 +49,7 @@ def search_for_video(q):
         result = {}
 
         # Video ID
-        result['id'] = item['id']
+        result['id'] = item['id']['videoId']
 
         # Video Title
         result['title'] = item['snippet']['title']
