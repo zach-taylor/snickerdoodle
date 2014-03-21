@@ -27,6 +27,19 @@ class User(db.Model):
     def __repr__(self):
         return '<User %r>' % (self.fb_id)
 
+    def friend(self, user):
+        if not self.is_friend(user):
+            self.friended.append(user)
+            return self
+
+    def unfriend(self, user):
+        if self.is_friend(user):
+            self.friended.remove(user)
+            return self
+
+    def is_following(self, user):
+        return self.followed.filter(followers.c.followed_id == user.id).count() > 0
+
     @staticmethod
     def add_user(user):
         db.session.add(user)
