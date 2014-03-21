@@ -24,12 +24,6 @@ def connect():
 
     return render_template('connect.html', **context)
 
-
-def watch():
-    context = helpers.default_context()
-
-    return render_template('watch.html', **context)
-
 def chat():
     context = helpers.default_context()
     
@@ -49,7 +43,6 @@ def attach_views(app):
     app.add_url_rule('/', view_func=home)
     app.add_url_rule('/home2', view_func=home2)
     app.add_url_rule('/connect', view_func=connect)
-    app.add_url_rule('/watch', view_func=watch)
     app.add_url_rule('/chat', view_func=chat)
     app.add_url_rule('/chat2', view_func=chat2)
 
