@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, abort, make_response, redirect, current_app, url_for
+from flask import Flask, render_template, request, jsonify, abort, make_response, redirect, current_app, url_for, flash
 from flask.views import MethodView
 
 from .models import Room
@@ -16,7 +16,7 @@ class CreateRoomView(MethodView):
             db.session.commit()
             return redirect(url_for('watch_view', room_id=room.id))
         else:
-            print 'fail'
+            flash('Room could not be created. :(')
             return redirect(url_for('home'))
 
 class WatchView(MethodView):
