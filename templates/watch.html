@@ -39,7 +39,7 @@
 </div>
 
 <div>
-    <h2 class="ui top attached header">Topic: {{ room.name }}</h2>
+    <h2 class="ui top attached header">Topic: {{ room.name }} </h2>
 </div>
 
 <div class="player">
@@ -143,11 +143,14 @@
     </div>
 </div>
 
+{% include '_friends.html'  %}
+
 {% endblock %}
 
 {%block js %}
     <script src="/static/js/video.js"></script>
     <script src="/static/lib/handlebars/handlebars-v1.3.0.js"></script>
+    <script src="/static/js/home2.js"></script>
 {% endblock %}
 
 {% block templates %}
