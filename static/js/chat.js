@@ -1,7 +1,7 @@
 
 (function (root, $) {
    var socket = io.connect("/chat");
-   
+
    emit = function (event, msg) {
         // Send a message to the server using Socket.io
         console.log('emit');
@@ -13,7 +13,7 @@
       logMsg(msg.data);
        //     $('#log').append('Received : ' + msg.data);
     });
-    
+
     logMsg = function(msg){
       console.log(msg);
     }
