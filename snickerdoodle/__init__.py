@@ -9,7 +9,6 @@ from flask.ext.script import Manager
 from .extensions import db
 
 from .auth import views as auth_views
-from .friends import views as friends_views
 from .pages import views as main_views
 from .rooms import views as rooms_views
 from .users import views as users_views
@@ -43,7 +42,6 @@ manager.add_command('db', MigrateCommand)
 #
 
 auth_views.attach_views(snickerdoodle)
-friends_views.attach_views(snickerdoodle)
 main_views.attach_views(snickerdoodle)
 rooms_views.attach_views(snickerdoodle)
 users_views.attach_views(snickerdoodle)
