@@ -44,6 +44,7 @@ def oauth_callback():
     if access_token is not None:
         print 'Access Token:', access_token
         session['user'] = info
+        session['user_id'] = user.id
         session['access_token'] = access_token
     else:
         print 'Access Token is None'

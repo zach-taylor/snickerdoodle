@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, abort, make_response, redirect, current_app, url_for, flash
+from flask import Flask, render_template, request, jsonify, abort, make_response, redirect, current_app, url_for, flash, session
 from flask.views import MethodView
 
 from .models import Room
@@ -11,7 +11,7 @@ class CreateRoomView(MethodView):
     def post(self):
         form = RoomForm()
         if form.validate_on_submit():
-            room = Room(form.name.data, host_id=3)
+            room = Room(form.name.data, session.get('user_id'))
             db.session.add(room)
             db.session.commit()
             return redirect(url_for('watch_view', room_id=room.id))
