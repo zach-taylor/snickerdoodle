@@ -15,7 +15,6 @@
         snicker.bind();
     };
 
-
     snicker.bind = function () {
         console.log('Binding video actions');
 
@@ -58,6 +57,17 @@
         });
 
         $addMovie.on('click', snicker.toggleVideoSearch);
+    };
+
+    snicker.retrieveFriends = function (success, err) {
+        var error = err || function () {};
+        $.ajax({
+            type: 'GET',
+            url: '/users/friends',
+            success: success,
+            dataType: 'json',
+            error: error,
+        });
     };
 
     snicker.addProvider = function (name, provider) {
@@ -130,7 +140,7 @@
 
     snicker.changeProvider = function (name) {
         snicker.provider = snicker.providers[name];
-        
+
         // Call setup init
         snicker.provider.init();
     };
