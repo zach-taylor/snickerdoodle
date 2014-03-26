@@ -37,7 +37,7 @@ def clean_rooms():
 
 def chat_message(data):
     print data
-    socketio.emit('chat', data, namespace='/chat', broadcast=True)
+    socketio.emit('reply', data, namespace='/chat', broadcast=True)
 
 
 def attach_views_with_socket(app, socket):

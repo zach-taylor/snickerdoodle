@@ -27,12 +27,10 @@
             </div>
             <div class="item">
                 <div class="ui basic segment">
-                    <form id="reply2" action="#">
-                        <div class="fluid">
-                            <input type="text" name="reply_msg" id="reply_msg" placeholder="Enter Message Here">
-                            <input type="submit" class="ui blue button" form="reply2" value="Reply">
-                        </div>
-                    </form>
+                    <div class="fluid">
+                        <input type="text" name="reply-msg" id="reply-msg" placeholder="Enter Message Here">
+                        <input type="button" class="ui blue button" id="reply-button" value="Reply">
+                    </div>
                 </div>
             </div>
         </div>
@@ -43,17 +41,5 @@
 <div class="ui horizontal icon divider">
     <img class="ui avatar image" src="/static/img/doge.jpeg">
 </div>
-
-
-<h2> Send: </h2>
-<form id="reply" method="post" action="#">
-    <input type="text" name="reply_data" id="reply_data" placeholder="Message Here">
-    <input type="submit" value="Send"></div>
-</form>
-
-<h2> Chat Log:</h2>
-<div id="log"></div>
-
-
 
 {% endblock %}
