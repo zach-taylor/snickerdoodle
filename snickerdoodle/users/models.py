@@ -37,8 +37,8 @@ class User(db.Model):
             self.friended.remove(user)
             return self
 
-    def is_following(self, user):
-        return self.followed.filter(followers.c.followed_id == user.id).count() > 0
+    def is_friend(self, user):
+        return self.friended.filter(friends.c.friend_id == user.id).count() > 0
 
     @staticmethod
     def add_user(user):

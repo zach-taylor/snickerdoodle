@@ -20,9 +20,21 @@ class UserAPI(MethodView):
                 current_app.logger.warning(e)
                 abort(500)
 
+            friends_array = []
+
+            for f in user.friends:
+                friend_json = {
+                    'id': f.id,
+                    'fb_id': f.fb_id,
+                    'display_name': f.display_name
+                }
+                friends_array.append(friend_json)
+
             user_json = {
                 'id': user.id,
-                'fb_id': user.fb_id
+                'fb_id': user.fb_id,
+                'display_name': user.display_name,
+                'friends': friends_array
             }
 
             return jsonify( {'user': user_json} )

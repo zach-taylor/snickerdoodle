@@ -62,7 +62,7 @@ class RoomVideosView(MethodView):
     def get(self, room_id):
         try:
             room = Room.query.filter(Room.id == room_id).first()
-            videos = Video.query.filter(Video.room_id == room.id).all()
+            #videos = Video.query.filter(Video.room_id == room.id).all()
         except Exception, e:
             current_app.logger.warning(e)
             abort(500)
