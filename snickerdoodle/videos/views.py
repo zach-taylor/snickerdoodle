@@ -4,6 +4,7 @@ from flask.views import MethodView
 from snickerdoodle.lib import youtube
 
 from .models import Video
+from ..rooms.models import Room
 from ..extensions import db
 
 class VideoAPI(MethodView):
@@ -43,7 +44,8 @@ class VideoAPI(MethodView):
 
         video_json = {
             'id': video.id,
-            'fb_id': video.fb_id
+            'site': video.site,
+            'vid': video.vid
         }
 
         return jsonify( { 'video': video_json } ), 201
@@ -55,6 +57,28 @@ class VideoAPI(MethodView):
     def put(self, video_id):
         # update a single video
         pass
+
+class RoomVideosView(MethodView):
+    def get(self, room_id):
+        try:
+            room = Room.query.filter(Room.id == room_id).first()
+            videos = Video.query.filter(Video.room_id == room.id).all()
+        except Exception, e:
+            current_app.logger.warning(e)
+            abort(500)
+
+        videos_array = []
+
+        for v in room.videos:
+            video_json = {
+                'id': v.id,
+                'site': v.site,
+                'vid': v.vid
+            }
+            videos_array.append(video_json)
+
+        return jsonify({'videos': videos_array})
+
 
 
 class VideoSearch(MethodView):
@@ -72,12 +96,14 @@ class VideoSearch(MethodView):
 
 def attach_views(app):
     video_view = VideoAPI.as_view('video_api')
+    room_videos_view = RoomVideosView.as_view('room_videos_api')
 
     app.add_url_rule('/api/videos/', defaults={'video_id': None},
                                 view_func=video_view, methods=['GET',])
     app.add_url_rule('/api/videos/', view_func=video_view, methods=['POST',])
     app.add_url_rule('/api/videos/<int:video_id>', view_func=video_view,
                                 methods=['GET', 'PUT', 'DELETE'])
+    app.add_url_rule('/api/rooms/<int:room_id>/videos/', view_func=room_videos_view, methods=['GET'])
 
     video_search = VideoSearch.as_view('video_search')
     app.add_url_rule('/videos/search', view_func=video_search)
