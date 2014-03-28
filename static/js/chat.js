@@ -1,6 +1,7 @@
 
 (function (root, $) {
    var socket = io.connect("/chat");
+   var div = document.getElementById("log");
 
    // Send a message to the server using Socket.io
    emit = function (event, msg) {
@@ -11,6 +12,7 @@
     // When a message is received from the server
     socket.on('reply', function(msg) {
         console.log('Server: ' + msg.data);
+        $(".log").append("<p>Received: " + msg.data + "</p>");
     });
 
     // When the reply button is clicked

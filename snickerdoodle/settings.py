@@ -12,7 +12,11 @@ SECRET_KEY = '512d190ec56d834bc3bb86aa29414bf3319cf8ab'
 # Database Settings
 #
 
+<<<<<<< .mine
+SQLALCHEMY_DATABASE_URI = 'postgres://postgres:will955620@localhost/snickerdoodle'
+=======
 SQLALCHEMY_DATABASE_URI = 'postgres://postgres:fishing2@localhost/snickerdoodle'
+>>>>>>> .r210
 
 #
 # Facebook API Settings

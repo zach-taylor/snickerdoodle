@@ -9,37 +9,34 @@
     <script src="/static/js/chat.js"></script>
 {% endblock %}
 
+
+
 {% block content %}
 
 <div class="ui grid list">
     <div class="ten wide column">
         <div class="ui piled blue segment item">
-            <div class="list">
+            <div class="list overflowed">
+
                 <div class="item">
-                    <h5 class="ui header">
-                        <i class="icon inverted circular blue comment"></i> Chat
-                    </h5>
-                </div>
-                <div class="item">
-                   <div id="log2">
+                   <div class="log"> 
                    </div>
-                </div>
-            </div>
-            <div class="item">
-                <div class="ui basic segment">
-                    <div class="fluid">
-                        <input type="text" name="reply-msg" id="reply-msg" placeholder="Enter Message Here">
-                        <input type="button" class="ui blue button" id="reply-button" value="Reply">
-                    </div>
                 </div>
             </div>
         </div>
     </div>
 </div>
-<div> </div>
 
-<div class="ui horizontal icon divider">
-    <img class="ui avatar image" src="/static/img/doge.jpeg">
+<div class="item">
+  <div class="ui basic segment">
+   <div class="fluid">
+     <input type="text" name="reply-msg" id="reply-msg" placeholder="Enter Message Here">
+     <input type="button" class="ui blue button" id="reply-button" value="Reply">
+   </div>
+  </div>
 </div>
+
+
+
 
 {% endblock %}

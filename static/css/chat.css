@@ -1,0 +1,15 @@
+.ui.piled.green.segment.item {
+    font-family:Arial;
+    font-size: 12px;
+    color: black;
+    height: 225px;
+    width: 400px;
+    overflow: scroll;
+    
+}
+
+.ui.piled.blue.segment.item {
+    width: 425px;
+    height: 250px;
+    overflow: scroll;
+}
