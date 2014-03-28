@@ -158,6 +158,9 @@
         YouTube.prototype.onPlayerState = function(event) {
             //For when a video ends.
             if (YT.PlayerState.ENDED == event.data) {
+             snicker.emit('watch', {
+                action: 'change',
+             });
             } else if (YT.PlayerState.CUED == event.data) {
                 console.log('YT Video added');
             } else if (YT.PlayerState.PAUSED == event.data) {
