@@ -6,6 +6,7 @@
     snicker.providers = {};
     snicker.socket = io.connect('/video');
     var resultList;
+    var oldProvider = "none";
 
     //
     // Snickerdoodle Functions
@@ -47,7 +48,9 @@
                 var id = resultList.results[index].id;
                 console.log(id);
                 if (site === "YouTube") {
-                    snicker.changeProvider(site);
+                    if (!(oldProvider === site)) {
+                        snicker.changeProvider(site);
+                    }
                     snicker.provider.swapVideo(id);
                 }
 
@@ -161,6 +164,7 @@
 
         // Call setup init
         snicker.provider.init();
+        oldProvider = name;
     };
 
     snicker.toggleVideoSearch = function () {
