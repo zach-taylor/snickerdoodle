@@ -82,6 +82,15 @@ class FriendSearch(MethodView):
 
         return jsonify(results=results)
 
+class FriendsAPI(MethodView):
+    def get(self):
+        pass
+    def post(self):
+        pass
+    def put(self):
+        pass
+    def delete(self):
+        pass
 
 def attach_views(app):
     user_view = UserAPI.as_view('user_api')

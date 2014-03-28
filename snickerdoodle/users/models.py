@@ -1,9 +1,12 @@
 from snickerdoodle import db
 
+WAITING = 0
+ACCEPTED = 1
 
 friends = db.Table('friends',
     db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
-    db.Column('friend_id', db.Integer, db.ForeignKey('users.id'))
+    db.Column('friend_id', db.Integer, db.ForeignKey('users.id')),
+    db.Column('accepted', db.SmallInteger, default = WAITING)
 )
 
 class User(db.Model):
