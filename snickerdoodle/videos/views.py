@@ -23,7 +23,9 @@ class VideoAPI(MethodView):
 
             video_json = {
                 'id': video.id,
+                'site': video.site,
                 'vid': video.vid,
+                'status': video.status,
                 'room_id': video.room_id
             }
 
@@ -35,7 +37,13 @@ class VideoAPI(MethodView):
             abort(400)
         try:
             data = request.get_json(force=True)
-            video = Video(data['video']['vid'], data['video']['room_id'])
+            v = data['video']
+            video = Video(
+                vid=v['vid'],
+                site=v['site'],
+                status=v['status'],
+                room_id=v['room_id']
+            )
             db.session.add(video)
             db.session.commit()
         except Exception, e:
@@ -45,7 +53,9 @@ class VideoAPI(MethodView):
         video_json = {
             'id': video.id,
             'site': video.site,
-            'vid': video.vid
+            'vid': video.vid,
+            'status': video.status,
+            'room_id': video.room_id
         }
 
         return jsonify( { 'video': video_json } ), 201
@@ -62,7 +72,6 @@ class RoomVideosView(MethodView):
     def get(self, room_id):
         try:
             room = Room.query.filter(Room.id == room_id).first()
-            #videos = Video.query.filter(Video.room_id == room.id).all()
         except Exception, e:
             current_app.logger.warning(e)
             abort(500)
@@ -71,9 +80,10 @@ class RoomVideosView(MethodView):
 
         for v in room.videos:
             video_json = {
-                'id': v.id,
-                'site': v.site,
-                'vid': v.vid
+                'id': video.id,
+                'site': video.site,
+                'vid': video.vid,
+                'status': video.status
             }
             videos_array.append(video_json)
 
