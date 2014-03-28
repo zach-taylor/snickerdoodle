@@ -36,6 +36,7 @@
             else snicker.search(val);
         });
 
+
         $('body').on('click', '.video-search .add.icon', function (){
             var $this = $(this),
                 $parent = $this.closest('.result'),
@@ -56,7 +57,24 @@
             console.log('Clicked index: ' + index);
         });
 
+
         $addMovie.on('click', snicker.toggleVideoSearch);
+
+        var $friends = $('.friends'),
+            friendsList;
+
+        snicker.retrieveFriends(function (data) {
+            friendsList = data['results']['data'];
+
+            var source = $('#friends-list-friend-template').html(),
+            template = Handlebars.compile(source);
+
+            // Render template, add to html
+            var html = template({friends: friendsList.slice(-10)});
+            $friends.empty().append(html);
+        }, function (data) {
+
+        });
     };
 
     snicker.retrieveFriends = function (success, err) {

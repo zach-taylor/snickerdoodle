@@ -27,13 +27,6 @@
 
 {% block content %}
 
-<!--
-<div class="ui black huge launch right attached button menu" style="width: 70px;">
-    <i class="icon list layout"></i>
-    <span class="text" style="display: none;">Menu</span>
-</div>
--->
-
 <div class="ui black massive launch attached button circular add" style="">
     <i class="icon add"></i>
 </div>
@@ -65,12 +58,52 @@
 
 <div class="ui grid list">
     <div class="ten wide column">
-        <div class="ui piled blue segment item">
-            <div class="list">
+        <div class="ui stacked blue segment item">
+            <div class="list overflowed">
                 <div class="item">
                     <h5 class="ui header">
                         <i class="icon inverted circular blue comment"></i> Chat
                     </h5>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="description">
+                            <span>Zach</span>:
+                            Hello there!
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="description">
+                            <span>Zach</span>:
+                            Hello there!
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="description">
+                            <span>Zach</span>:
+                            Hello there!
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="description">
+                            <span>Zach</span>:
+                            Hello there!
+                        </div>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <div class="description">
+                            <span>Zach</span>:
+                            Hello there!
+                        </div>
+                    </div>
                 </div>
                 <div class="item">
                     <div class="content">
@@ -141,6 +174,18 @@
             </div>
         </div>
     </div>
+    <div class="friends-list six wide column">
+        <div class="ui stacked green segment">
+            <div class="tiny celled list">
+                <div class="item">
+                    <h5 class="ui header">
+                        <i class="icon inverted circular green users"></i> Friends
+                    </h5>
+                </div>
+                <div class="friends list overflowed"></div>
+            </div>
+        </div>
+    </div>
 </div>
 
 {% endblock %}
@@ -152,6 +197,8 @@
 {% endblock %}
 
 {% block templates %}
+    {% include 'jsplates/friends_list.html' %}
+
     {% raw %}
     <script id="message-template" type="text/x-handlebars-template">
         <div class="event">

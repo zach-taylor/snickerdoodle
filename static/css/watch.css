@@ -21,3 +21,8 @@
     -webkit-transition: opacity .1s linear;
     transition: opacity .1s linear;
 }
+
+.overflowed {
+    max-height: 200px;
+    overflow: auto;
+}
