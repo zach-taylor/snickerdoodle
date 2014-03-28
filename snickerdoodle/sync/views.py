@@ -11,7 +11,7 @@ def video_message(data):
 
     # Add the video to the database
     if data['action'] == 'change':
-        video = Video('', data['id'])
+        video = Video(site='', vid=data['id'])
         db.session.add(video)
         db.session.commit()
 
