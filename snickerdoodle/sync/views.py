@@ -10,8 +10,8 @@ def video_message(data):
     socketio.emit('player', data, namespace='/video', broadcast=True)
 
     # Add the video to the database
-    if data['action'] == 'change':
-        video = Video(site='', vid=data['id'])
+    if data['action'] == 'playlist':
+        video = Video(site=data['site'], vid=data['id'])
         db.session.add(video)
         db.session.commit()
 

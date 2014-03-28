@@ -63,11 +63,37 @@
             console.log('YT onFinish');
         };
 
-        YouTube.prototype.swapVideo = function (id) {
+        YouTube.prototype.swapVideo = function (id, site) {
             Snicker.emit('video', {
                 action: 'change',
                 id: id,
+                site: site
             });
+        };
+        
+        YouTube.prototype.playlist = function (id, site){
+           var youtube = this,
+           playlist = function () {
+            if ( (1 == this.player.getPlayerState()) || (2 == this.player.getPlayerState()) || (-1 == this.player.getPlayerState()) ) {
+                Snicker.emit('video', {
+                action: 'playlist',
+                id: youtube.id,
+                site: youtube.site
+            });
+            } else {
+                YouTube.prototype.swapVideo(id, site);
+            }
+           };
+            this.id = id;
+            this.site = site;
+            console.log(this.id, this.site);
+            if (this.hasLoaded){
+                console.log('API had Loaded');
+                playlist.call(this);
+            } else {
+                console.log('API Not Loaded, Waiting');
+                this.waiting = playlist.bind(this);
+            }
         };
 
         YouTube.prototype.onChangeVideo = function (id) {

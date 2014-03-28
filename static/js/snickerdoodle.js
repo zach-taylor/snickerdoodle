@@ -51,7 +51,7 @@
                     if (!(oldProvider === site)) {
                         snicker.changeProvider(site);
                     }
-                    snicker.provider.swapVideo(id);
+                    snicker.provider.playlist(id, site);
                 }
 
         //if (!name) console.log('Error here');

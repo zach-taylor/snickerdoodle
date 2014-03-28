@@ -40,6 +40,10 @@
         Base.prototype.status = function () {
             // Provides a status object of the currently playing video
         };
+        
+        Base.prototype.playlist = function(){
+            //Builds a playlist with site and id.
+        }
 
         return Base;
     }());
