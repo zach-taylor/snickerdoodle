@@ -158,16 +158,18 @@
         YouTube.prototype.onPlayerState = function(event) {
             //For when a video ends.
             if (YT.PlayerState.ENDED == event.data) {
-                Snicker.emit('watch', {
-                    action: 'change',
-                });
+                console.log('ended');
+                Snicker.emit('video', {
+                action: 'change',
+                id: "test"
+            });
             } else if (YT.PlayerState.CUED == event.data) {
                 console.log('YT Video added');
             } else if (YT.PlayerState.PAUSED == event.data) {
                 console.log('YT Paused');
 
                 Snicker.emit('watch', {
-                    action: 'pause',
+                    action: 'pause'
                 });
             } else if (YT.PlayerState.BUFFERING == event.data) {
                 console.log('YT Buffering');
@@ -175,7 +177,7 @@
                 console.log('YT Playing');
 
                 Snicker.emit('watch', {
-                    action: 'play',
+                    action: 'play'
                 });
             }
         }

@@ -7,7 +7,7 @@
     snicker.socket = io.connect('/video');
     var resultList;
     var oldProvider = "none";
-    var videoList;
+    var videoList = [];
 
     //
     // Snickerdoodle Functions
@@ -98,7 +98,7 @@
 
     snicker.addVideoToPlaylist = function (video) {
         videoList.push(video);
-        console.log('Should add video to playlist: ' + val);
+        console.log('Should add video to playlist: ' + video.id + video.site);
     };
 
     snicker.searchEvent = function (e) {
@@ -218,7 +218,6 @@
         } else if (action === 'change') {
             var video = videoList.shift();
             //snicker.setUrlAndProvider(url);
-    
             // TODO: Error check
              if (video.site === "YouTube") {
                     if (!(oldProvider === video.site)) {
@@ -228,7 +227,7 @@
             }
             console.log('changeing');
         } else if (action === 'playlist') {
-            var playlist = new playlist();
+            var playlist = this;
             playlist.id = data.id || '';
             playlist.site = data.site || '';
             snicker.addVideoToPlaylist(playlist);
