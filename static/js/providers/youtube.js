@@ -63,11 +63,10 @@
             console.log('YT onFinish');
         };
 
-        YouTube.prototype.swapVideo = function (id, site) {
+        YouTube.prototype.swapVideo = function (id) {
             Snicker.emit('video', {
-                action: 'change',
-                id: id,
-                site: site
+                action: 'load',
+                id: id
             });
         };
         
@@ -82,7 +81,7 @@
             });
                 console.log("no video");
             } else {
-                YouTube.prototype.swapVideo(id, site);
+                YouTube.prototype.swapVideo(id);
             }
            };
             this.id = id;

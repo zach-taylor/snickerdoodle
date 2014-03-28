@@ -232,6 +232,8 @@
             playlist.id = data.id || '';
             playlist.site = data.site || '';
             snicker.addVideoToPlaylist(playlist);
+        } else if (action === 'load') {
+            snicker.provider.onChangeVideo(data.id);
         }
     });
 
