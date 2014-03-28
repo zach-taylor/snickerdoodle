@@ -74,12 +74,13 @@
         YouTube.prototype.playlist = function (id, site){
            var youtube = this,
            playlist = function () {
-            if ( (1 == this.player.getPlayerState()) || (2 == this.player.getPlayerState()) || (-1 == this.player.getPlayerState()) ) {
+            if ( (1 == this.player.getPlayerState()) || (2 == this.player.getPlayerState())) {
                 Snicker.emit('video', {
                 action: 'playlist',
                 id: youtube.id,
                 site: youtube.site
             });
+                console.log("no video");
             } else {
                 YouTube.prototype.swapVideo(id, site);
             }
@@ -158,9 +159,9 @@
         YouTube.prototype.onPlayerState = function(event) {
             //For when a video ends.
             if (YT.PlayerState.ENDED == event.data) {
-             snicker.emit('watch', {
-                action: 'change',
-             });
+                Snicker.emit('watch', {
+                    action: 'change',
+                });
             } else if (YT.PlayerState.CUED == event.data) {
                 console.log('YT Video added');
             } else if (YT.PlayerState.PAUSED == event.data) {
