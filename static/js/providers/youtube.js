@@ -160,8 +160,7 @@
             if (YT.PlayerState.ENDED == event.data) {
                 console.log('ended');
                 Snicker.emit('video', {
-                action: 'change',
-                id: "test"
+                action: 'change'
             });
             } else if (YT.PlayerState.CUED == event.data) {
                 console.log('YT Video added');

@@ -5,6 +5,7 @@
     var resultList;
     var oldProvider = "none";
     var videoList = [];
+    var siteList = [];
 
     //
     // Snickerdoodle Values
@@ -65,6 +66,12 @@
         //snicker.provider.onChangeVideo(url);
             console.log('Clicked index: ' + index);
         });
+        
+        $('body').on('click', '.step.forward.icon', function () {
+            Snicker.emit('video', {
+                action: 'change'
+            });
+        })
 
 
         $addMovie.on('click', snicker.toggleVideoSearch);
@@ -116,7 +123,8 @@
     };
 
     snicker.addVideoToPlaylist = function (video) {
-        videoList.push(video);
+        videoList.push(video.id);
+        siteList.push(video.site);
         console.log('Should add video to playlist: ' + video.id + video.site);
     };
 
@@ -235,16 +243,17 @@
         } else if (action === 'pause') {
             snicker.provider.onPause();
         } else if (action === 'change') {
-            var video = videoList.shift();
+            var id = videoList.shift();
+            var site = siteList.shift();
             //snicker.setUrlAndProvider(url);
             // TODO: Error check
-             if (video.site === "YouTube") {
-                    if (!(oldProvider === video.site)) {
-                        snicker.changeProvider(video.site);
+             if (site === "YouTube") {
+                    if (!(oldProvider === site)) {
+                        snicker.changeProvider(site);
                     }
-                    snicker.provider.onChangeVideo(video.id);
+                    snicker.provider.onChangeVideo(id);
             }
-            console.log('changeing');
+            console.log('changeing' + site + id);
         } else if (action === 'playlist') {
             var playlist = this;
             playlist.id = data.id || '';
