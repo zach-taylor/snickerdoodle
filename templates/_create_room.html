@@ -11,11 +11,18 @@
         <form id="room-form" method="POST" action="/rooms">
             <div class="ui form">
                 <div class="field">
+                    <label>Name your Room</label>
                     <input id="name" name="name" type="text" placeholder="Name">
                 </div>
+                <h3>Friends</h3>
+                <div class="field">
+                    <div class="ui icon input">
+                        <input id="search" type="text" placeholder="Search...">
+                        <i class="search icon"></i>
+                    </div>
+                </div>
+                <div class="ui selection list friends"></div>
             </div>
-            <h3>Friends</h3>
-            <div class="ui selection list friends"></div>
         </form>
     </div>
     <div class="actions">
