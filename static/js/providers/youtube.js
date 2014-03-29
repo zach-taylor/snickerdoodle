@@ -63,10 +63,11 @@
             console.log('YT onFinish');
         };
 
-        YouTube.prototype.swapVideo = function (id) {
+        YouTube.prototype.swapVideo = function (id, site) {
             Snicker.emit('video', {
                 action: 'load',
-                id: id
+                id: id,
+                site: site
             });
         };
         
@@ -81,7 +82,7 @@
             });
                 console.log("no video");
             } else {
-                YouTube.prototype.swapVideo(id);
+                YouTube.prototype.swapVideo(youtube.id, youtube.site);
             }
            };
             this.id = id;
@@ -167,7 +168,7 @@
             } else if (YT.PlayerState.PAUSED == event.data) {
                 console.log('YT Paused');
 
-                Snicker.emit('watch', {
+                Snicker.emit('video', {
                     action: 'pause'
                 });
             } else if (YT.PlayerState.BUFFERING == event.data) {
@@ -175,7 +176,7 @@
             } else if (YT.PlayerState.PLAYING == event.data) {
                 console.log('YT Playing');
 
-                Snicker.emit('watch', {
+                Snicker.emit('video', {
                     action: 'play'
                 });
             }

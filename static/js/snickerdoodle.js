@@ -260,7 +260,13 @@
             playlist.site = data.site || '';
             snicker.addVideoToPlaylist(playlist);
         } else if (action === 'load') {
-            snicker.provider.onChangeVideo(data.id);
+            console.log (data.site + ' ' + data.id);
+            if (data.site === "YouTube") {
+                    if (!(oldProvider === data.site)) {
+                        snicker.changeProvider(data.site);
+                    }
+                    snicker.provider.onChangeVideo(data.id);
+            }
         }
     });
 
