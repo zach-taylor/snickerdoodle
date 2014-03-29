@@ -2,12 +2,17 @@
     var snicker = {},
         $addMovie = $('.attached.button.add');
 
-    snicker.provider = {};
-    snicker.providers = {};
-    snicker.socket = io.connect('/video');
     var resultList;
     var oldProvider = "none";
     var videoList = [];
+
+    //
+    // Snickerdoodle Values
+    //
+    snicker.friends = [];
+    snicker.provider = {};
+    snicker.providers = {};
+    snicker.socket = io.connect('/video');
 
     //
     // Snickerdoodle Functions
@@ -64,21 +69,9 @@
 
         $addMovie.on('click', snicker.toggleVideoSearch);
 
-        var $friends = $('.friends'),
-            friendsList;
-
-        snicker.retrieveFriends(function (data) {
-            friendsList = data['results']['data'];
-
-            var source = $('#friends-list-friend-template').html(),
-            template = Handlebars.compile(source);
-
-            // Render template, add to html
-            var html = template({friends: friendsList.slice(-10)});
-            $friends.empty().append(html);
-        }, function (data) {
-
-        });
+        //
+        // Setup Friend Filtering
+        //
     };
 
     snicker.retrieveFriends = function (success, err) {
@@ -89,6 +82,32 @@
             success: success,
             dataType: 'json',
             error: error,
+        });
+    };
+
+    snicker.renderFriends = function (node, name, list) {
+        var friends = list || snicker.friends;
+
+        var source = $(name).html(),
+            template = Handlebars.compile(source);
+
+        // Render template, add to html
+        var html = template({friends: friends.slice(-5)});
+
+        // Empty then append
+        node.empty().append(html);
+    };
+
+    snicker.filterFriends = function (val) {
+        return snicker.friends.filter(function (e) {
+            var names = e.name.match(/\S+/g);
+
+            for (var i = 0; i < names.length; i += 1) {
+                if (names[i].toLowerCase().indexOf(val.toLowerCase()) === 0) return true;
+                else if (e.name.toLowerCase().indexOf(val.toLowerCase()) === 0) return true;
+            }
+
+            return false;
         });
     };
 
