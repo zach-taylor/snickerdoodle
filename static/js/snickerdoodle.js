@@ -49,11 +49,8 @@
             var $this = $(this),
                 $parent = $this.closest('.result'),
                 index = $parent.attr('data-id');
-                console.log(resultList.results[index].icon);
                 var site = resultList.results[index].provider;
-                console.log(site);
                 var id = resultList.results[index].id;
-                console.log(id);
                 if (site === "YouTube") {
                     if (!(oldProvider === site)) {
                         snicker.changeProvider(site);
@@ -64,7 +61,6 @@
         //if (!name) console.log('Error here');
 
         //snicker.provider.onChangeVideo(url);
-            console.log('Clicked index: ' + index);
         });
         
         $('body').on('click', '.step.forward.icon', function () {
@@ -125,7 +121,6 @@
     snicker.addVideoToPlaylist = function (video) {
         videoList.push(video.id);
         siteList.push(video.site);
-        console.log('Should add video to playlist: ' + video.id + video.site);
     };
 
     snicker.searchEvent = function (e) {
@@ -239,7 +234,6 @@
 
         if (action === 'play') {
             snicker.provider.onPlay();
-            console.log('called');
         } else if (action === 'pause') {
             snicker.provider.onPause();
         } else if (action === 'change') {
@@ -253,14 +247,12 @@
                     }
                     snicker.provider.onChangeVideo(id);
             }
-            console.log('changeing' + site + id);
         } else if (action === 'playlist') {
             var playlist = this;
             playlist.id = data.id || '';
             playlist.site = data.site || '';
             snicker.addVideoToPlaylist(playlist);
         } else if (action === 'load') {
-            console.log (data.site + ' ' + data.id);
             if (data.site === "YouTube") {
                     if (!(oldProvider === data.site)) {
                         snicker.changeProvider(data.site);

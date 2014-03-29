@@ -80,14 +80,12 @@
                 id: youtube.id,
                 site: youtube.site
             });
-                console.log("no video");
             } else {
                 YouTube.prototype.swapVideo(youtube.id, youtube.site);
             }
            };
             this.id = id;
             this.site = site;
-            console.log(this.id, this.site);
             if (this.hasLoaded){
                 console.log('API had Loaded');
                 playlist.call(this);
@@ -113,7 +111,6 @@
             };
             
             this.id = id;
-            console.log(this.id);
 
             if (this.hasLoaded) {
                 console.log('API Has Loaded');
@@ -159,7 +156,7 @@
         YouTube.prototype.onPlayerState = function(event) {
             //For when a video ends.
             if (YT.PlayerState.ENDED == event.data) {
-                console.log('ended');
+                console.log('YT Ended');
                 Snicker.emit('video', {
                 action: 'change'
             });
