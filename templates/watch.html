@@ -55,27 +55,25 @@
     </div>
 </div>
 
-<div class="ui grid list">
+<div class="ui grid">
     <div class="ten wide column">
-        <div class="ui stacked blue segment item">
-           <div class="item">
-              <h5 class="ui header">
-                 <i class="icon inverted circular blue comment"></i> Chat
-              </h5>
+        <div class="ui stacked blue segment">
+           <div class="ui tiny list">
+               <div class="item">
+                  <h5 class="ui header">
+                     <i class="icon inverted circular blue comment"></i> Chat
+                  </h5>
+               </div>
+               <div class="chat list overflowed log">
+               </div>
            </div>
-           <div class="list overflowed">
-             <div class="log">
-             </div> 
+           <div class="ui basic segment">
+               <div class="fluid ui action input">
+                   <input type="text" name="reply-msg" id="reply-msg" placeholder="Enter Message Here">
+                   <div class="ui blue button" id="reply-button">Reply</div>
+               </div>
            </div>
         </div>
-         <div class="item">
-           <div class="ui basic segment">
-             <div class="fluid">
-               <input type="text" name="reply-msg" id="reply-msg" placeholder="Enter Message Here">
-               <input type="button" class="ui blue button" id="reply-button" value="Reply">
-             </div>
-           </div>
-         </div>
     </div>
     <div class="chat six wide column">
         <div class="ui inverted segment">
