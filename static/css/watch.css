@@ -8,10 +8,10 @@
     background-color: rgba(102, 102, 102, 0.36);
 }
 
-.ui.button.attached.left {
+.ui.button.attached.right {
     position: fixed;
-    top: 10%;
-    left: -30px;
+    top: 50%;
+    left: 0px;
     z-index: 500;
 }
 
