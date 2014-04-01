@@ -1,6 +1,7 @@
 (function (root, $) {
     var snicker = {},
-        $addMovie = $('.attached.button.add');
+        $addMovie = $('.attached.button.add'),
+        $friendsToggle = $('.js-friends-toggle');
 
     var resultList;
     var oldProvider = "none";
@@ -72,10 +73,43 @@
 
         $addMovie.on('click', snicker.toggleVideoSearch);
 
+        $friendsToggle.on('click', snicker.toggleFriends);
+        $('.js-friends-close').on('click', snicker.toggleFriends);
+
         //
         // Setup Friend Filtering
         //
+
+
+        var $friends = $('.friends-list'),
+            $input = $('#search');
+
+
+
+        snicker.retrieveFriends(function (data) {
+            snicker.friends = data['results']['data'];
+
+            snicker.renderFriends($friends, '#friends-list-friend-template');
+        }, function (data) {
+            // TODO: Error when can't retrieve friends
+        });
+
+        $input.liveSearch({
+            search: function () {
+                var friends = snicker.filterFriends($input.val());
+                snicker.renderFriends($friends, '#friends-list-friend-template', friends);
+            },
+            delay: 400,
+        });
+
+        $friends.on('click', '.item.friend', function () {
+            console.log('friend clicked!');
+        });
     };
+
+    //
+    // Friends Functions
+    //
 
     snicker.retrieveFriends = function (success, err) {
         var error = err || function () {};
@@ -113,6 +147,10 @@
             return false;
         });
     };
+
+    //
+    // Video Search Functions
+    //
 
     snicker.addProvider = function (name, provider) {
         snicker.providers[name] = provider;
@@ -193,6 +231,10 @@
 
     snicker.toggleVideoSearch = function () {
         $('.sidebar.video-search').sidebar('toggle');
+    }
+
+    snicker.toggleFriends = function () {
+        $('.sidebar.friends').sidebar('toggle');
     }
 
     snicker.setUrlAndProvider = function (url) {

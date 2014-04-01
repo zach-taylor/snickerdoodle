@@ -8,6 +8,13 @@
     background-color: rgba(102, 102, 102, 0.36);
 }
 
+.ui.button.attached.left {
+    position: fixed;
+    top: 10%;
+    left: -30px;
+    z-index: 500;
+}
+
 .ui.button.attached.add i {
     font-size: 3em;
 }

@@ -6,6 +6,22 @@
     <link rel="stylesheet" href="/static/lib/semantic/css/semantic.css" />
 {% endblock %}
 
+{% block left_sidebar %}
+<div class="friends ui floating styled sidebar menu">
+    <div class="js-friends-close item"><i class="close icon"></i></div>
+    <h3 class="ui header">Friends</h3>
+    <div class="item">
+        <div class="field">
+            <div class="ui icon input">
+                <input id="search" type="text" placeholder="Search...">
+                <i class="search icon"></i>
+            </div>
+        </div>
+    </div>
+    <div class="friends-list ui selection item list"></div>
+</div>
+{% endblock %}
+
 {% block right_sidebar %}
 <div class="video-search ui right wide styled floating sidebar">
     <i class="close icon"></i>
@@ -26,10 +42,13 @@
 {% endblock %}
 
 {% block content %}
-
+<div class="js-friends-toggle ui green huge launch attached button left">
+    <i class="icon inverted circular users"></i>
+</div>
 <div class="ui black massive launch attached button circular add" style="">
     <i class="icon add"></i>
 </div>
+
 
 <div>
     <h2 class="ui top attached header">Topic: {{ room.name }} </h2>
@@ -107,18 +126,7 @@
             </div>
         </div>
     </div>
-    <div class="friends-list six wide column">
-        <div class="ui stacked green segment">
-            <div class="tiny celled list">
-                <div class="item">
-                    <h5 class="ui header">
-                        <i class="icon inverted circular green users"></i> Friends
-                    </h5>
-                </div>
-                <div class="friends list overflowed"></div>
-            </div>
-        </div>
-    </div>
+
 </div>
 
 {% endblock %}
