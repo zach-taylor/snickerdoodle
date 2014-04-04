@@ -272,6 +272,15 @@
         // Send a message to the server using Socket.io
         snicker.socket.emit(event, data);
     };
+    
+    snicker.addMessage = function (message) {
+        var source = $('#message-template').html(),
+        template = Handlebars.compile(source);
+
+        // Render template, add to html
+        var html = template({message: message});
+        $actions.after(html);
+    };
 
     snicker.socket.on('player', function (data) {
         //console.log('SocketIO response:');
