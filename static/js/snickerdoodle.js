@@ -7,6 +7,7 @@
     var oldProvider = "none";
     var videoList = [];
     var siteList = [];
+    var titleList = [];
 
     //
     // Snickerdoodle Values
@@ -25,7 +26,7 @@
     };
 
     snicker.bind = function () {
-        console.log('Binding video actions');
+        //console.log('Binding video actions');
 
         // Button to skip to next video in list
         $('body').on('click', '.video-search .button.add-video', function () {
@@ -45,13 +46,14 @@
             //else snicker.search(val);
         });
 
-
+        // Add video from search.
         $('body').on('click', '.video-search .add.icon', function (){
             var $this = $(this),
                 $parent = $this.closest('.result'),
                 index = $parent.attr('data-id');
                 var site = resultList.results[index].provider;
                 var id = resultList.results[index].id;
+                titleList.push(resultList.results[index].title);
                 if (site === "YouTube") {
                     if (!(oldProvider === site)) {
                         snicker.changeProvider(site);
@@ -160,7 +162,31 @@
         videoList.push(video.id);
         siteList.push(video.site);
     };
+    
+    snicker.displayPlaylist = function() {
+        //console.log('display list');
+        $('.displayplaylist').empty();
+        var source = $('#display-playlist').html(),
+         template = Handlebars.compile(source);
 
+        // Render template, add to html
+        var html = template();
+        $('.displayplaylist').append(html);
+        
+    }
+    
+    snicker.currentVideo = function() {
+        console.log('current video');
+       $('.controls .current-video').empty();
+        var curvideo = titleList.shift();
+        var source = $('#current-template').html(),
+            template = Handlebars.compile(source);
+            
+            // Render template, add to html
+            var html = template();
+        $('.controls .current-video').append(html);
+    }
+    
     snicker.searchEvent = function (e) {
         var val = $('.video-search input.search').val();
         snicker.search(val);
@@ -182,9 +208,9 @@
     snicker.searchResults = function (data) {
         var $results = $('.video-search .search.results');
 
-        console.log('Search results');
-        console.log(data);
-        console.log(data.results[0].icon);
+        //console.log('Search results');
+        //console.log(data);
+        //console.log(data.results[0].icon);
         resultList = data;
         // Clear out past results
         $results.empty();
@@ -202,13 +228,13 @@
     };
 
     snicker.parseUrl = function (url) {
-        console.log('Providers: ');
-        console.debug(snicker.providers);
+        //console.log('Providers: ');
+        //console.debug(snicker.providers);
 
         for (var name in snicker.providers) {
             var provider = snicker.providers[name];
 
-            console.log('Provider: ' + name);
+            //console.log('Provider: ' + name);
             if (!snicker.providers.hasOwnProperty(name)) continue;
 
             // Determine if the provider can handle the given URL
@@ -238,7 +264,7 @@
     }
 
     snicker.setUrlAndProvider = function (url) {
-        console.log('Setting url and provider');
+        //console.log('Setting url and provider');
         var name = root.Snicker.parseUrl(url);
 
         if (!name) console.log('Error here');
@@ -267,10 +293,10 @@
     };
 
     snicker.socket.on('player', function (data) {
-        console.log('SocketIO response:');
-        console.log(data);
-        console.log('Sending action to provider:');
-        console.log(snicker.provider);
+        //console.log('SocketIO response:');
+        //console.log(data);
+        //console.log('Sending action to provider:');
+        //console.log(snicker.provider);
 
         var action = data.action;
 
@@ -281,6 +307,8 @@
         } else if (action === 'change') {
             var id = videoList.shift();
             var site = siteList.shift();
+            snicker.displayPlaylist();
+            snicker.currentVideo;
             //snicker.setUrlAndProvider(url);
             // TODO: Error check
              if (site === "YouTube") {
@@ -295,6 +323,8 @@
             playlist.site = data.site || '';
             snicker.addVideoToPlaylist(playlist);
         } else if (action === 'load') {
+            snicker.displayPlaylist();
+            snicker.currentVideo();
             if (data.site === "YouTube") {
                     if (!(oldProvider === data.site)) {
                         snicker.changeProvider(data.site);
