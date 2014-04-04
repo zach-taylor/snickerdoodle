@@ -54,6 +54,8 @@
                 var site = resultList.results[index].provider;
                 var id = resultList.results[index].id;
                 titleList.push(resultList.results[index].title);
+                console.log('title');
+                console.log(resultList.results[index].title);
                 if (site === "YouTube") {
                     if (!(oldProvider === site)) {
                         snicker.changeProvider(site);
@@ -176,15 +178,14 @@
     }
     
     snicker.currentVideo = function() {
-        console.log('current video');
-       $('.controls .current-video').empty();
+       $('.controls .current').empty();
         var curvideo = titleList.shift();
-        var source = $('#current-template').html(),
-            template = Handlebars.compile(source);
-            
-            // Render template, add to html
-            var html = template();
-        $('.controls .current-video').append(html);
+       var source = $('#current-template').html(),
+         template = Handlebars.compile(source);
+
+        // Render template, add to html
+        var html = template(curvideo);
+        $('.controls .current').append(html);
     }
     
     snicker.searchEvent = function (e) {
