@@ -54,8 +54,6 @@
                 var site = resultList.results[index].provider;
                 var id = resultList.results[index].id;
                 titleList.push(resultList.results[index].title);
-                console.log('title');
-                console.log(resultList.results[index].title);
                 if (site === "YouTube") {
                     if (!(oldProvider === site)) {
                         snicker.changeProvider(site);
@@ -180,11 +178,13 @@
     snicker.currentVideo = function() {
        $('.controls .current').empty();
         var curvideo = titleList.shift();
+        console.log('current video');
+        console.log(curvideo);
        var source = $('#current-template').html(),
          template = Handlebars.compile(source);
 
         // Render template, add to html
-        var html = template(curvideo);
+        var html = template({current: curvideo});
         $('.controls .current').append(html);
     }
     
@@ -309,7 +309,7 @@
             var id = videoList.shift();
             var site = siteList.shift();
             snicker.displayPlaylist();
-            snicker.currentVideo;
+            snicker.currentVideo();
             //snicker.setUrlAndProvider(url);
             // TODO: Error check
              if (site === "YouTube") {
