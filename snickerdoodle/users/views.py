@@ -102,7 +102,6 @@ class FriendAPI(MethodView):
 
         return jsonify({'friend': friendship}), 200
 
-
     def post(self):
         if not session['user']:
             return 'not logged in'
@@ -117,14 +116,17 @@ class FriendAPI(MethodView):
             abort(500)
 
         return jsonify({'result': True}), 201
+
     def put(self, friend_id):
         pass
+
     def delete(self, friend_id):
         if not session['user']:
             return 'not logged in'
+
         try:
             user = User.query.filter(User.id == session['user_id']).first()
-            friend = User.query.filter(User.id == friend_id).first()
+            friend = User.query.filter(User.fb_id == friend_id).first()
             user.unfriend(friend)
         except Exception, e:
             current_app.logger.warning(e)
@@ -138,9 +140,9 @@ def attach_views(app):
     # Users API
     #
     user_api = UserAPI.as_view('user_api')
-    app.add_url_rule('/api/users/', defaults={'user_id': None},
+    app.add_url_rule('/api/users', defaults={'user_id': None},
                                 view_func=user_api, methods=['GET',])
-    app.add_url_rule('/api/users/', view_func=user_api, methods=['POST',])
+    app.add_url_rule('/api/users', view_func=user_api, methods=['POST',])
     app.add_url_rule('/api/users/<int:user_id>', view_func=user_api,
                                 methods=['GET', 'PUT', 'DELETE'])
 
@@ -153,4 +155,5 @@ def attach_views(app):
     app.add_url_rule('/users/friends/', view_func=friend_view, methods=['GET',])
 
     friend_api = FriendAPI.as_view('friend_api')
-    app.add_url_rule('/api/friends/', view_func=friend_api, methods=['GET', 'POST' 'PUT', ])
+    app.add_url_rule('/api/friends', view_func=friend_api, methods=['POST'])
+    app.add_url_rule('/api/friends/<string:friend_id>', view_func=friend_api, methods=['GET', 'DELETE'])
