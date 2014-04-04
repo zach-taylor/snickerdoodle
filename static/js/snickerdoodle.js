@@ -264,26 +264,6 @@
         $('.sidebar.friends').sidebar('toggle');
     }
 
-    snicker.setUrlAndProvider = function (url) {
-        //console.log('Setting url and provider');
-        var name = root.Snicker.parseUrl(url);
-
-        if (!name) console.log('Error here');
-
-        snicker.changeProvider(name);
-
-        snicker.provider.onChangeVideo(url);
-    };
-
-    snicker.addMessage = function (message) {
-        var source = $('#message-template').html(),
-        template = Handlebars.compile(source);
-
-        // Render template, add to html
-        var html = template({message: message});
-        $actions.after(html);
-    };
-
     //
     // SockertIO Functions
     //
@@ -310,7 +290,6 @@
             var site = siteList.shift();
             snicker.displayPlaylist();
             snicker.currentVideo();
-            //snicker.setUrlAndProvider(url);
             // TODO: Error check
              if (site === "YouTube") {
                     if (!(oldProvider === site)) {
