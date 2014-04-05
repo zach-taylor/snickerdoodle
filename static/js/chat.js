@@ -37,9 +37,14 @@
         emit('chat', {data : msg});
     });
     
-    // Whisper function
+    // Getting username
+       // will complete tonight after dinner (4-5-2014 Saturday)
     
+    // Whisper function
+         
+         
     // Pause play features
+         // its temp in the watch.js 
 
 }(window, jQuery));
 
