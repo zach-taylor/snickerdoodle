@@ -292,8 +292,10 @@
 
         if (action === 'play') {
             snicker.provider.onPlay();
+            $(".chat.list.overflowed.log").append("<p> The Video is PLAYING!</p>");
         } else if (action === 'pause') {
             snicker.provider.onPause();
+            $(".chat.list.overflowed.log").append("<p> The Video has been PAUSED!</p>");
         } else if (action === 'change') {
             var id = videoList.shift();
             var site = siteList.shift();

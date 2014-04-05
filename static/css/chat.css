@@ -4,12 +4,12 @@
     color: black;
     height: 225px;
     width: 400px;
-    overflow: scroll;
+    overflow-y: scroll;
     
 }
 
 .ui.piled.blue.segment.item {
-    width: 425px;
-    height: 250px;
-    overflow: scroll;
+    width: 500px;
+    height: 200px;
+    overflow-y: scroll;
 }
