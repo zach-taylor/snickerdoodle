@@ -117,7 +117,7 @@
 {%block js %}
     <script src="/static/js/video.js"></script>
     <script src="/static/lib/handlebars/handlebars-v1.3.0.js"></script>
-    <script src="/static/js/home2.js"></script>
+    <script src="/static/js/home.js"></script>
 {% endblock %}
 
 {% block templates %}
@@ -143,14 +143,13 @@
     <script id="player-template" type="text/x-handlebars-template">
         <div id="player"></div>
     </script>
-    
-    
+
     <script id="current-template" type="text/x-handlebars-template">
-            <div class = "left">
-            <h3> {{current}} </h3>
-            </div>
+        <div class="left">
+        <h3>{{current}}</h3>
+        </div>
     </script>
-    
+
     <script id="display-playlist" type="text/x-handlebars-template">
          <div class="item">
                     <div class="content">
