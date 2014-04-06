@@ -9,4 +9,17 @@
         </div>
     {{/each}}
 </script>
+
+<script id="no-friends-label" type="text/x-handlebars-template">
+    <a class="ui label">
+      No one
+    </a>
+</script>
+
+<script id="friends-label" type="text/x-handlebars-template">
+    <a class="ui label">
+        {{ name }}
+        <i class="delete icon"></i>
+    </a>
+</script>
 {% endraw %}

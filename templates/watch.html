@@ -7,37 +7,37 @@
 {% endblock %}
 
 {% block left_sidebar %}
-<div class="friends ui floating styled sidebar menu">
-    <div class="js-friends-close item"><i class="close icon"></i></div>
-    <h3 class="ui header">Friends</h3>
-    <div class="item">
+<div class="friends ui wide styled floating sidebar">
+    <h3 class="ui header">Friends <i class="close icon"></i>
+    </h3>
+    <form class="ui tertiary form segment">
         <div class="field">
-            <div class="ui icon input">
-                <input id="search" type="text" placeholder="Search...">
-                <i class="search icon"></i>
+            <label>Invite Friend</label>
+            <div class="ui action input">
+                <input class="search friends" type="text" placeholder="Name...">
+                <div class="ui icon blue button submit"><i class="search icon"></i></div>
             </div>
         </div>
-    </div>
+    </form>
+
     <div class="friends-list ui selection item list"></div>
 </div>
 {% endblock %}
 
 {% block right_sidebar %}
 <div class="video-search ui right wide styled floating sidebar">
-    <i class="close icon"></i>
-    <h3 class="ui header">Add Videos</h3>
+    <h3 class="ui header">Add Videos <i class="close icon"></i>
     <form class="ui tertiary form segment">
         <div class="field">
             <label>Search</label>
             <div class="ui action input">
-                <input class="search" type="text" placeholder="Keyword or Link...">
+                <input class="search videos" type="text" placeholder="Keyword or Link...">
                 <div class="ui icon blue button submit"><i class="search icon"></i></div>
             </div>
         </div>
     </form>
 
-    <div class="search results">
-    </div>
+    <div class="search results"></div>
 </div>
 {% endblock %}
 
@@ -116,8 +116,6 @@
 
 {%block js %}
     <script src="/static/js/video.js"></script>
-    <script src="/static/lib/handlebars/handlebars-v1.3.0.js"></script>
-    <script src="/static/js/home.js"></script>
 {% endblock %}
 
 {% block templates %}

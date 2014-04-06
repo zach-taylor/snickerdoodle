@@ -1,7 +1,10 @@
 (function (root, $) {
     var snicker = {},
-        $addMovie = $('.attached.button.add'),
-        $friendsToggle = $('.js-friends-toggle');
+        $addMovie = $('.attached.button.add');
+        $videoSidebar = $('.sidebar.video-search'),
+        $friendSidebar = $('.sidebar.friends'),
+        $addFriend = $('.js-friends-toggle');
+
 
     var resultList;
     var oldProvider = "none";
@@ -12,7 +15,6 @@
     //
     // Snickerdoodle Values
     //
-    snicker.friends = [];
     snicker.provider = {};
     snicker.providers = {};
     snicker.socket = io.connect('/video');
@@ -23,6 +25,27 @@
 
     snicker.init = function () {
         snicker.bind();
+        snicker.setupFriends();
+    };
+
+    snicker.setupFriends = function () {
+        var handler = {},
+            $friends = $('.sidebar.friends .friends-list'),
+            $input = $('input.search.friends');
+
+        handler.clicked = function () {
+            console.log('friend clicked');
+        };
+
+
+        root.Friends.setup({
+            input: $input,
+            list: $friends,
+            template: '#friends-list-friend-template',
+            clicked: handler.clicked,
+        });
+
+        root.Friends.retrieveFriends();
     };
 
     snicker.bind = function () {
@@ -32,8 +55,8 @@
         $('body').on('click', '.video-search .button.add-video', function () {
         });
 
-        // Close button on Video Search Sidebar
-        $('body').on('click', '.video-search .icon.close', snicker.toggleVideoSearch);
+        // Close sidebars
+        $('body').on('click', '.sidebar .icon.close', snicker.closeSidebars);
 
         $('.video-search form').on('submit', snicker.searchEvent);
 
@@ -60,15 +83,31 @@
                     }
                     snicker.provider.playlist(id, site);
                 }
+
                 if (titleList.length <= 3) {
                     snicker.displayPlaylist();
                 }
-
-        //if (!name) console.log('Error here');
-
-        //snicker.provider.onChangeVideo(url);
         });
-        
+
+
+        $('#js-create-room-button').click(function () {
+            var $friends = $('.friends'),
+                $input = $('#search');
+
+            $('.ui.modal').modal('show');
+
+            root.Friends.setup({
+                input: $input,
+                list: $friends,
+                template: '#friends-list-friend-template',
+                clicked: handler.clicked,
+            });
+
+            root.Friends.retrieveFriends();
+        });
+
+
+
         $('body').on('click', '.step.forward.icon', function () {
             Snicker.emit('video', {
                 action: 'change'
@@ -77,85 +116,32 @@
 
 
         $addMovie.on('click', snicker.toggleVideoSearch);
-
-        $friendsToggle.on('click', snicker.toggleFriends);
-        $('.js-friends-close').on('click', snicker.toggleFriends);
-
-        //
-        // Setup Friend Filtering
-        //
-
-
-        var $friends = $('.friends-list'),
-            $input = $('#search');
-
-
-
-        snicker.retrieveFriends(function (data) {
-            snicker.friends = data['results']['data'];
-
-            snicker.renderFriends($friends, '#friends-list-friend-template');
-        }, function (data) {
-            // TODO: Error when can't retrieve friends
-        });
-
-        $input.liveSearch({
-            search: function () {
-                var friends = snicker.filterFriends($input.val());
-                snicker.renderFriends($friends, '#friends-list-friend-template', friends);
-            },
-            delay: 400,
-        });
-
-        $friends.on('click', '.item.friend', function () {
-            console.log('friend clicked!');
-        });
+        $addFriend.on('click', snicker.toggleFriends);
     };
+
+    snicker.closeSidebars = function () {
+        $friendSidebar.sidebar('hide');
+        $videoSidebar.sidebar('hide');
+    }
 
     //
-    // Friends Functions
+    // Friends UI Functions
     //
 
-    snicker.retrieveFriends = function (success, err) {
-        var error = err || function () {};
-        $.ajax({
-            type: 'GET',
-            url: '/users/friends',
-            success: success,
-            dataType: 'json',
-            error: error,
-        });
-    };
+    snicker.toggleFriends = function () {
+        $videoSidebar.sidebar('close');
+        $friendSidebar.sidebar('toggle');
+    }
 
-    snicker.renderFriends = function (node, name, list) {
-        var friends = list || snicker.friends;
-
-        var source = $(name).html(),
-            template = Handlebars.compile(source);
-
-        // Render template, add to html
-        var html = template({friends: friends.slice(-5)});
-
-        // Empty then append
-        node.empty().append(html);
-    };
-
-    snicker.filterFriends = function (val) {
-        return snicker.friends.filter(function (e) {
-            var names = e.name.match(/\S+/g);
-
-            for (var i = 0; i < names.length; i += 1) {
-                if (names[i].toLowerCase().indexOf(val.toLowerCase()) === 0) return true;
-                else if (e.name.toLowerCase().indexOf(val.toLowerCase()) === 0) return true;
-            }
-
-            return false;
-        });
-    };
 
     //
     // Video Search Functions
     //
+
+    snicker.toggleVideoSearch = function () {
+        $friendSidebar.sidebar('close');
+        $videoSidebar.sidebar('toggle');
+    }
 
     snicker.addProvider = function (name, provider) {
         snicker.providers[name] = provider;
@@ -165,7 +151,7 @@
         videoList.push(video.id);
         siteList.push(video.site);
     };
-    
+
     snicker.displayPlaylist = function() {
         //console.log('display list');
         $('.displayplaylist').empty();
@@ -182,9 +168,9 @@
         var html = template({one:titleList[0], two:titleList[1], three:titleList[2]});
         }
         $('.displayplaylist').append(html);
-        
+
     }
-    
+
     snicker.currentVideo = function() {
        $('.controls .current').empty();
         var curvideo = titleList.shift();
@@ -197,9 +183,9 @@
         var html = template({current: curvideo});
         $('.controls .current').append(html);
     }
-    
+
     snicker.searchEvent = function (e) {
-        var val = $('.video-search input.search').val();
+        var val = $('input.search.videos').val();
         snicker.search(val);
         e.preventDefault();
 
@@ -266,14 +252,6 @@
         oldProvider = name;
     };
 
-    snicker.toggleVideoSearch = function () {
-        $('.sidebar.video-search').sidebar('toggle');
-    }
-
-    snicker.toggleFriends = function () {
-        $('.sidebar.friends').sidebar('toggle');
-    }
-
     //
     // SockertIO Functions
     //
@@ -282,7 +260,7 @@
         // Send a message to the server using Socket.io
         snicker.socket.emit(event, data);
     };
-    
+
     snicker.addMessage = function (message) {
         var source = $('#message-template').html(),
         template = Handlebars.compile(source);
