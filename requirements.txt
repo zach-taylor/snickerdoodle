@@ -26,4 +26,4 @@ psycopg2==2.5.2
 wsgiref==0.1.2
 google-api-python-client==1.2
 requests==2.0.0
-
+sleekxmpp==1.2.4
