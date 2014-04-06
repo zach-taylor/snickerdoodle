@@ -14,25 +14,21 @@ def home():
     return render_template('home.html', **context)
 
 
-def home2():
-    context = helpers.default_context()
-
-    return render_template('home2.html', **context)
-
-
 def connect():
     context = helpers.default_context()
 
     return render_template('connect.html', **context)
 
+
 def chat():
     context = helpers.default_context()
-    
+
     return render_template('chat.html', **context)
+
 
 def chat2():
     context = helpers.default_context()
-    
+
     return render_template('index.html', **context)
 
 
@@ -42,7 +38,7 @@ def chat2():
 
 def attach_views(app):
     app.add_url_rule('/', view_func=home)
-    app.add_url_rule('/home2', view_func=home2)
+    app.add_url_rule('/home', view_func=home)
     app.add_url_rule('/connect', view_func=connect)
     app.add_url_rule('/chat', view_func=chat)
     app.add_url_rule('/chat2', view_func=chat2)
