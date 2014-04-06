@@ -115,8 +115,8 @@
         })
 
 
-        $addMovie.on('click', snicker.toggleVideoSearch);
-        $addFriend.on('click', snicker.toggleFriends);
+        $addMovie.on('click', snicker.showVideoSearch);
+        $addFriend.on('click', snicker.showFriends);
     };
 
     snicker.closeSidebars = function () {
@@ -128,19 +128,18 @@
     // Friends UI Functions
     //
 
-    snicker.toggleFriends = function () {
-        $videoSidebar.sidebar('close');
-        $friendSidebar.sidebar('toggle');
+    snicker.showFriends = function () {
+        $videoSidebar.sidebar('hide');
+        $friendSidebar.sidebar('show');
     }
-
 
     //
     // Video Search Functions
     //
 
-    snicker.toggleVideoSearch = function () {
-        $friendSidebar.sidebar('close');
-        $videoSidebar.sidebar('toggle');
+    snicker.showVideoSearch = function () {
+        $friendSidebar.sidebar('hide');
+        $videoSidebar.sidebar('show');
     }
 
     snicker.addProvider = function (name, provider) {
