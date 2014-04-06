@@ -60,6 +60,9 @@
                     }
                     snicker.provider.playlist(id, site);
                 }
+                if (titleList.length <= 3) {
+                    snicker.displayPlaylist();
+                }
 
         //if (!name) console.log('Error here');
 
@@ -168,9 +171,16 @@
         $('.displayplaylist').empty();
         var source = $('#display-playlist').html(),
          template = Handlebars.compile(source);
-
+        if (titleList.length == 0) {
+            var html = template();
+        } else if (titleList.length ==1) {
+            var html = template({one : titleList[0]});
+        } else if (titleList.length ==2) {
+            var html = template({one:titleList[0], two:titleList[1]});
+        }else{
         // Render template, add to html
-        var html = template();
+        var html = template({one:titleList[0], two:titleList[1], three:titleList[2]});
+        }
         $('.displayplaylist').append(html);
         
     }
@@ -299,8 +309,8 @@
         } else if (action === 'change') {
             var id = videoList.shift();
             var site = siteList.shift();
-            snicker.displayPlaylist();
             snicker.currentVideo();
+            snicker.displayPlaylist();
             // TODO: Error check
              if (site === "YouTube") {
                     if (!(oldProvider === site)) {
@@ -314,8 +324,8 @@
             playlist.site = data.site || '';
             snicker.addVideoToPlaylist(playlist);
         } else if (action === 'load') {
-            snicker.displayPlaylist();
             snicker.currentVideo();
+            snicker.displayPlaylist();
             if (data.site === "YouTube") {
                     if (!(oldProvider === data.site)) {
                         snicker.changeProvider(data.site);
