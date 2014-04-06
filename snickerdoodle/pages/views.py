@@ -9,6 +9,7 @@ from snickerdoodle import helpers
 
 def home():
     context = helpers.default_context()
+    context['room_name'] = helpers.generate_room_name()
 
     return render_template('home.html', **context)
 

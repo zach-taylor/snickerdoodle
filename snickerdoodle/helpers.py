@@ -1,5 +1,8 @@
+import random
+
 from flask import session
 
+from snickerdoodle.utils import words
 from snickerdoodle.lib.facebook import login_url
 
 
@@ -15,3 +18,20 @@ def default_context():
     }
 
     return context
+
+
+def generate_room_name(adjectives=2):
+    noun = ''
+    adjs = []
+
+    noun = random.choice(words.nouns)
+
+    for i in xrange(adjectives):
+        adjs.append(random.choice(words.adjectives))
+
+    join = ' and ' if adjectives >= 2 else ''
+    name = '{adjs}{join}{last} {noun}'.format(adjs=', '.join(adjs[:-1]),
+                                              join=join,
+                                              last=adjs[-1],
+                                              noun=noun)
+    return name.title()
