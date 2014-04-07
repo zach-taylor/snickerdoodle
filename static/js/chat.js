@@ -80,11 +80,11 @@
         var action = data.action;
 
         if (action === 'play') {
-            $(".chat.list.overflowed.log").append("<p>" + fullName + " has STARTED the video.</p>");
+            $(".chat.list.overflowed.log").append("<p>" + data.username + " has STARTED the video.</p>");
         } else if (action === 'pause') {
-            $(".chat.list.overflowed.log").append("<p>" + fullName + " has PAUSED the video.</p>");
+            $(".chat.list.overflowed.log").append("<p>" + data.username + " has PAUSED the video.</p>");
         } else if (action === 'change') {
-            $(".chat.list.overflowed.log").append("<p>" + fullName + " has SKIPPED the video.</p>");
+            $(".chat.list.overflowed.log").append("<p>" + data.username + " has SKIPPED the video.</p>");
         }
      });
      
