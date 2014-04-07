@@ -5,6 +5,7 @@ import requests
 GRAPH_ROOT = 'https://graph.facebook.com/'
 OAUTH_ROOT = 'https://graph.facebook.com/oauth/access_token'
 DIALOG_ROOT = 'https://www.facebook.com/dialog/oauth'
+SCOPE = 'basic_info,xmpp_login'
 
 SETTINGS = {
     'oauth_redirect': 'http://localhost:5000/',
@@ -34,6 +35,7 @@ def access_token(code):
         'client_id': SETTINGS['app_id'],
         'client_secret': SETTINGS['app_secret'],
         'redirect_uri': SETTINGS['oauth_redirect'],
+        'scope': SCOPE,
         'code': code,
     }
 
