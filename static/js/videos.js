@@ -10,7 +10,9 @@
     var oldProvider = "none";
     var videoList = [];
     var siteList = [];
-    var titleList = [];
+    //var titleList = [];
+    var playlist = [];
+    var listIndex = 0;
     
     var ppc = 0; 
 
@@ -76,17 +78,16 @@
             var $this = $(this),
                 $parent = $this.closest('.result'),
                 index = $parent.attr('data-id');
-                var site = resultList.results[index].provider;
-                var id = resultList.results[index].id;
-                titleList.push(resultList.results[index].title);
-                if (site === "YouTube") {
-                    if (!(oldProvider === site)) {
-                        snicker.changeProvider(site);
+                playlist.push(resultList.results[index]);
+                console.log(playlist[listIndex]);
+                if (playlist[listIndex].provider === "YouTube") {
+                    if (!(oldProvider === playlist[listIndex].provider)) {
+                        snicker.changeProvider(playlist[listIndex].provider);
                     }
-                    snicker.provider.playlist(id, site);
+                    snicker.provider.playlist(playlist[listIndex].id, playlist[listIndex].provider);
                 }
 
-                if (titleList.length <= 3) {
+                if (playlist.length <= 3) {
                     snicker.displayPlaylist();
                 }
         });
@@ -151,6 +152,7 @@
     snicker.addVideoToPlaylist = function (video) {
         videoList.push(video.id);
         siteList.push(video.site);
+        listIndex++;
     };
 
     snicker.displayPlaylist = function() {
@@ -158,15 +160,15 @@
         $('.displayplaylist').empty();
         var source = $('#display-playlist').html(),
          template = Handlebars.compile(source);
-        if (titleList.length == 0) {
+        if (playlist.length == 0) {
             var html = template();
-        } else if (titleList.length ==1) {
-            var html = template({one : titleList[0]});
-        } else if (titleList.length ==2) {
-            var html = template({one:titleList[0], two:titleList[1]});
+        } else if (playlist.length ==1) {
+            var html = template({one : playlist[0].title, icon1 : playlist[0].icon});
+        } else if (playlist.length ==2) {
+            var html = template({one:playlist[0].title, icon1:playlist[0].icon, two:playlist[1].title, icon2:playlist[1].icon });
         }else{
         // Render template, add to html
-        var html = template({one:titleList[0], two:titleList[1], three:titleList[2]});
+        var html = template({one:playlist[0].title, icon1:playlist[0].icon, two:playlist[1].title, icon2:playlist[1].icon, three:playlist[2].title, icon3:playlist[2].icon});
         }
         $('.displayplaylist').append(html);
 
@@ -174,14 +176,14 @@
 
     snicker.currentVideo = function() {
        $('.controls .current').empty();
-        var curvideo = titleList.shift();
+        var curvideo = playlist.shift();
         console.log('current video');
-        console.log(curvideo);
+        console.log(curvideo.title);
        var source = $('#current-template').html(),
          template = Handlebars.compile(source);
 
         // Render template, add to html
-        var html = template({current: curvideo});
+        var html = template({current: curvideo.title});
         $('.controls .current').append(html);
     }
 
