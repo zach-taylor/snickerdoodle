@@ -45,3 +45,14 @@
      height: 200px;
      overflow: auto;
 }
+
+.ui.action.input {
+     top: 5%;
+     right: 3%;
+     width: 500px;
+     height: 45px;
+}
+
+
+
+

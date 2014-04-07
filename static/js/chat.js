@@ -2,6 +2,34 @@
 (function (root, $) {
    var socket = io.connect("/chat");
    var div = document.getElementById(".chat.list.overflowed.log");
+    
+   var firstName = null;
+   var lastName =  null;
+   //var firstNameT = {{user.first_name}};
+   //var lastNameT =  {{user.last_name}};
+   var fullNameT =  $('a[href="/logout"]');
+   var fullName = null;
+  
+ 
+   getnames = function () { 
+      // if (firstNameT == null && lastNameT == null)
+      if (fullNameT == null)
+       {
+           firstName = "Anonymous";
+           lastName = "123";
+           //fullName = firstName +"#"+ lastName;
+           fullName = "Anonymous#1";
+       }
+       else {
+           //firstName  = firstNameT;
+           //lastName = lastNameT;
+           //fullName = firstName + " " + lastName;
+           fullName = fullNameT;
+        }
+   }
+   
+   
+ 
    //div.scrollTop = div.scrollHeight;
 
  // Auto scroll feature for the chat log. doesnt work currently will fix
@@ -26,8 +54,9 @@
     // When a message is received from the server
     socket.on('reply', function(msg) {
         console.log('Server: ' + msg.data);
-        $(".chat.list.overflowed.log").append("<p>Received: " + msg.data + "</p>");
-        autoscroll(div);
+        getnames();
+        $(".chat.list.overflowed.log").append("<p>" + fullName + ": " + msg.data + "</p>");
+        
     });
 
     // When the reply button is clicked
