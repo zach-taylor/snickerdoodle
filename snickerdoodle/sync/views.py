@@ -1,4 +1,5 @@
 from flask.ext import socketio
+from flask import session
 
 from ..videos.models import Video
 
