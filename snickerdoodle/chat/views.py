@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, jsonify, abort, make_response, current_app
+from flask import Flask, render_template, request, jsonify, abort, make_response, current_app, session
 
 from flask.ext import socketio
 
@@ -36,6 +36,8 @@ def clean_rooms():
 
 
 def chat_message(data):
+    data['username'] = session['user']['name']
+    data['user_id'] = session['user']['id']
     print data
     socketio.emit('reply', data, namespace='/chat', broadcast=True)
 
