@@ -7,6 +7,8 @@ from ..extensions import db
 
 def video_message(data):
     print data
+    data['username'] = session['user']['name']
+    data['user_id'] = session['user']['id']
     socketio.emit('player', data, namespace='/video', broadcast=True)
 
     # Add the video to the database
