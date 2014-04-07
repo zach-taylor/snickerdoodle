@@ -11,6 +11,8 @@
     var videoList = [];
     var siteList = [];
     var titleList = [];
+    
+    var ppc = 0; 
 
     //
     // Snickerdoodle Values
@@ -279,15 +281,16 @@
 
         if (action === 'play') {
             snicker.provider.onPlay();
-            $(".chat.list.overflowed.log").append("<p> The Video is PLAYING!</p>");
+            //$(".chat.list.overflowed.log").append("<p>A User: has STARTED the video.</p>");
         } else if (action === 'pause') {
             snicker.provider.onPause();
-            $(".chat.list.overflowed.log").append("<p> The Video has been PAUSED!</p>");
+           // $(".chat.list.overflowed.log").append("<p>A User: has PAUSED the video.</p>");
         } else if (action === 'change') {
             var id = videoList.shift();
             var site = siteList.shift();
             snicker.currentVideo();
             snicker.displayPlaylist();
+           // $(".chat.list.overflowed.log").append("<p>A User: has SKIPPED the video.</p>");
             // TODO: Error check
              if (site === "YouTube") {
                     if (!(oldProvider === site)) {

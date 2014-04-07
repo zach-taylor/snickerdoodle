@@ -2,6 +2,8 @@
 (function (root, $) {
    var socket = io.connect("/chat");
    var div = document.getElementById(".chat.list.overflowed.log");
+   
+   var vidsocket = io.connect("/video");
     
    var firstName = null;
    var lastName =  null;
@@ -47,20 +49,15 @@
 
         socket.emit(event, msg);
     };
-    //-------- Welcome message for chat
-    socket.on('connected', function(socket){
-        console.log('Server: Connected!');
-        emit('welcome', { message: 'Welcome to SnickerDoodle' });
-        $(".chat.list.overflowed.log").append("<p>Welcome to Snickerdoodle<p>");
-     });
+    
      
     //------- When a message is received from the server
     socket.on('reply', function(msg) {
         console.log('Server: ' + msg.data);
         //getnames();
         //autoscroll(div);
+        fullName = msg.username;
         $(".chat.list.overflowed.log").append("<p>" + msg.username + ": " + msg.data + "</p>");
-        
     });
 
     // When the reply button is clicked
@@ -74,8 +71,27 @@
     // Whisper function
          
          
-    // Pause play features
-         // its temp in the watch.js 
+     vidsocket.on('player', function (data) {
+        //console.log('SocketIO response:');
+        //console.log(data);
+        //console.log('Sending action to provider:');
+        //console.log(snicker.provider);
+
+        var action = data.action;
+
+        if (action === 'play') {
+            $(".chat.list.overflowed.log").append("<p>" + fullName + " has STARTED the video.</p>");
+        } else if (action === 'pause') {
+            $(".chat.list.overflowed.log").append("<p>" + fullName + " has PAUSED the video.</p>");
+        } else if (action === 'change') {
+            $(".chat.list.overflowed.log").append("<p>" + fullName + " has SKIPPED the video.</p>");
+        }
+     });
+     
+         // $(".chat.list.overflowed.log").append("<p>" + fullName + " has STARTED the video.</p>");
+         //$(".chat.list.overflowed.log").append("<p>" + data.username + " has STARTED the video.</p>");
+          //$(".chat.list.overflowed.log").append("<p>" + data.username + " has PAUSED the video.</p>");
+           //$(".chat.list.overflowed.log").append("<p>" + data.username + " has SKIPPED the video.</p>");
 
 }(window, jQuery));
 
