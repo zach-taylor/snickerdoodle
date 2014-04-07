@@ -35,7 +35,6 @@ def access_token(code):
         'client_id': SETTINGS['app_id'],
         'client_secret': SETTINGS['app_secret'],
         'redirect_uri': SETTINGS['oauth_redirect'],
-        'scope': SCOPE,
         'code': code,
     }
 
@@ -57,6 +56,7 @@ def login_url():
     params = {
         'client_id': SETTINGS['app_id'],
         'redirect_uri': SETTINGS['oauth_redirect'],
+        'scope': SCOPE,
     }
 
     return '{0}?{1}'.format(DIALOG_ROOT, urllib.urlencode(params))

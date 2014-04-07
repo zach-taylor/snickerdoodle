@@ -40,6 +40,9 @@ def send_message(access_token, api_key, sender, mesg, receiver):
 
     """
 
+    logging.basicConfig(level=logging.DEBUG,
+                        format='%(levelname)-8s %(message)s')
+
     xmpp = FacebookChat(sender, receiver, mesg)
     xmpp.credentials['api_key'] = api_key
     xmpp.credentials['access_token'] = access_token
@@ -52,12 +55,12 @@ class FacebookChat(sleekxmpp.ClientXMPP):
 
     def __init__(self, sender, receiver, mesg):
         sleekxmpp.ClientXMPP.__init__(self,
-                                      '{0}@chat.facebook.com'.format(sender),
+                                      '-{0}@chat.facebook.com'.format(sender),
                                       None,
                                       sasl_mech='X-FACEBOOK-PLATFORM')
 
         self.mesg = mesg
-        self.receiver = '{0}@chat.facebook.com'.format(receiver)
+        self.receiver = '-{0}@chat.facebook.com'.format(receiver)
 
         # Some plugins...
         self.register_plugin('xep_0030')

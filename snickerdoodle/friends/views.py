@@ -12,7 +12,7 @@ class FriendSearch(MethodView):
     """
 
     def get(self):
-        if not session['user']:
+        if 'user' not in session:
             # TODO: Bettr error for not being logged in
             return 'not logged in'
 
@@ -37,25 +37,30 @@ class FriendInvite(MethodView):
             # TODO: Bettr error for not being logged in
             return 'not logged in'
 
-        if 'receivers' in request.form:
-            receivers = request.getlist('receivers')
+        print request.form
+
+        if 'receiver' in request.form:
+            receiver = request.form.get('receiver')
         else:
             # TODO: Bettr error for not being logged in
-            return 'not logged in'
+            return 'no receivers found'
 
         if 'mesg' in request.form:
-            mesg = request.get('mesg')
+            mesg = request.form.get('mesg')
         else:
             # TODO: Bettr error for not being logged in
-            return 'not logged in'
+            return 'no mesg found'
 
         username = session['user']['id']
 
+        # Send to yourself for test purposes
+        receiver = username
+
         # Facebook credentials
-        token = session['access_token']
+        token = session['access_token'][0]
         key = FACEBOOK_APP_ID
 
-        facebook.invite_friends(token, key, username, mesg, receivers)
+        facebook.send_message(token, key, username, mesg, receiver)
 
         return jsonify(result='success')
 

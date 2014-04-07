@@ -43,6 +43,21 @@
 
         // Attach for the future
         friend_list.settings = settings;
+
+        // TEsting invite code
+        $('.invite.button').click(function (e) {
+            $.ajax({
+                type: 'POST',
+                url: '/friends/invite/',
+                data: {
+                    'receiver': '503244629',
+                    'mesg': 'Mmmm... snickerdoodles...',
+                },
+                dataType: 'json',
+                success: friend_list.success,
+                error: friend_list.error,
+            });
+        });
     };
 
     friend_list.retrieveFriends = function () {
