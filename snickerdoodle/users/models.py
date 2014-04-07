@@ -4,7 +4,6 @@ from snickerdoodle import db
 friends = db.Table('friends',
     db.Column('user_id', db.Integer, db.ForeignKey('users.id')),
     db.Column('friend_id', db.Integer, db.ForeignKey('users.id')),
-    db.Column('accepted', db.Boolean, default = False)
 )
 
 class User(db.Model):
@@ -22,8 +21,11 @@ class User(db.Model):
         backref = db.backref('friends', lazy = 'dynamic'),
         lazy = 'dynamic')
 
-    def __init__(self, fb_id=None):
+    def __init__(self, fb_id=None, display_name=None, fb_username=None, oauth_token=None):
         self.fb_id = fb_id
+        self.display_name = display_name
+        self.fb_username = fb_username
+        self.oauth_token = oauth_token
 
     def __repr__(self):
         return '<User %r>' % (self.fb_id)
@@ -36,10 +38,16 @@ class User(db.Model):
     def unfriend(self, user):
         if self.is_friend(user):
             self.friended.remove(user)
+            user.friended.remove(self)
             return self
 
     def is_friend(self, user):
-        return self.friended.filter(friends.c.friend_id == user.id).count() > 0
+        left = self.friended.filter(friends.c.friend_id == user.id).count() > 0
+        right = user.friended.filter(friends.c.friend_id == self.id).count() > 0
+        return left and right
+
+    def accept_friend(self, user):
+        return self.friend(user)
 
     @staticmethod
     def add_user(user):

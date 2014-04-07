@@ -8,36 +8,32 @@ from ..extensions import db
 
 class UserAPI(MethodView):
 
-    def get(self, user_id):
-        if user_id is None:
-            # return a list of users
-            pass
-        else:
-            # expose a single user
-            try:
-                user = User.query.filter(User.id == user_id).first()
-            except Exception, e:
-                current_app.logger.warning(e)
-                abort(500)
+    def get(self):
+        # expose a single user and friends
+        try:
+            user = User.query.filter(User.id == session['user_id']).first()
+        except Exception, e:
+            current_app.logger.warning(e)
+            abort(500)
 
-            friends_array = []
+        friends_array = []
 
-            for f in user.friends:
-                friend_json = {
-                    'id': f.id,
-                    'fb_id': f.fb_id,
-                    'display_name': f.display_name
-                }
-                friends_array.append(friend_json)
-
-            user_json = {
-                'id': user.id,
-                'fb_id': user.fb_id,
-                'display_name': user.display_name,
-                'friends': friends_array
+        for f in user.friends:
+            friend_json = {
+                'id': f.id,
+                'fb_id': f.fb_id,
+                'display_name': f.display_name
             }
+            friends_array.append(friend_json)
 
-            return jsonify( {'user': user_json} )
+        user_json = {
+            'id': user.id,
+            'fb_id': user.fb_id,
+            'display_name': user.display_name,
+            'friends': friends_array
+        }
+
+        return jsonify( {'user': user_json} )
 
     def post(self):
         # create a new user
@@ -117,7 +113,7 @@ class FriendAPI(MethodView):
 
         return jsonify({'result': True}), 201
 
-    def put(self, friend_id):
+    def put(self):
         pass
 
     def delete(self, friend_id):
@@ -140,11 +136,10 @@ def attach_views(app):
     # Users API
     #
     user_api = UserAPI.as_view('user_api')
-    app.add_url_rule('/api/users', defaults={'user_id': None},
-                                view_func=user_api, methods=['GET',])
     app.add_url_rule('/api/users', view_func=user_api, methods=['POST',])
     app.add_url_rule('/api/users/<int:user_id>', view_func=user_api,
                                 methods=['GET', 'PUT', 'DELETE'])
+    app.add_url_rule('/api/users/me', view_func=user_api, methods=['GET'])
 
     #
     # Friends API
