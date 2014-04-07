@@ -58,7 +58,6 @@ class UserAPI(MethodView):
         # update a single user
         pass
 
-
 class FriendAPI(MethodView):
     def get(self, friend_id):
         if not session['user']:

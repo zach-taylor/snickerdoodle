@@ -50,7 +50,7 @@
 
         $.ajax({
             type: 'GET',
-            url: '/users/friends',
+            url: '/friends/',
             dataType: 'json',
             success: friend_list.success,
             error: friend_list.error,
