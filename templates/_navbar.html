@@ -10,7 +10,7 @@
             <i class="facebook blue icon"></i> Sign In
         </a>
         {% else %}
-        <a class="right floated text item status" href="/logout">
+        <a class="right floated text item status" href="/logout" id="getusername">
             {{ user.first_name }} {{ user.last_name }}
         </a>
         {% endif %}

@@ -8,6 +8,8 @@
    //var firstNameT = {{user.first_name}};
    //var lastNameT =  {{user.last_name}};
    var fullNameT =  $('a[href="/logout"]');
+   var fullNameT2S = $("#getusername").html();   
+   var fullNameT2 =  Handlebars.compile (fullNameT2S);  
    var fullName = null;
   
  
