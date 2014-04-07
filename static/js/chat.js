@@ -12,7 +12,8 @@
    var fullNameT2 =  Handlebars.compile (fullNameT2S);  
    var fullName = null;
   
- 
+ // {'username': u'Will Park', 'user_id': u'570048281', u'data': u'sdf'}
+
    getnames = function () { 
       // if (firstNameT == null && lastNameT == null)
       if (fullNameT == null)
@@ -34,30 +35,31 @@
  
    //div.scrollTop = div.scrollHeight;
 
- // Auto scroll feature for the chat log. doesnt work currently will fix
+ //------- Auto scroll feature for the chat log. doesnt work currently will fix
     autoscroll = function (divi) {
-         divi.scrollIntoView(true);
+         //divi.scrollIntoView(true);
          divi.scrollTop = divi.scrollHeight;
     };
 
 
-   // Send a message to the server using Socket.io
+   //------- Send a message to the server using Socket.io
    emit = function (event, msg) {
 
         socket.emit(event, msg);
     };
-    // Welcome message for chat
+    //-------- Welcome message for chat
     socket.on('connected', function(socket){
         console.log('Server: Connected!');
         emit('welcome', { message: 'Welcome to SnickerDoodle' });
         $(".chat.list.overflowed.log").append("<p>Welcome to Snickerdoodle<p>");
      });
      
-    // When a message is received from the server
+    //------- When a message is received from the server
     socket.on('reply', function(msg) {
         console.log('Server: ' + msg.data);
-        getnames();
-        $(".chat.list.overflowed.log").append("<p>" + fullName + ": " + msg.data + "</p>");
+        //getnames();
+        //autoscroll(div);
+        $(".chat.list.overflowed.log").append("<p>" + msg.username + ": " + msg.data + "</p>");
         
     });
 
@@ -67,10 +69,8 @@
         console.log('Message: ' + msg);
         emit('chat', {data : msg});
     });
-    
-    // Getting username
-       // will complete tonight after dinner (4-5-2014 Saturday)
-    
+
+
     // Whisper function
          
          
