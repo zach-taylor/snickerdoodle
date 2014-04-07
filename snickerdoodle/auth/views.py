@@ -22,14 +22,12 @@ def oauth_callback():
     info = graph.get_graph_info('/me', {})
 
     # First check to see if the user is already in the DB
-    user = User.query.filter_by(fb_id=info['id']).first()
+    user = User.query.get(info['id'])
 
     if not user:
         # Create User Model
-        user = User(info['id'])
+        user = User(id=info['id'], fb_username=info['username'], oauth_token=access_token)
         user.display_name = '{0} {1}'.format(info['first_name'], info['last_name'])
-        user.fb_username = info['username']
-        user.oauth_token = access_token
 
         # Add and Commit User
         User.add_user(user)

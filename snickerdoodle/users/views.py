@@ -21,14 +21,12 @@ class UserAPI(MethodView):
         for f in user.friends:
             friend_json = {
                 'id': f.id,
-                'fb_id': f.fb_id,
                 'display_name': f.display_name
             }
             friends_array.append(friend_json)
 
         user_json = {
             'id': user.id,
-            'fb_id': user.fb_id,
             'display_name': user.display_name,
             'friends': friends_array
         }
@@ -41,7 +39,7 @@ class UserAPI(MethodView):
             abort(400)
         try:
             data = request.get_json(force=True)
-            user = User(data['user']['fb_id'])
+            user = User(id=data['user']['id'])
             db.session.add(user)
             db.session.commit()
         except Exception, e:
@@ -50,7 +48,6 @@ class UserAPI(MethodView):
 
         user_json = {
             'id': user.id,
-            'fb_id': user.fb_id
         }
 
         return jsonify( { 'user': user_json } ), 201
@@ -85,7 +82,7 @@ class FriendAPI(MethodView):
 
         try:
             user = User.query.filter(User.id == session['user_id']).first()
-            friend = User.query.filter(User.fb_id == friend_id).first()
+            friend = User.query.filter(User.id == friend_id).first()
         except Exception, e:
             current_app.logger.warning(e)
             abort(500)
@@ -105,7 +102,7 @@ class FriendAPI(MethodView):
         try:
             data = request.get_json(force=True)
             user = User.query.filter(User.id == session['user_id']).first()
-            friend = User.query.filter(User.fb_id == data['user']['fb_id']).first()
+            friend = User.query.filter(User.id == data['user']['id']).first()
             user.friend(friend)
         except Exception, e:
             current_app.logger.warning(e)
@@ -122,7 +119,7 @@ class FriendAPI(MethodView):
 
         try:
             user = User.query.filter(User.id == session['user_id']).first()
-            friend = User.query.filter(User.fb_id == friend_id).first()
+            friend = User.query.filter(User.id == friend_id).first()
             user.unfriend(friend)
         except Exception, e:
             current_app.logger.warning(e)
@@ -151,4 +148,4 @@ def attach_views(app):
 
     friend_api = FriendAPI.as_view('friend_api')
     app.add_url_rule('/api/friends', view_func=friend_api, methods=['POST'])
-    app.add_url_rule('/api/friends/<string:friend_id>', view_func=friend_api, methods=['GET', 'DELETE'])
+    app.add_url_rule('/api/friends/<int:friend_id>', view_func=friend_api, methods=['GET', 'DELETE'])

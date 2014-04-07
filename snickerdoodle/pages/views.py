@@ -41,5 +41,4 @@ def attach_views(app):
     app.add_url_rule('/home', view_func=home)
     app.add_url_rule('/connect', view_func=connect)
     app.add_url_rule('/chat', view_func=chat)
-    app.add_url_rule('/chat2', view_func=chat2)
 
