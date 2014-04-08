@@ -13,7 +13,7 @@ SECRET_KEY = '512d190ec56d834bc3bb86aa29414bf3319cf8ab'
 #
 
 
-SQLALCHEMY_DATABASE_URI = 'postgres://postgres:fishing2@localhost/snickerdoodle'
+SQLALCHEMY_DATABASE_URI = os.environ['DATABASE_URL']
 
 #
 # Facebook API Settings
