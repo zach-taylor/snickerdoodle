@@ -1,6 +1,11 @@
 import os
 _basedir = os.path.abspath(os.path.dirname(__file__))
 
+if 'DEPLOY' in os.environ and os.environ['DEPLOY']:
+    DEPLOYED = True
+else:
+    DEPLOYED = False
+
 #
 # Flask Settings
 #
@@ -26,7 +31,11 @@ from snickerdoodle.lib import facebook
 FACEBOOK_APP_ID = '1409850522596219'
 FACEBOOK_APP_SECRET = '48ddba88b37cb401f5759b6fec211b61'
 FACEBOOK_CLIENT_SECRET = '3e5a7c9e3ae3e219f468dac0d90ee3a0'
-FACEBOOK_OAUTH_REDIRECT = 'http://localhost:5000/oauth'
+
+if DEPLOYED:
+    FACEBOOK_OAUTH_REDIRECT = 'http://localhost:5000/oauth'
+else:
+    FACEBOOK_OAUTH_REDIRECT = 'http://snicker-doodle.herokuapp.com/oauth'
 
 
 facebook.configure(FACEBOOK_APP_ID,
