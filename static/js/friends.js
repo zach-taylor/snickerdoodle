@@ -24,8 +24,12 @@
             friend_list.ele = settings.list;
 
             friend_list.ele.on('click', '.item.friend', function () {
-                // TODO: Pass in friend that was clicked
-                settings.clicked();
+                var $this = $(this),
+                    id = $this.attr('data-index');
+
+                if (id >= 0 && id < friend_list.friends.length) {
+                    settings.clicked(friend_list.friends[id]);
+                }
             });
         }
 
@@ -78,6 +82,11 @@
 
     friend_list.success = function (data) {
         friend_list.friends = data['results']['data'];
+
+        for (var i = 0; i < friend_list.friends.length; i += 1) {
+            friend_list.friends[i]['index'] = i;
+        }
+
         friend_list.renderFriends();
     };
 
