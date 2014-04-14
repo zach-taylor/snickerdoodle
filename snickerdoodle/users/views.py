@@ -104,6 +104,7 @@ class FriendAPI(MethodView):
             user = User.query.filter(User.id == session['user_id']).first()
             friend = User.query.filter(User.id == friend_id).first()
             user.unfriend(friend)
+            db.session.commit()
         except Exception, e:
             current_app.logger.warning(e)
             abort(500)

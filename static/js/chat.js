@@ -62,9 +62,10 @@
 
     // When the reply button is clicked
     $('#reply-button').on('click', function(event){
-        var msg = $('#reply-msg').val();
-        console.log('Message: ' + msg);
-        emit('chat', {data : msg});
+        var msg = $('#reply-msg');
+        console.log('Message: ' + msg.val());
+        emit('chat', {data : msg.val()});
+        msg.val('');
     });
 
 

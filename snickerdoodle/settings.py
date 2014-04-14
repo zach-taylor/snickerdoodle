@@ -33,9 +33,9 @@ FACEBOOK_APP_SECRET = '48ddba88b37cb401f5759b6fec211b61'
 FACEBOOK_CLIENT_SECRET = '3e5a7c9e3ae3e219f468dac0d90ee3a0'
 
 if DEPLOYED:
-    FACEBOOK_OAUTH_REDIRECT = 'http://localhost:5000/oauth'
-else:
     FACEBOOK_OAUTH_REDIRECT = 'http://snicker-doodle.herokuapp.com/oauth'
+else:
+    FACEBOOK_OAUTH_REDIRECT = 'http://localhost:5000/oauth'
 
 
 facebook.configure(FACEBOOK_APP_ID,
