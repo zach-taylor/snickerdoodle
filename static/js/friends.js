@@ -76,6 +76,43 @@
         });
     };
 
+    friend_list.retrieveSnickerdoodleFriends = function () {
+        console.log('Retrieving Snickerdoodle friends list');
+
+        $.ajax({
+            type: 'GET',
+            url: '/api/users/me',
+            dataType: 'json',
+            success: friend_list.success2,
+            error: friend_list.error,
+        });
+    };
+
+    friend_list.sendFriendRequest = function (user_id) {
+        $.ajax({
+            type: 'POST',
+            url: '/api/friends',
+            data: JSON.stringify({
+                'user': {
+                    'id': user_id
+                }
+            }),
+            dataType: 'json',
+            success: friend_list.success,
+            error: friend_list.error,
+        });
+    };
+
+    friend_list.success2 = function (data) {
+        friend_list.snickerdoodle_friends = data['user']['friends'];
+
+        for (var i = 0; i < friend_list.snickerdoodle_friends.length; i += 1) {
+            friend_list.snickerdoodle_friends[i]['index'] = i;
+        }
+
+        friend_list.renderFriends(friend_list.snickerdoodle_friends);
+    };
+
     friend_list.error = function () {
         // TODO: Show error
     };

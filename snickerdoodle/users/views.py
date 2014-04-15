@@ -84,18 +84,35 @@ class FriendAPI(MethodView):
 
         try:
             data = request.get_json(force=True)
+            print(data)
             user = User.query.filter(User.id == session['user_id']).first()
             friend = User.query.filter(User.id == data['user']['id']).first()
             user.friend(friend)
+            db.session.commit()
         except Exception, e:
             current_app.logger.warning(e)
             abort(500)
 
         return jsonify({'result': True}), 201
 
-    def put(self):
-        pass
+    def put(self, friend_id):
+        if not session['user']:
+            return 'not logged in'
 
+        try:
+            data = request.get_json(force=True)
+            user = User.query.filter(User.id == session['user_id']).first()
+            friend = User.query.filter(User.id == friend_id).first()
+            if(data['user']['accept']):
+                user.accept_friend(friend)
+            else:
+                user.decline_friend(friend)
+            db.session.commit()
+        except Exception, e:
+            current_app.logger.warning(e)
+            abort(500)
+
+        return jsonify({'result': True}), 200
     def delete(self, friend_id):
         if not session['user']:
             return 'not logged in'
@@ -128,4 +145,4 @@ def attach_views(app):
 
     friend_api = FriendAPI.as_view('friend_api')
     app.add_url_rule('/api/friends', view_func=friend_api, methods=['POST'])
-    app.add_url_rule('/api/friends/<int:friend_id>', view_func=friend_api, methods=['GET', 'DELETE'])
+    app.add_url_rule('/api/friends/<int:friend_id>', view_func=friend_api, methods=['GET', 'PUT', 'DELETE'])

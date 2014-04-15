@@ -49,7 +49,8 @@
             clicked: handler.clicked,
         });
 
-        root.Friends.retrieveFriends();
+        //root.Friends.retrieveFriends();
+        root.Friends.retrieveSnickerdoodleFriends();
     };
 
     snicker.bind = function () {

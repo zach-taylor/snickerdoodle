@@ -48,6 +48,10 @@ class User(db.Model):
     def accept_friend(self, user):
         return self.friend(user)
 
+    def decline_friend(self, user):
+        user.friended.remove(self)
+        return self
+
     @staticmethod
     def add_user(user):
         db.session.add(user)

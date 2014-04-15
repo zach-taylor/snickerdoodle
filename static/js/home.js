@@ -41,6 +41,7 @@
         });
 
         root.Friends.retrieveFriends();
+        root.Friends.retrieveSnickerdoodleFriends();
     });
 
     $('input.button.create-room').on('click', function () {
