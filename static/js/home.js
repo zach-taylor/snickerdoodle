@@ -1,7 +1,11 @@
 (function (root, $) {
     var handler = {},
         $invited = $('.selection.list.invited'),
-        invited = [];
+        $modal = $('.ui.modal'),
+        $create = $('#js-create-room-button'),
+        $go = $('.button.create-room'),
+        $form = $('#room-form'),
+        invited = {};
 
     handler.clicked = function (friend) {
         var source = $('#friends-label').html()
@@ -11,6 +15,27 @@
         var html = template(friend);
         $invited.append(html);
         invited[friend.id] = friend;
+        console.log('Adding ' + friend.id);
+        console.log(invited);
+    };
+
+    handler.onApprove = function () {
+        console.log('Go clicked');
+        $create.addClass('loading');
+
+        $.ajax({
+            type: 'POST',
+            url: '/friends/invite/',
+            dataType: 'json',
+            data: {
+                'receivers': Object.keys(invited),
+                'mesg': 'hi there',
+            },
+            success: function () {
+                console.log('Success called');
+                $form.submit();
+            }
+        });
     };
 
     $invited.on('click', '.ui.label.friend .icon', function (e) {
@@ -27,11 +52,14 @@
         return false;
     });
 
-    $('#js-create-room-button').click(function () {
+    $create.click(function () {
         var $friends = $('.friends'),
             $input = $('#search');
 
-        $('.ui.modal').modal('show');
+        console.log(invited);
+        $modal.modal('setting', {
+            onApprove: handler.onApprove,
+        }).modal('show');
 
         root.Friends.setup({
             input: $input,
@@ -44,7 +72,6 @@
         root.Friends.retrieveSnickerdoodleFriends();
     });
 
-    $('input.button.create-room').on('click', function () {
-        // Send request here
+    $go.click(function (e) {
     });
 }(window, jQuery));

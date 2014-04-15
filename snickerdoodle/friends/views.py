@@ -38,12 +38,12 @@ class FriendInvite(MethodView):
             return 'not logged in'
 
         print request.form
+        print request.form.keys()
 
-        if 'receiver' in request.form:
-            receiver = request.form.get('receiver')
+        if 'receivers[]' in request.form:
+            receivers = request.form.getlist('receivers[]')
         else:
-            # TODO: Bettr error for not being logged in
-            return 'no receivers found'
+            receivers = []
 
         if 'mesg' in request.form:
             mesg = request.form.get('mesg')
@@ -51,16 +51,17 @@ class FriendInvite(MethodView):
             # TODO: Bettr error for not being logged in
             return 'no mesg found'
 
-        username = session['user']['id']
+        print 'Receivers: ', receivers
+        print 'Mesg: ', mesg
 
-        # Send to yourself for test purposes
-        receiver = username
+        username = session['user']['id']
 
         # Facebook credentials
         token = session['access_token'][0]
         key = FACEBOOK_APP_ID
 
-        facebook.send_message(token, key, username, mesg, receiver)
+        if len(receivers):
+            facebook.invite_friends(token, key, username, mesg, receivers)
 
         return jsonify(result='success')
 
