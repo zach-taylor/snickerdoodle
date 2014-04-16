@@ -43,5 +43,7 @@ def chat_message(data):
 
 
 def attach_views_with_socket(app, socket):
-    chat_socket = socket.on('chat', namespace='/chat')
+    chat_socket = socket.on('chat', namespace='/chat', broadcast=True)
     chat_socket(chat_message)
+    
+

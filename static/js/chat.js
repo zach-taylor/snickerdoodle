@@ -1,22 +1,21 @@
 
 (function (root, $) {
-   var socket = io.connect("/chat");
+   var chatsocket = io.connect("/chat");
    var div = document.getElementById(".chat.list.overflowed.log");
    
    var vidsocket = io.connect("/video");
+   
     
    var firstName = null;
    var lastName =  null;
    //var firstNameT = {{user.first_name}};
    //var lastNameT =  {{user.last_name}};
-   var fullNameT =  $('a[href="/logout"]');
-   var fullNameT2S = $("#getusername").html();   
-   var fullNameT2 =  Handlebars.compile (fullNameT2S);  
+   var fullNameT =  $('a[href="/logout"]');  
    var fullName = null;
   
  // {'username': u'Will Park', 'user_id': u'570048281', u'data': u'sdf'}
 
-   getnames = function () { 
+/*   getnames = function () { 
       // if (firstNameT == null && lastNameT == null)
       if (fullNameT == null)
        {
@@ -33,39 +32,57 @@
         }
    }
    
-   
+   */
  
    //div.scrollTop = div.scrollHeight;
 
  //------- Auto scroll feature for the chat log. doesnt work currently will fix
-    autoscroll = function (divi) {
+    autoscroll = function () {
          //divi.scrollIntoView(true);
-         divi.scrollTop = divi.scrollHeight;
+         $('.chat.list.overflowed.log').get(0).scrollTop = 1000000;
     };
 
 
    //------- Send a message to the server using Socket.io
    emit = function (event, msg) {
 
-        socket.emit(event, msg);
+        chatsocket.emit(event, msg);
     };
     
+  
+    
+     // When Chat connects for the first time?
+     chatsocket.on('connect', function(socket){
+          console.log('Server: Connected!');
+          emit('chat', {data: ' has joined the room!'});
+          
+          
+           chatsocket.on('disconnect', function(){
+           console.log('Server: Disconnected!');
+           emit('chat', {data: ' has LEFT the room!'});
+            });
+  
+     });
+     
+
+     
      
     //------- When a message is received from the server
-    socket.on('reply', function(msg) {
+    chatsocket.on('reply', function(msg) {
         console.log('Server: ' + msg.data);
         //getnames();
-        //autoscroll(div);
         fullName = msg.username;
-        $(".chat.list.overflowed.log").append("<p>" + msg.username + ": " + msg.data + "</p>");
+        $(".chat.list.overflowed.log").append("<p>" + msg.username  + msg.data + "</p>");
+         autoscroll();
     });
 
     // When the reply button is clicked
     $('#reply-button').on('click', function(event){
         var msg = $('#reply-msg');
         console.log('Message: ' + msg.val());
-        emit('chat', {data : msg.val()});
+        emit('chat', {data : ": " + msg.val()});
         msg.val('');
+       autoscroll();
     });
 
 
