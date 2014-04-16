@@ -10,8 +10,9 @@
    var lastName =  null;
    //var firstNameT = {{user.first_name}};
    //var lastNameT =  {{user.last_name}};
-   var fullNameT =  $('a[href="/logout"]');  
+   //var fullNameT =  $('a[href="/logout"]');  
    var fullName = null;
+   var textcolor = null;
   
  // {'username': u'Will Park', 'user_id': u'570048281', u'data': u'sdf'}
 
@@ -49,17 +50,29 @@
         chatsocket.emit(event, msg);
     };
     
+    // Temp Changing the color of Who Joins room
+    /*
+   emits = function (event, test){
+       chatsocket.emit(event, test);
+    };
+    
+    chatsocket.on('welcome', function(test) {
+         fullName = test.username;
+         var strs = "<p>" + test.username  + test.data + "</p>";
+         $(".chat.list.overflowed.log").append(strs.fontcolor("green"));
+         autoscroll();
+     }); */
   
     
      // When Chat connects for the first time?
      chatsocket.on('connect', function(socket){
           console.log('Server: Connected!');
-          emit('chat', {data: ' has joined the room!'});
+          emit('chat', {data: ' has JOINED the room'});
           
-          
+         
            chatsocket.on('disconnect', function(){
            console.log('Server: Disconnected!');
-           emit('chat', {data: ' has LEFT the room!'});
+           emit('chat', {data: ' has LEFT the room'});
             });
   
      });
@@ -71,10 +84,23 @@
     chatsocket.on('reply', function(msg) {
         console.log('Server: ' + msg.data);
         //getnames();
-        fullName = msg.username;
-        $(".chat.list.overflowed.log").append("<p>" + msg.username  + msg.data + "</p>");
-         autoscroll();
+        fullName = msg.username;        
+        var str = "<p>" + msg.username  + msg.data + "</p>";
+        var strhello = "<p>" + msg.username  + " has JOINED the room" + "</p>"
+        var strbye = "<p>" + msg.username  + " has LEFT the room" + "</p>"
+        if (str == strhello){
+            $(".chat.list.overflowed.log").append(str.fontcolor("blue"));
+            autoscroll();
+        } else if (str == strbye){
+            $(".chat.list.overflowed.log").append(str.fontcolor("red"));
+            autoscroll();
+            } else {
+                 $(".chat.list.overflowed.log").append(str.fontcolor("black"));
+                  autoscroll();
+            }
     });
+    
+    
 
     // When the reply button is clicked
     $('#reply-button').on('click', function(event){

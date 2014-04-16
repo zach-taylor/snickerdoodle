@@ -2,6 +2,8 @@ from flask import Flask, render_template, request, jsonify, abort, make_response
 
 from flask.ext import socketio
 
+from ..extensions import db
+
 rooms = {}
 
 
@@ -40,6 +42,8 @@ def chat_message(data):
     data['user_id'] = session['user']['id']
     print data
     socketio.emit('reply', data, namespace='/chat', broadcast=True)
+    
+
 
 
 def attach_views_with_socket(app, socket):
