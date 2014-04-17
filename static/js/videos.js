@@ -63,10 +63,11 @@
         $('body').on('click', '.video-search .button.submit', function () {
             var val = $('.video-search input.search').val();
 
-            //var providerName = root.Snicker.parseUrl(val);
+            var providerName = root.Snicker.parseUrl(val);
 
-            //if (providerName) snicker.addVideoToPlaylist(val);
-            //else snicker.search(val);
+            if (providerName == "Vimeo" || providerName == "YouTube"){
+                console.log("check in");
+            } else snicker.search(val);
         });
 
         // Add video from search.
@@ -230,11 +231,12 @@
         for (var name in snicker.providers) {
             var provider = snicker.providers[name];
 
-            //console.log('Provider: ' + name);
+            console.log('Provider: ' + name);
             if (!snicker.providers.hasOwnProperty(name)) continue;
 
             // Determine if the provider can handle the given URL
             if (provider.checkUrl(url) == true) {
+                snicker.changeProvider(name);
                 return name;
             }
         }

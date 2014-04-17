@@ -22,6 +22,12 @@
             return (url.split("/",3)[2] === "vimeo.com");
 
         };
+        
+        Vimeo.prototype.getSite = function (url) {
+            console.log('vimeo getURL');
+            var site;
+            return(url.split("/",3)[2]);
+        }
 
         Vimeo.prototype.onPlay = function () {
             console.log('vimeo onPlay');
