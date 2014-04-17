@@ -80,7 +80,8 @@
                 $parent = $this.closest('.result'),
                 index = $parent.attr('data-id');
                 playlist.push(resultList.results[index]);
-                console.log(playlist[listIndex]);
+                //console.log("Video Object" + resultList.results[index]);
+                console.log("Search item added");
                 if (playlist[listIndex].provider === "YouTube") {
                     if (!(oldProvider === playlist[listIndex].provider)) {
                         snicker.changeProvider(playlist[listIndex].provider);
@@ -88,7 +89,7 @@
                     snicker.provider.playlist(playlist[listIndex].id, playlist[listIndex].provider);
                 }
 
-                if (playlist.length <= 3) {
+                if (playlist.length <= 4) {
                     snicker.displayPlaylist();
                 }
         });
@@ -150,9 +151,10 @@
         snicker.providers[name] = provider;
     };
 
-    snicker.addVideoToPlaylist = function (video) {
-        videoList.push(video.id);
-        siteList.push(video.site);
+    snicker.addVideoToPlaylist = function (id, site) {
+        console.log("addVideoToPlaylist");
+        videoList.push(id);
+        siteList.push(site);
         listIndex++;
     };
 
@@ -289,6 +291,7 @@
             snicker.provider.onPause();
            // $(".chat.list.overflowed.log").append("<p>A User: has PAUSED the video.</p>");
         } else if (action === 'change') {
+            console.log("change");
             var id = videoList.shift();
             var site = siteList.shift();
             snicker.currentVideo();
@@ -302,10 +305,7 @@
                     snicker.provider.onChangeVideo(id);
             }
         } else if (action === 'playlist') {
-            var playlist = this;
-            playlist.id = data.id || '';
-            playlist.site = data.site || '';
-            snicker.addVideoToPlaylist(playlist);
+            snicker.addVideoToPlaylist(data.id, data.site);
         } else if (action === 'load') {
             snicker.currentVideo();
             snicker.displayPlaylist();

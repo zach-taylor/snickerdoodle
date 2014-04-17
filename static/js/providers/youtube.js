@@ -64,6 +64,7 @@
         };
 
         YouTube.prototype.swapVideo = function (id, site) {
+            console.log("called Load emit");
             Snicker.emit('video', {
                 action: 'load',
                 id: id,
@@ -72,6 +73,7 @@
         };
         
         YouTube.prototype.playlist = function (id, site){
+           console.log("YouTube.prototype.playlist");
            var youtube = this,
            playlist = function () {
             if ( (1 == this.player.getPlayerState()) || (2 == this.player.getPlayerState())) {
@@ -98,12 +100,11 @@
         YouTube.prototype.onChangeVideo = function (id) {
             console.log('OnChangeVideo');
             console.log('This:');
-            console.log(this);
+            //console.log(this);
 
             var youtube = this,
                 loadVideo = function () {
                     console.log('In Load Video')
-                    console.log(youtube.player);
                     youtube.player.loadVideoById({
                         'videoId' : youtube.id,
                         'startSeconds': '0'
@@ -112,13 +113,13 @@
             
             this.id = id;
 
-            if (this.hasLoaded) {
-                console.log('API Has Loaded');
+            //if (this.hasLoaded) {
+            //    console.log('API Has Loaded');
                 loadVideo.call(this);
-            } else {
-                console.log('API Not Loaded, Waiting');
-                this.waiting = loadVideo.bind(this);
-            }
+            //} else {
+            //    console.log('API Not Loaded, Waiting');
+            //    this.waiting = loadVideo.bind(this);
+            //}
         };
 
         YouTube.prototype.status = function () {
