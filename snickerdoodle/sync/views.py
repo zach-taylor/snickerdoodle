@@ -14,7 +14,7 @@ def video_message(data):
 
     # Add the video to the database
     if data['action'] == 'playlist':
-        video = Video(site=data['site'], vid=data['id'])
+        video = Video(site=data['video']['provider'], vid=data['video']['id'], title=data['video']['title'], icon=data['video']['icon'])
         db.session.add(video)
         db.session.commit()
 

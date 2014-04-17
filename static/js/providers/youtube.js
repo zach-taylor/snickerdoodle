@@ -63,31 +63,28 @@
             console.log('YT onFinish');
         };
 
-        YouTube.prototype.swapVideo = function (id, site) {
+        YouTube.prototype.swapVideo = function (video) {
             console.log("called Load emit");
             Snicker.emit('video', {
                 action: 'load',
-                id: id,
-                site: site
+                video: video
             });
         };
         
-        YouTube.prototype.playlist = function (id, site){
+        YouTube.prototype.playlist = function (video){
            console.log("YouTube.prototype.playlist");
            var youtube = this,
            playlist = function () {
             if ( (1 == this.player.getPlayerState()) || (2 == this.player.getPlayerState())) {
                 Snicker.emit('video', {
                 action: 'playlist',
-                id: youtube.id,
-                site: youtube.site
+                video: video
             });
             } else {
-                YouTube.prototype.swapVideo(youtube.id, youtube.site);
+                YouTube.prototype.swapVideo(video);
             }
            };
-            this.id = id;
-            this.site = site;
+
             if (this.hasLoaded){
                 console.log('API had Loaded');
                 playlist.call(this);
@@ -100,7 +97,7 @@
         YouTube.prototype.onChangeVideo = function (id) {
             console.log('OnChangeVideo');
             console.log('This:');
-            //console.log(this);
+            console.log(this);
 
             var youtube = this,
                 loadVideo = function () {
@@ -113,13 +110,13 @@
             
             this.id = id;
 
-            //if (this.hasLoaded) {
-            //    console.log('API Has Loaded');
+            if (this.hasLoaded) {
+                console.log('API Has Loaded');
                 loadVideo.call(this);
-            //} else {
-            //    console.log('API Not Loaded, Waiting');
-            //    this.waiting = loadVideo.bind(this);
-            //}
+            } else {
+                console.log('API Not Loaded, Waiting');
+                this.waiting = loadVideo.bind(this);
+            }
         };
 
         YouTube.prototype.status = function () {

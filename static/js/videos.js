@@ -8,13 +8,8 @@
 
     var resultList;
     var oldProvider = "none";
-    var videoList = [];
-    var siteList = [];
-    //var titleList = [];
     var playlist = [];
-    var listIndex = 0;
-    
-    var ppc = 0; 
+    var listIndex = 0; 
 
     //
     // Snickerdoodle Values
@@ -79,18 +74,13 @@
             var $this = $(this),
                 $parent = $this.closest('.result'),
                 index = $parent.attr('data-id');
-                playlist.push(resultList.results[index]);
-                //console.log("Video Object" + resultList.results[index]);
-                console.log("Search item added");
-                if (playlist[listIndex].provider === "YouTube") {
-                    if (!(oldProvider === playlist[listIndex].provider)) {
-                        snicker.changeProvider(playlist[listIndex].provider);
+                if (resultList.results[index].provider === "YouTube") {
+                    
+                    if (!(oldProvider === resultList.results[index].provider)) {
+                        snicker.changeProvider(resultList.results[index].provider);
                     }
-                    snicker.provider.playlist(playlist[listIndex].id, playlist[listIndex].provider);
-                }
-
-                if (playlist.length <= 4) {
-                    snicker.displayPlaylist();
+                    
+                    snicker.provider.playlist(resultList.results[index]);
                 }
         });
 
@@ -151,11 +141,14 @@
         snicker.providers[name] = provider;
     };
 
-    snicker.addVideoToPlaylist = function (id, site) {
+    snicker.addVideoToPlaylist = function (video) {
         console.log("addVideoToPlaylist");
-        videoList.push(id);
-        siteList.push(site);
+        playlist.push(video);
         listIndex++;
+        console.log(playlist);
+        if (playlist.length <= 4) {
+            snicker.displayPlaylist();
+        }
     };
 
     snicker.displayPlaylist = function() {
@@ -292,29 +285,30 @@
            // $(".chat.list.overflowed.log").append("<p>A User: has PAUSED the video.</p>");
         } else if (action === 'change') {
             console.log("change");
-            var id = videoList.shift();
-            var site = siteList.shift();
-            snicker.currentVideo();
-            snicker.displayPlaylist();
            // $(".chat.list.overflowed.log").append("<p>A User: has SKIPPED the video.</p>");
             // TODO: Error check
-             if (site === "YouTube") {
-                    if (!(oldProvider === site)) {
-                        snicker.changeProvider(site);
+             if (playlist[0].provider === "YouTube") {
+                    if (!(oldProvider === playlist[0].provider )) {
+                        snicker.changeProvider(playlist[0].provider );
                     }
-                    snicker.provider.onChangeVideo(id);
+                    snicker.provider.onChangeVideo(playlist[0].id);
+                    snicker.currentVideo();
+                    snicker.displayPlaylist();
             }
         } else if (action === 'playlist') {
-            snicker.addVideoToPlaylist(data.id, data.site);
+            snicker.addVideoToPlaylist(data.video);
         } else if (action === 'load') {
+            playlist.push(data.video);
+            console.log("playlist" + playlist[0].provider  + playlist[0].id);
+            if (playlist[0].provider  === "YouTube") {
+                    if (!(oldProvider === playlist[0].provider )) {
+                        console.log("changing provider");
+                        snicker.changeProvider(playlist[0].provider );
+                    }
+                    snicker.provider.onChangeVideo(playlist[0].id);
+            }
             snicker.currentVideo();
             snicker.displayPlaylist();
-            if (data.site === "YouTube") {
-                    if (!(oldProvider === data.site)) {
-                        snicker.changeProvider(data.site);
-                    }
-                    snicker.provider.onChangeVideo(data.id);
-            }
         }
     });
 

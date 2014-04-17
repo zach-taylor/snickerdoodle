@@ -25,6 +25,8 @@ class VideoAPI(MethodView):
                 'id': video.id,
                 'site': video.site,
                 'vid': video.vid,
+                'title': video.title,
+                'icon': video.icon,
                 'status': video.status,
                 'room_id': video.room_id
             }
@@ -41,6 +43,8 @@ class VideoAPI(MethodView):
             video = Video(
                 vid=v['vid'],
                 site=v['site'],
+                title=v['title'],
+                icon=v['icon'],
                 status=v['status'],
                 room_id=v['room_id']
             )
@@ -54,6 +58,8 @@ class VideoAPI(MethodView):
             'id': video.id,
             'site': video.site,
             'vid': video.vid,
+            'title': video.title,
+            'icon': video.icon,
             'status': video.status,
             'room_id': video.room_id
         }
@@ -83,6 +89,8 @@ class RoomVideosView(MethodView):
                 'id': v.id,
                 'site': v.site,
                 'vid': v.vid,
+                'title': v.title,
+                'icon': v.icon,
                 'status': v.status
             }
             videos_array.append(video_json)
