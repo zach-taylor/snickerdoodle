@@ -66,7 +66,8 @@
             var providerName = root.Snicker.parseUrl(val);
 
             if (providerName == "Vimeo" || providerName == "YouTube"){
-                console.log("check in");
+                console.log(val);
+                snicker.provider.playlistUrl(val);
             } else snicker.search(val);
         });
 
@@ -76,7 +77,7 @@
                 $parent = $this.closest('.result'),
                 index = $parent.attr('data-id');
                 if (resultList.results[index].provider === "YouTube") {
-                    
+                    console.log(resultList.results[index].provider);
                     if (!(oldProvider === resultList.results[index].provider)) {
                         snicker.changeProvider(resultList.results[index].provider);
                     }
@@ -246,6 +247,7 @@
     };
 
     snicker.changeProvider = function (name) {
+        console.log(name);
         snicker.provider = snicker.providers[name];
 
         // Call setup init
@@ -289,7 +291,7 @@
             console.log("change");
            // $(".chat.list.overflowed.log").append("<p>A User: has SKIPPED the video.</p>");
             // TODO: Error check
-             if (playlist[0].provider === "YouTube") {
+             if (playlist[0].provider === "YouTube"  || playlist[0].provider === "Vimeo") {
                     if (!(oldProvider === playlist[0].provider )) {
                         snicker.changeProvider(playlist[0].provider );
                     }
@@ -302,7 +304,7 @@
         } else if (action === 'load') {
             playlist.push(data.video);
             console.log("playlist" + playlist[0].provider  + playlist[0].id);
-            if (playlist[0].provider  === "YouTube") {
+            if (playlist[0].provider  === "YouTube" || playlist[0].provider === "Vimeo") {
                     if (!(oldProvider === playlist[0].provider )) {
                         console.log("changing provider");
                         snicker.changeProvider(playlist[0].provider );

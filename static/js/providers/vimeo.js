@@ -1,6 +1,7 @@
 (function (root, $) {
     var Snicker = root.Snicker;
      var player;
+     var status;
     var Vimeo = (function () {
         __extends(Vimeo, root.Snicker.Base);
 
@@ -11,23 +12,43 @@
         //
         // Snickerdoodle API
         //
-
+        
         Vimeo.prototype.init = function () {
+            
+        }
+        
+        Vimeo.prototype.playlistUrl = function(url){
+            var video = {
+                "provider" : "None",
+                "id" : "None",
+                "title" : "None",
+                "icon" : "None"
+            };
+            video.provider = "Vimeo";
+            video.id = url.split("/",4)[3];
+            video.title = "None";
+            video.icon = "None";
+            console.log(video);
+            if ( (1 == status) || (2 == status)) {
+                Snicker.emit('video', {
+                action: 'playlist',
+                video: video
+                });
+            }else {
+                Vimeo.prototype.swapVideo(video);
+            }
+            
         }
 
         Vimeo.prototype.checkUrl = function (url) {
             console.log('vimeo checkUrl');
-            var site;
             // TODO: More robust checking
-            return (url.split("/",3)[2] === "vimeo.com");
+            var check = url.split("/",3)[2] === "vimeo.com";
+            console.log(check);
+            return (check);
 
         };
         
-        Vimeo.prototype.getSite = function (url) {
-            console.log('vimeo getURL');
-            var site;
-            return(url.split("/",3)[2]);
-        }
 
         Vimeo.prototype.onPlay = function () {
             console.log('vimeo onPlay');
@@ -43,26 +64,23 @@
             console.log('vimeo onFinish');
         };
 
-        Vimeo.prototype.swapVideo = function (url) {
+        Vimeo.prototype.swapVideo = function (video) {
 
             Snicker.emit('watch', {
                 action: 'change',
-                url: url,
+                video: video,
             });
         };
 
-        Vimeo.prototype.onChangeVideo = function (url) {
+        Vimeo.prototype.onChangeVideo = function (id) {
             console.log('vimeo Change Video: ' + url);
             console.log('This: ');
-            console.log(this.id);
+            console.log(id);
 
-            // TODO: Better parsing for video ID, Better initial video loading.
-            this.url = url;
-            this.id = url.split("/",4)[3];
             var source = $('#vimeo-template').html(),
             template = Handlebars.compile(source);
             // Render template, add to html
-            var html = template({video: this.id});
+            var html = template({video: id});
             $( "div.player").replaceWith(html);
             var f = $('iframe'),
             urlPost = f.attr('src').split('?')[0],
@@ -77,6 +95,7 @@
         };
         
         Vimeo.prototype.emitPause = function(){
+            status = 2;
             console.log('pause');
             Snicker.emit('watch',{
                 action: 'pause',
@@ -84,8 +103,16 @@
         }
         
         Vimeo.prototype.emitPlay = function(){
+            status = 1;
             Snicker.emit('watch',{
                 action: 'play',
+            });
+        }
+        
+        Vimeo.prototype.emitEnded = function(){
+            status  = -1;
+            Snicker.emit('video', {
+                action: 'change'
             });
         }
         
@@ -107,6 +134,7 @@
                     break;
 
                 case 'finish':
+                    Vimeo.prototype.emitEnded();
                     Snicker.addMessage("Next video cued. Playing...");
                     break;
            }
@@ -115,6 +143,7 @@
         // Helper function for sending a message to the player
         Vimeo.prototype.onReady = function(){
             console.log('ready');
+            status = 0;
             Vimeo.prototype.ready();    
         }
 

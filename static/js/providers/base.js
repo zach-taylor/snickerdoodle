@@ -14,6 +14,10 @@
             console.log('Base Checkurl');
             // Returns boolean if the URL matches the provider's
         };
+        
+        Base.prototype.playlistUrl = function(){
+            //Called when adding a video to play list with url.
+        };
 
         Base.prototype.onPlay = function () {
             // Called when server issues an onPlay command

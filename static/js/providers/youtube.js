@@ -48,6 +48,29 @@
             }
         
         };
+        
+        YouTube.prototype.playlistUrl = function(url){
+            var video = {
+                "provider" : "None",
+                "id" : "None",
+                "title" : "None",
+                "icon" : "None"
+            };
+            video.provider = "YouTube";
+            video.id = url.split("=",2)[1];
+            video.title = "None";
+            video.icon = "None";
+            console.log(video);
+            if ( (1 == status) || (2 == status)) {
+                Snicker.emit('video', {
+                action: 'playlist',
+                video: video
+                });
+            }else {
+                YouTube.prototype.swapVideo(video);
+            }
+            
+        }
 
         YouTube.prototype.onPlay = function () {
             console.log('YT onPlay');
