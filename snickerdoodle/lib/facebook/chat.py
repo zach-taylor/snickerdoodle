@@ -8,6 +8,15 @@ if sys.version_info < (3, 0):
     from sleekxmpp.util.misc_ops import setdefaultencoding
     setdefaultencoding('utf8')
 
+#
+# Debug Level:
+#   CRITICAL
+#   ERROR
+#   WARNING
+#   INFO
+#   DEBUG
+#   NOTSET
+LOG_LEVEL = logging.WARNING
 FACEBOOK_SERVER = ('chat.facebook.com', 5222)
 
 
@@ -40,7 +49,7 @@ def send_message(access_token, api_key, sender, mesg, receiver):
 
     """
 
-    logging.basicConfig(level=logging.DEBUG,
+    logging.basicConfig(level=LOG_LEVEL,
                         format='%(levelname)-8s %(message)s')
 
     xmpp = FacebookChat(sender, receiver, mesg)

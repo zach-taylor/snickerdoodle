@@ -37,22 +37,20 @@ class FriendInvite(MethodView):
             # TODO: Bettr error for not being logged in
             return 'not logged in'
 
-        print request.form
-        print request.form.keys()
-
         if 'receivers[]' in request.form:
             receivers = request.form.getlist('receivers[]')
         else:
             receivers = []
 
-        if 'mesg' in request.form:
-            mesg = request.form.get('mesg')
+        if 'url' in request.form:
+            url = request.form.get('url')
         else:
             # TODO: Bettr error for not being logged in
-            return 'no mesg found'
+            return 'no url found'
 
-        print 'Receivers: ', receivers
-        print 'Mesg: ', mesg
+        mesg = "Come watch this video with me! {url}".format(
+            url=url
+        )
 
         username = session['user']['id']
 

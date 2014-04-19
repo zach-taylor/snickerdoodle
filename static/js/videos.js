@@ -1,12 +1,13 @@
 (function (root, $) {
-    var snicker = {},
-        $addMovie = $('.attached.button.add');
+    var $addMovie = $('.attached.button.add');
         $videoSidebar = $('.sidebar.video-search'),
         $friendSidebar = $('.sidebar.friends'),
         $addFriend = $('.js-friends-toggle'),
         $invited = $('.friends.invited'),
-        invited = {};
+        $input = $('input.search.friends');
 
+    var snicker = {},
+        invited = {};
 
     var resultList;
     var oldProvider = "none";
@@ -16,6 +17,7 @@
     //
     // Snickerdoodle Values
     //
+
     snicker.provider = {};
     snicker.providers = {};
     snicker.socket = io.connect('/video');
@@ -53,8 +55,7 @@
 
     snicker.setupFriends = function () {
         var handler = {},
-            $friends = $('.sidebar.friends .friends-list'),
-            $input = $('input.search.friends');
+            $friends = $('.sidebar.friends .friends-list');
 
         handler.clicked = function () {
             console.log('friend clicked');
@@ -134,6 +135,10 @@
             });
         });
 
+        //
+        // Friend Invitations
+        //
+
         $invited.on('click', '.friend .icon', function (e) {
             var $this = $(this),
                 $parent = $this.parent(),
@@ -151,6 +156,30 @@
             return false;
         });
 
+        $invited.on('click', '.button.positive', function (e) {
+            console.log('Sending invitations');
+
+            $.ajax({
+                type: 'POST',
+                url: '/friends/invite/',
+                dataType: 'json',
+                data: {
+                    'receivers': Object.keys(invited),
+                    'url': window.location.href,
+                },
+                success: function () {
+                    console.log('Success called');
+                }
+            });
+
+            // Clear the friends selected
+            invited = {};
+            snicker.renderInvited();
+
+            // Close and clean up
+            snicker.closeSidebars();
+            snicker.clearSearch();
+        });
 
         $addMovie.on('click', snicker.showVideoSearch);
         $addFriend.on('click', snicker.showFriends);
@@ -159,7 +188,11 @@
     snicker.closeSidebars = function () {
         $friendSidebar.sidebar('hide');
         $videoSidebar.sidebar('hide');
-    }
+    };
+
+    snicker.clearSearch = function () {
+        $input.val('');
+    };
 
     //
     // Friends UI Functions
@@ -168,7 +201,7 @@
     snicker.showFriends = function () {
         $videoSidebar.sidebar('hide');
         $friendSidebar.sidebar('show');
-    }
+    };
 
     //
     // Video Search Functions
@@ -177,7 +210,7 @@
     snicker.showVideoSearch = function () {
         $friendSidebar.sidebar('hide');
         $videoSidebar.sidebar('show');
-    }
+    };
 
     snicker.addProvider = function (name, provider) {
         snicker.providers[name] = provider;
@@ -204,13 +237,12 @@
             var html = template({one : playlist[0].title, icon1 : playlist[0].icon});
         } else if (playlist.length ==2) {
             var html = template({one:playlist[0].title, icon1:playlist[0].icon, two:playlist[1].title, icon2:playlist[1].icon });
-        }else{
-        // Render template, add to html
-        var html = template({one:playlist[0].title, icon1:playlist[0].icon, two:playlist[1].title, icon2:playlist[1].icon, three:playlist[2].title, icon3:playlist[2].icon});
+        } else {
+            // Render template, add to html
+            var html = template({one:playlist[0].title, icon1:playlist[0].icon, two:playlist[1].title, icon2:playlist[1].icon, three:playlist[2].title, icon3:playlist[2].icon});
         }
         $('.displayplaylist').append(html);
-
-    }
+    };
 
     snicker.currentVideo = function() {
        $('.controls .current').empty();
@@ -223,7 +255,7 @@
         // Render template, add to html
         var html = template({current: curvideo.title});
         $('.controls .current').append(html);
-    }
+    };
 
     snicker.searchEvent = function (e) {
         var val = $('input.search.videos').val();
