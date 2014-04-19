@@ -128,7 +128,7 @@
     };
 
     friend_list.renderFriends = function (list) {
-        var friends = list || friend_list.friends,
+        var friends = list || [];
             name = friend_list.settings.template;
 
         if (!name) return;
@@ -144,6 +144,8 @@
     };
 
     friend_list.filterFriends = function (val) {
+        if (!val) return [];
+
         return friend_list.friends.filter(function (e) {
             var names = e.name.match(/\S+/g);
 

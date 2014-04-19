@@ -3,13 +3,15 @@
         $addMovie = $('.attached.button.add');
         $videoSidebar = $('.sidebar.video-search'),
         $friendSidebar = $('.sidebar.friends'),
-        $addFriend = $('.js-friends-toggle');
+        $addFriend = $('.js-friends-toggle'),
+        $invited = $('.friends.invited'),
+        invited = {};
 
 
     var resultList;
     var oldProvider = "none";
     var playlist = [];
-    var listIndex = 0; 
+    var listIndex = 0;
 
     //
     // Snickerdoodle Values
@@ -27,6 +29,28 @@
         snicker.setupFriends();
     };
 
+    snicker.friendClicked = function (friend) {
+        invited[friend.id] = friend;
+        console.log('Adding ' + friend.id);
+        console.log(invited);
+
+        snicker.renderInvited();
+    };
+
+    snicker.renderInvited = function () {
+        var source = $('#friends-invited-template').html();
+        var template = Handlebars.compile(source);
+        var data = {};
+
+        if (Object.keys(invited).length !== 0) {
+            data['invited'] = invited;
+        }
+
+        // Render template, add to html
+        var html = template(data);
+        $invited.empty().append(html);
+    };
+
     snicker.setupFriends = function () {
         var handler = {},
             $friends = $('.sidebar.friends .friends-list'),
@@ -41,11 +65,11 @@
             input: $input,
             list: $friends,
             template: '#friends-list-friend-template',
-            clicked: handler.clicked,
+            clicked: snicker.friendClicked,
         });
 
-        //root.Friends.retrieveFriends();
-        root.Friends.retrieveSnickerdoodleFriends();
+        root.Friends.retrieveFriends();
+        //root.Friends.retrieveSnickerdoodleFriends();
     };
 
     snicker.bind = function () {
@@ -81,7 +105,7 @@
                     if (!(oldProvider === resultList.results[index].provider)) {
                         snicker.changeProvider(resultList.results[index].provider);
                     }
-                    
+
                     snicker.provider.playlist(resultList.results[index]);
                 }
         });
@@ -104,12 +128,28 @@
         });
 
 
-
         $('body').on('click', '.step.forward.icon', function () {
             Snicker.emit('video', {
                 action: 'change'
             });
-        })
+        });
+
+        $invited.on('click', '.friend .icon', function (e) {
+            var $this = $(this),
+                $parent = $this.parent(),
+                $pparent = $parent.parent(),
+                id = $parent.attr('data-id');
+
+            if (invited[id]) {
+                delete invited[id];
+            }
+
+            $pparent.remove();
+
+            snicker.renderInvited();
+
+            return false;
+        });
 
 
         $addMovie.on('click', snicker.showVideoSearch);

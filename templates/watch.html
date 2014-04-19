@@ -12,7 +12,7 @@
     </h3>
     <form class="ui tertiary form segment">
         <div class="field">
-            <label>Invite Friend</label>
+            <label>Invite Friends</label>
             <div class="ui action input">
                 <input class="search friends" type="text" placeholder="Name...">
                 <div class="ui icon blue button submit"><i class="search icon"></i></div>
@@ -20,9 +20,9 @@
         </div>
     </form>
 
-    <a class="ui blue button invite">Send yourself a chat message</a>
+    <div class="friends-list"></div>
 
-    <div class="friends-list ui selection item list"></div>
+    <div class="friends invited"></div>
 </div>
 {% endblock %}
 
@@ -120,6 +120,7 @@
 {% endblock %}
 
 {%block js %}
+<script src="/static/js/videos.js"></script>
 {% endblock %}
 
 {% block templates %}

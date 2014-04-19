@@ -1,28 +1,58 @@
 {% raw %}
 <script id="friends-list-friend-template" type="text/x-handlebars-template">
-    {{#each friends}}
-        <div class="friend item" data-index="{{index}}">
-            <i class="green circle blank icon"></i>
-            <div class="content">
-                    <div class="header">{{ display_name }}</div>
+{{#if friends}}
+    <h3>Friends</h3>
+    <div class="ui selection item list">
+        {{#each friends}}
+            <div class="friend item" data-index="{{index}}">
+                <i class="green circle blank icon"></i>
+                <div class="content">
+                        <div class="header">{{ name }}</div>
+                </div>
+                <!--<div class="ui icon button">
+                    <i class="add icon"></i>
+                </div>-->
             </div>
-            <div class="ui icon button">
-                <i class="add icon"></i>
-            </div>
-        </div>
-    {{/each}}
+        {{/each}}
+    </div>
+{{/if}}
 </script>
 
 <script id="no-friends-label" type="text/x-handlebars-template">
-    <a class="ui label">
-      No one
-    </a>
+    <div class="friend">
+        No one.
+    </div>
 </script>
 
-<script id="friends-label" type="text/x-handlebars-template">
-    <a class="ui label friend" data-id="{{ id }}">
-        {{ name }}
-        <i class="delete icon"></i>
-    </a>
+<script id="friends-invited-template" type="text/x-handlebars-template">
+{{#if invited}}
+    <h3>Invited</h3>
+    <div class="ui selection item list">
+        {{#each invited}}
+            <div class="friend">
+                <a class="ui item" data-id="{{ id }}">
+                    {{ name }}
+                    <i class="delete icon"></i>
+                </a>
+            </div>
+        {{/each}}
+    </div>
+
+    <div class="ui buttons fluid">
+        <div class="ui positive button">Invite Friends</div>
+    </div>
+{{else}}
+    <h3>Invited</h3>
+
+    <div class="ui selection item list">
+        <div class="ui item">
+            Select friends to invite.
+        </div>
+    </div>
+
+    <div class="ui buttons fluid">
+        <div class="ui disabled positive button">Invite Friends</div>
+    </div>
+{{/if}}
 </script>
 {% endraw %}
