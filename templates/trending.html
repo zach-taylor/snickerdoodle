@@ -1,0 +1,101 @@
+{% extends "base.html" %}
+{% block title %}Trending - Snickerdoodle{% endblock %}
+
+{% block css %}
+    <link rel="stylesheet" href="/static/css/trending.css" />
+    <link rel="stylesheet" href="/static/lib/semantic/css/semantic.css" />
+{% endblock %}
+
+{% block content %}
+<h1>Trending Videos</h1>
+
+<div class="trending ui three items">
+{% for video in videos %}
+    <div class="item">
+        <div class="overlay"><i class="icon huge play"></i></div>
+        <div class="image">
+            <img src="{{ video.icon }}" width="200">
+        </div>
+        <div class="content">
+            <div class="name">{{ video.title | truncate(50) }}</div>
+            <p class="description">{{ video.description | truncate(80) }}</p>
+        </div>
+    </div>
+{% endfor %}
+</div>
+{% endblock %}
+
+{%block js %}
+    <script src="/static/js/friends.js"></script>
+    <script src="/static/js/videos.js"></script>
+    <script src="/static/js/chat.js"></script>
+    <script src="/static/js/search.js"></script>
+    <script src="/static/js/providers/base.js"></script>
+    <script src="/static/js/providers/youtube.js"></script>
+    <script src="/static/js/providers/vimeo.js"></script>
+{% endblock %}
+
+{% block templates %}
+    {% include 'jsplates/friends_list.html' %}
+
+    {% raw %}
+    <script id="message-template" type="text/x-handlebars-template">
+        <div class="event">
+            <div class="content">
+                <div class="summary">
+                    <p>{{ message }}</p>
+                </div>
+            </div>
+        </div>
+    </script>
+
+    <script id="vimeo-template" type ="text/x-handlebars-template">
+        <div class="player">
+            <iframe id="vimeoPlayer" src="http://player.vimeo.com/video/{{video}}?api=1&player_id=vimeoPlayer" type="text/html" width="720" height="480" ></iframe>
+        </div>
+    </script>
+
+    <script id="player-template" type="text/x-handlebars-template">
+        <div id="player"></div>
+    </script>
+
+    <script id="current-template" type="text/x-handlebars-template">
+        <div class="left">
+        <h3>{{current}}</h3>
+        </div>
+    </script>
+
+    <script id="display-playlist" type="text/x-handlebars-template">
+         <div class="item">
+                    <div class="content">
+                        <img class="ui image rounded small left floated" src="{{ icon1 }}">
+                        <p>{{ one }}</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <img class="ui image rounded small left floated" src="{{ icon2 }}">
+                        <p>{{ two }}</p>
+                    </div>
+                </div>
+                <div class="item">
+                    <div class="content">
+                        <img class="ui image rounded small left floated" src="{{ icon3 }}">
+                        <p>{{ three }}</p>
+                    </div>
+                </div>
+    </script>
+
+    <script id="search-results-template" type="text/x-handlebars-template">
+        {{#each results}}
+        <div data-id="{{@index}}" class="result ui attached segment {{#if @first }}top{{/if}}{{#if @last }}bottom{{/if}}">
+                <img class="ui image rounded small left floated" src="{{ icon }}">
+                <p>{{ title }}</p>
+                <div class="float-right">
+                  <div class="ui black button"><i class="add icon"></i></div>
+                </div>
+            </div>
+        {{/each}}
+    </script>
+    {% endraw %}
+{% endblock %}
