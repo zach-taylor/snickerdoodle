@@ -86,12 +86,12 @@
      $('#users-button').on('click', function(){
         if ($('.ui.purple.segment').hasClass('hidden')) {
             $('.ui.purple.segment').removeClass('hidden');
-            showlist();
+            //showlist();
             userlistanimate().delay(100);
         }
         else {
             $('.ui.purple.segment').addClass('hidden');
-            hidelist();
+            //hidelist();
         }
            
      });

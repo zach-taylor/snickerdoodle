@@ -42,8 +42,8 @@
 .ui.green.segment {
      width: 500px;
      height: 50px;
-     right: 3%;
-     top: 5%;
+     right: 0%;
+     top: 20px;
 }
 .chat.list.overflowed.pauseplay {
      width: 500px;
@@ -71,11 +71,11 @@
 
 
 .ui.purple.segment {
-     width: 150px;
+     width: 200px;
      height: 300px;
      bottom: 334px;
-     right: -45%;
-     display: none;
+     right: -46%;
+
 }
 
 .ui.users.close{
@@ -83,4 +83,8 @@
     position: relative;
     right: -75%;
 
+}
+
+.controls.ui.bottom.attached.segment {
+    top: 1%;
 }
