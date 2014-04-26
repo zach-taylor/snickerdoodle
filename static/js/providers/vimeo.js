@@ -1,7 +1,7 @@
 (function (root, $) {
     var Snicker = root.Snicker;
      var player;
-     var status;
+     var statusOwn = 3;
     var Vimeo = (function () {
         __extends(Vimeo, root.Snicker.Base);
 
@@ -29,15 +29,18 @@
             video.title = "None";
             video.icon = "None";
             console.log(video);
-            if ( (1 == status) || (2 == status)) {
-                Snicker.emit('video', {
+            return video;
+        }
+        
+        Vimeo.prototype.playlist = function(video, oldProvider){
+            if ( (1 == statusOwn) || (2 == statusOwn) || (oldProvider != "Vimeo")) {
+                Snicker.emit('videolist', {
                 action: 'playlist',
                 video: video
                 });
             }else {
                 Vimeo.prototype.swapVideo(video);
             }
-            
         }
 
         Vimeo.prototype.checkUrl = function (url) {
@@ -65,23 +68,25 @@
         };
 
         Vimeo.prototype.swapVideo = function (video) {
-
-            Snicker.emit('watch', {
-                action: 'change',
-                video: video,
+            console.log("called Load emit");
+            Snicker.emit('video', {
+                action: 'load',
+                video: video
             });
         };
 
         Vimeo.prototype.onChangeVideo = function (id) {
-            console.log('vimeo Change Video: ' + url);
             console.log('This: ');
             console.log(id);
+            this.$player = $('.player .video');
 
             var source = $('#vimeo-template').html(),
             template = Handlebars.compile(source);
             // Render template, add to html
             var html = template({video: id});
-            $( "div.player").replaceWith(html);
+            this.$player
+                .empty()
+                .append(html);
             var f = $('iframe'),
             urlPost = f.attr('src').split('?')[0],
             status = $('.status');
@@ -95,7 +100,7 @@
         };
         
         Vimeo.prototype.emitPause = function(){
-            status = 2;
+            statusOwn = 2;
             console.log('pause');
             Snicker.emit('watch',{
                 action: 'pause',
@@ -103,14 +108,14 @@
         }
         
         Vimeo.prototype.emitPlay = function(){
-            status = 1;
+            statusOwn = 1;
             Snicker.emit('watch',{
                 action: 'play',
             });
         }
         
         Vimeo.prototype.emitEnded = function(){
-            status  = -1;
+            statusOwn  = -1;
             Snicker.emit('video', {
                 action: 'change'
             });
@@ -143,7 +148,7 @@
         // Helper function for sending a message to the player
         Vimeo.prototype.onReady = function(){
             console.log('ready');
-            status = 0;
+            statusOwn = 0;
             Vimeo.prototype.ready();    
         }
 

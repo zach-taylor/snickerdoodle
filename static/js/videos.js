@@ -92,7 +92,11 @@
 
             if (providerName == "Vimeo" || providerName == "YouTube"){
                 console.log(val);
-                snicker.provider.playlistUrl(val);
+                if (!(oldProvider === providerName) && (oldProvider === "none")) {
+                        snicker.changeProvider(providerName);
+                    }
+                var video = snicker.providerName.playlistUrl(val);
+                snicker.providerName.playlist(video, oldProvider);
             } else snicker.search(val);
         });
 
@@ -103,11 +107,11 @@
                 index = $parent.attr('data-id');
                 if (resultList.results[index].provider === "YouTube") {
                     console.log(resultList.results[index].provider);
-                    if (!(oldProvider === resultList.results[index].provider)) {
+                    if (!(oldProvider === resultList.results[index].provider)  && (oldProvider === "none")) {
                         snicker.changeProvider(resultList.results[index].provider);
                     }
 
-                    snicker.provider.playlist(resultList.results[index]);
+                    snicker.YouTube.playlist(resultList.results[index], oldProvider);
                 }
         });
 
@@ -309,7 +313,6 @@
 
             // Determine if the provider can handle the given URL
             if (provider.checkUrl(url) == true) {
-                snicker.changeProvider(name);
                 return name;
             }
         }
@@ -321,8 +324,6 @@
     snicker.changeProvider = function (name) {
         console.log(name);
         snicker.provider = snicker.providers[name];
-
-        // Call setup init
         snicker.provider.init();
         oldProvider = name;
     };

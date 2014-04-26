@@ -17,6 +17,7 @@
          * YouTube API asynchronously.
          */
         YouTube.prototype.init = function () {
+            console.log("initialized");
             this.$player = $('.player .video');
 
             // Grab YT player template
@@ -61,15 +62,7 @@
             video.title = "None";
             video.icon = "None";
             console.log(video);
-            if ( (1 == status) || (2 == status)) {
-                Snicker.emit('video', {
-                action: 'playlist',
-                video: video
-                });
-            }else {
-                YouTube.prototype.swapVideo(video);
-            }
-            
+            return video;
         }
 
         YouTube.prototype.onPlay = function () {
@@ -94,8 +87,11 @@
             });
         };
         
-        YouTube.prototype.playlist = function (video){
+        YouTube.prototype.playlist = function (video, oldProvider){
            console.log("YouTube.prototype.playlist");
+           console.log(oldProvider);
+            if (oldProvider === "YouTube" ) {
+            console.log("past oldProvider ===");
            var youtube = this,
            playlist = function () {
             if ( (1 == this.player.getPlayerState()) || (2 == this.player.getPlayerState())) {
@@ -115,6 +111,12 @@
                 console.log('API Not Loaded, Waiting');
                 this.waiting = playlist.bind(this);
             }
+           } else {
+            Snicker.emit('video', {
+                action: 'playlist',
+                video: video
+            });
+           }
         };
 
         YouTube.prototype.onChangeVideo = function (id) {

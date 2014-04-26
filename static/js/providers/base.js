@@ -18,6 +18,10 @@
         Base.prototype.playlistUrl = function(){
             //Called when adding a video to play list with url.
         };
+        
+        Base.prototype.playlist = function(){
+            //Called when adding a video from search to playlist.
+        };
 
         Base.prototype.onPlay = function () {
             // Called when server issues an onPlay command
@@ -44,10 +48,6 @@
         Base.prototype.status = function () {
             // Provides a status object of the currently playing video
         };
-        
-        Base.prototype.playlist = function(){
-            //Builds a playlist with site and id.
-        }
 
         return Base;
     }());
