@@ -95,8 +95,8 @@
                 if (!(oldProvider === providerName) && (oldProvider === "none")) {
                         snicker.changeProvider(providerName);
                     }
-                var video = snicker.providerName.playlistUrl(val);
-                snicker.providerName.playlist(video, oldProvider);
+                var video = snicker.providers[providerName].playlistUrl(val);
+                snicker.providers[providerName].playlist(video, oldProvider);
             } else snicker.search(val);
         });
 
@@ -111,7 +111,7 @@
                         snicker.changeProvider(resultList.results[index].provider);
                     }
 
-                    snicker.YouTube.playlist(resultList.results[index], oldProvider);
+                    snicker.providers["YouTube"].playlist(resultList.results[index], oldProvider);
                 }
         });
 
