@@ -2,6 +2,9 @@ from flask import Flask, render_template, request, jsonify, abort, make_response
 
 from flask.ext import socketio
 
+from ..helpers import insert_user_info
+
+from ..extensions import db
 
 
 rooms = {}
@@ -39,12 +42,8 @@ def clean_rooms():
 
 
 def chat_message(data):
-    data['username'] = session['user']['name']
-    data['user_id'] = session['user']['id']
-    print data
+    insert_user_info(data)
     socketio.emit('reply', data, namespace='/chat', broadcast=True)
-    
-
 
 
 def attach_views_with_socket(app, socket):
