@@ -77,7 +77,11 @@
      right: -46%;
 
 }
-
+.videoinput{
+     position: relative;
+     top: -95%;
+     right: 42%;
+}
 .ui.users.close{
     top: 1%;
     position: relative;
