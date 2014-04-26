@@ -175,6 +175,7 @@
 
         Vimeo.prototype.onPlayerState = function(event) {
         };
+        
 
         return Vimeo;
     }());

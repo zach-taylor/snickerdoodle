@@ -48,6 +48,10 @@
         Base.prototype.status = function () {
             // Provides a status object of the currently playing video
         };
+        
+        Base.prototype.destroyPlayer = function(){
+            //Destroys player
+        };
 
         return Base;
     }());

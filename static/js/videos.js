@@ -412,6 +412,8 @@
            // $(".chat.list.overflowed.log").append("<p>A User: has SKIPPED the video.</p>");
             // TODO: Error check
              if (playlist[0].provider === "YouTube"  || playlist[0].provider === "Vimeo") {
+                    console.log(oldProvider);
+                    console.log(playlist[0].provider);
                     if (!(oldProvider === playlist[0].provider )) {
                         snicker.changeProvider(playlist[0].provider );
                     }
