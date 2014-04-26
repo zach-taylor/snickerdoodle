@@ -1,6 +1,7 @@
 from flask import Flask, render_template, jsonify, session, request, url_for, redirect
 
 from snickerdoodle import helpers
+from snickerdoodle.lib import youtube
 
 #
 # Main Views
@@ -12,6 +13,14 @@ def home():
     context['room_name'] = helpers.generate_room_name()
 
     return render_template('home.html', **context)
+
+
+def trending():
+    context = helpers.default_context()
+    print youtube
+    context['videos'] = youtube.popular_videos()
+
+    return render_template('trending.html', **context)
 
 
 def connect():
@@ -41,4 +50,4 @@ def attach_views(app):
     app.add_url_rule('/home', view_func=home)
     app.add_url_rule('/connect', view_func=connect)
     app.add_url_rule('/chat', view_func=chat)
-
+    app.add_url_rule('/trending', view_func=trending)
