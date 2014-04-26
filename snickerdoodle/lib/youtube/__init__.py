@@ -1,1 +1,1 @@
-from .api import configure, search_for_video
+from .api import configure, search_for_video, popular_videos
