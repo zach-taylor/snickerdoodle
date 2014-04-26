@@ -2,7 +2,7 @@ from flask import Flask, render_template, request, jsonify, abort, make_response
 
 from flask.ext import socketio
 
-from ..extensions import db
+
 
 rooms = {}
 
@@ -19,6 +19,7 @@ def create_room(id, user):
     room['sockets'] = []
 
     rooms[id] = room
+    print rooms
 
 
 def clean_rooms():
@@ -49,5 +50,6 @@ def chat_message(data):
 def attach_views_with_socket(app, socket):
     chat_socket = socket.on('chat', namespace='/chat', broadcast=True)
     chat_socket(chat_message)
-    
+
+
 

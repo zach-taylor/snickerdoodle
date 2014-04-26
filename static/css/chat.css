@@ -1,21 +1,31 @@
-.ui.piled.green.segment.item {
-    font-family:Arial;
-    font-size: 12px;
-    color: black;
-    height: 225px;
-    width: 400px;
-    overflow-y: scroll;
-    
+.overflowed {
+    max-height: 200px;
+    overflow: auto;
 }
 
-.ui.piled.blue.segment.item {
-    width: 500px;
-    height: 200px;
-    overflow-y: scroll;
+.ui.blue.segment {
+     width: 500px;
+     height: 300px;
+}
+.ui.green.segment {
+     width: 500px;
+     height: 50px;
+     right: 7%;
+}
+.chat.list.overflowed.pauseplay {
+     width: 500px;
+     height: 50px;
+
+}
+.chat.list.overflowed.log {
+     width: 500px;
+     height: 200px;
+     overflow: auto;
 }
 
-.fluid.text.bar {
-   width: 500px;
-   height: 50px;
+.ui.action.input {
+     top: -2%;
+     right: 3%;
+     width: 500px;
+     height: 45px;
 }
-

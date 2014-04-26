@@ -43,6 +43,8 @@
 </div>
 {% endblock %}
 
+
+
 {% block content %}
 <div class="js-friends-toggle ui green huge launch attached button right">
     <i class="icon inverted circular users"></i>
@@ -76,26 +78,35 @@
     </div>
 </div>
 
+
+
+
 <div class="ui grid">
     <div class="ten wide column">
-        <div class="ui stacked blue segment">
+        <div class="ui blue segment">
            <div class="ui tiny list">
                <div class="item">
                   <h5 class="ui header">
                      <i class="icon inverted circular blue comment"></i> Chat
                   </h5>
                </div>
-               <div class="chat list overflowed log">
-                      {% if not user %}
-                      Please Sign In! <img class="ui avatar image" src="/static/img/doge.jpeg">
-                      {% else %}
-                      Welcome to chat, {{user.first_name}} {{user.last_name}}!
-                      {% endif %}
+               <div class="item">
+                  <div class="chat list overflowed log">
+                         {% if not user %}
+                         Please Sign In! <img class="ui avatar image" src="/static/img/doge.jpeg">
+                         {% else %}
+                         Welcome to chat, {{user.first_name}} {{user.last_name}}!
+                         {% endif %}
+                  </div>
+               </div>
+               <div class="ui green segment">
+                  <div class="chat list overflowed pauseplay"> Please add a Video to watch!
+                  </div>
                </div>
            </div>
              <div class="ui action input">
                  <input type="text" name="reply-msg" id="reply-msg" placeholder="Enter Message Here">
-                 <div class="ui blue button" id="reply-button">Reply</div>
+                 <div class="ui blue button reply" id="reply-button">Reply</div>
              </div>
         </div>
     </div>
@@ -114,8 +125,8 @@
             </div>
         </div>
     </div>
-
 </div>
+
 
 {% endblock %}
 

@@ -2,7 +2,8 @@
 (function (root, $) {
    var chatsocket = io.connect("/chat");
    var div = document.getElementById(".chat.list.overflowed.log");
-   
+   //var clearplaypause = document.getElementById(".chat.list.overflowed.pauseplay").innerHTML = "Haha"; 
+  
    var vidsocket = io.connect("/video");
    
     
@@ -50,29 +51,35 @@
         chatsocket.emit(event, msg);
     };
     
-    // Temp Changing the color of Who Joins room
-    /*
-   emits = function (event, test){
-       chatsocket.emit(event, test);
+    // ------ Clears the Play pause Message list 
+    clearplaypause = function () {
+        jQuery(".chat.list.overflowed.pauseplay").empty();
     };
     
-    chatsocket.on('welcome', function(test) {
-         fullName = test.username;
-         var strs = "<p>" + test.username  + test.data + "</p>";
-         $(".chat.list.overflowed.log").append(strs.fontcolor("green"));
-         autoscroll();
-     }); */
-  
+    playpauseanimate = function () {
+        $('.chat.list.overflowed.pauseplay').animate({
+            'marginLeft' : "-=30px"
+        });
+        $('.chat.list.overflowed.pauseplay').animate({
+            'marginLeft' : "+=30px"
+        });
+        $('.chat.list.overflowed.pauseplay').animate({
+            'marginLeft' : "-=30px"
+        });
+        $('.chat.list.overflowed.pauseplay').animate({
+            'marginLeft' : "+=30px"
+        });
+    };  
     
      // When Chat connects for the first time?
      chatsocket.on('connect', function(socket){
           console.log('Server: Connected!');
-          emit('chat', {data: ' has JOINED the room'});
+          emit('chat', {data: ' has JOINED the room.'});
           
          
            chatsocket.on('disconnect', function(){
            console.log('Server: Disconnected!');
-           emit('chat', {data: ' has LEFT the room'});
+           emit('chat', {data: ' has LEFT the room.'});
             });
   
      });
@@ -86,8 +93,8 @@
         //getnames();
         fullName = msg.username;        
         var str = "<p>" + msg.username  + msg.data + "</p>";
-        var strhello = "<p>" + msg.username  + " has JOINED the room" + "</p>"
-        var strbye = "<p>" + msg.username  + " has LEFT the room" + "</p>"
+        var strhello = "<p>" + msg.username  + " has JOINED the room." + "</p>"
+        var strbye = "<p>" + msg.username  + " has LEFT the room." + "</p>"
         if (str == strhello){
             $(".chat.list.overflowed.log").append(str.fontcolor("blue"));
             autoscroll();
@@ -116,19 +123,28 @@
          
          
      vidsocket.on('player', function (data) {
-        //console.log('SocketIO response:');
+        //console.log('SocketIO response:'    );
         //console.log(data);
         //console.log('Sending action to provider:');
         //console.log(snicker.provider);
 
         var action = data.action;
-
+        var ppsstring = null;
         if (action === 'play') {
-            $(".chat.list.overflowed.log").append("<p>" + data.username + " has STARTED the video.</p>");
+            ppsstring = "<p>" + data.username + " has STARTED the video.</p>";
+            clearplaypause();
+            $(".chat.list.overflowed.pauseplay").append(ppsstring.fontcolor("purple"));
+             playpauseanimate();
         } else if (action === 'pause') {
-            $(".chat.list.overflowed.log").append("<p>" + data.username + " has PAUSED the video.</p>");
+            ppsstring = "<p>" + data.username + " has PAUSED the video.</p>";
+            clearplaypause();
+            $(".chat.list.overflowed.pauseplay").append(ppsstring.fontcolor("orange"));
+             playpauseanimate();
         } else if (action === 'change') {
-            $(".chat.list.overflowed.log").append("<p>" + data.username + " has SKIPPED the video.</p>");
+            ppsstring = "<p>" + data.username + " has SKIPPED the video.</p>";
+            clearplaypause();
+            $(".chat.list.overflowed.pauseplay").append(ppsstring.fontcolor("green"));
+             playpauseanimate();
         }
      });
      
