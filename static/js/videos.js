@@ -8,7 +8,7 @@
 
     var snicker = {},
         invited = {};
-
+    var video;
     var resultList;
     var oldProvider = "none";
     var playlist = [];
@@ -95,8 +95,11 @@
                 if (!(oldProvider === providerName) && (oldProvider === "none")) {
                         snicker.changeProvider(providerName);
                     }
-                var video = snicker.providers[providerName].playlistUrl(val);
-                snicker.providers[providerName].playlist(video, oldProvider);
+                if (providerName === "YouTube") {
+                    snicker.videoInfo(val);
+                }
+                //var video = snicker.providers[providerName].playlistUrl(val);
+                //snicker.providers[providerName].playlist(video, oldProvider);
             } else snicker.search(val);
         });
 
@@ -189,6 +192,25 @@
         $addFriend.on('click', snicker.showFriends);
     };
 
+    snicker.videoInfo = function(val) {
+            $.ajax({
+            type: 'GET',
+            url: '/videos/search',
+            data: {q: val},
+            success: snicker.getInfo,
+            error: snicker.searchError,
+        });
+    }
+    
+    snicker.getInfo = function(data) {
+        console.log(data);
+        if (!(oldProvider === data.results[0].provider)  && (oldProvider === "none")) {
+                        snicker.changeProvider(data.results[0].provider);
+                    }
+
+                    snicker.providers[data.results[0].provider].playlist(data.results[0], oldProvider);
+    }
+    
     snicker.closeSidebars = function () {
         $friendSidebar.sidebar('hide');
         $videoSidebar.sidebar('hide');
