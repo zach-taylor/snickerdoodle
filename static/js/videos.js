@@ -8,7 +8,6 @@
 
     var snicker = {},
         invited = {};
-    var video;
     var resultList;
     var oldProvider = "none";
     var playlist = [];
@@ -96,10 +95,12 @@
                         snicker.changeProvider(providerName);
                     }
                 if (providerName === "YouTube") {
-                    snicker.videoInfo(val);
+                    console.log(providerName);
+                    snicker.YTInfo(val);
+                }else if (providerName === "Vimeo"){
+                    console.log(providerName);
+                    snicker.VimeoInfo(val);
                 }
-                //var video = snicker.providers[providerName].playlistUrl(val);
-                //snicker.providers[providerName].playlist(video, oldProvider);
             } else snicker.search(val);
         });
 
@@ -192,23 +193,47 @@
         $addFriend.on('click', snicker.showFriends);
     };
 
-    snicker.videoInfo = function(val) {
+    snicker.YTInfo = function(val) {
             $.ajax({
             type: 'GET',
             url: '/videos/search',
             data: {q: val},
-            success: snicker.getInfo,
+            success: function(data){
+                    var video = {
+                            "provider" : data.results[0].provider,
+                            "id" : data.results[0].id,
+                            "title" : data.results[0].title,
+                            "icon" : data.results[0].icon
+                        };
+                        snicker.getInfo(video);
+                         },
             error: snicker.searchError,
         });
     }
     
+    snicker.VimeoInfo = function(val) {
+            console.log("VimeoInfo");
+            var id = (val.split("/",4)[3]);
+            $.getJSON("http://vimeo.com/api/v2/video/" + id + ".json?callback=?",
+                       {format: "json"},
+                         function(data){
+                            var video = {
+                "provider" : "Vimeo",
+                "id" : data[0].id,
+                "title" : data[0].title,
+                "icon" : data[0].thumbnail_small
+                        };
+                        snicker.getInfo(video);
+                         });
+    }
+    
     snicker.getInfo = function(data) {
         console.log(data);
-        if (!(oldProvider === data.results[0].provider)  && (oldProvider === "none")) {
-                        snicker.changeProvider(data.results[0].provider);
+        if (!(oldProvider === data.provider)  && (oldProvider === "none")) {
+                        snicker.changeProvider(data.provider);
                     }
 
-                    snicker.providers[data.results[0].provider].playlist(data.results[0], oldProvider);
+                    snicker.providers[data.provider].playlist(data, oldProvider);
     }
     
     snicker.closeSidebars = function () {

@@ -91,7 +91,6 @@
            console.log("YouTube.prototype.playlist");
            console.log(oldProvider);
             if (oldProvider === "YouTube" ) {
-            console.log("past oldProvider ===");
            var youtube = this,
            playlist = function () {
             if ( (1 == this.player.getPlayerState()) || (2 == this.player.getPlayerState())) {

@@ -17,29 +17,22 @@
             
         }
         
-        Vimeo.prototype.playlistUrl = function(url){
-            var video = {
-                "provider" : "None",
-                "id" : "None",
-                "title" : "None",
-                "icon" : "None"
-            };
-            video.provider = "Vimeo";
-            video.id = url.split("/",4)[3];
-            video.title = "None";
-            video.icon = "None";
-            console.log(video);
-            return video;
-        }
         
         Vimeo.prototype.playlist = function(video, oldProvider){
-            if ( (1 == statusOwn) || (2 == statusOwn) || (oldProvider != "Vimeo")) {
-                Snicker.emit('videolist', {
+            if (oldProvider === "Vimeo") {
+            if ( (1 == statusOwn) || (2 == statusOwn)) {
+                Snicker.emit('video', {
                 action: 'playlist',
                 video: video
                 });
             }else {
                 Vimeo.prototype.swapVideo(video);
+            }
+            }else{
+                Snicker.emit('video', {
+                action: 'playlist',
+                video: video
+                });
             }
         }
 
