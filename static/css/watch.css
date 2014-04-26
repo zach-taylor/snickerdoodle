@@ -62,3 +62,25 @@
      width: 500px;
      height: 45px;
 }
+
+.ui.users.input {
+    top: -108px;
+    right: -439px;
+    position: relative;
+}
+
+
+.ui.purple.segment {
+     width: 150px;
+     height: 300px;
+     bottom: 334px;
+     right: -45%;
+     display: none;
+}
+
+.ui.users.close{
+    top: 1%;
+    position: relative;
+    right: -75%;
+
+}

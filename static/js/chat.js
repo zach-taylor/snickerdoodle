@@ -3,7 +3,7 @@
    var chatsocket = io.connect("/chat");
    var div = document.getElementById(".chat.list.overflowed.log");
    //var clearplaypause = document.getElementById(".chat.list.overflowed.pauseplay").innerHTML = "Haha"; 
-  
+   var userlist = "hidden";
    var vidsocket = io.connect("/video");
    
     
@@ -56,6 +56,7 @@
         jQuery(".chat.list.overflowed.pauseplay").empty();
     };
     
+    // --------- Animation for PausePlayLog
     playpauseanimate = function () {
         $('.chat.list.overflowed.pauseplay').animate({
             'marginLeft' : "-=30px"
@@ -69,7 +70,46 @@
         $('.chat.list.overflowed.pauseplay').animate({
             'marginLeft' : "+=30px"
         });
-    };  
+    }; 
+    
+    userlistanimate = function () {
+      $('.user.list.log').animate({
+         'marginTop' : "+=60px"
+      });
+      $('.user.list.log').animate({
+         'marginTop' : "-=60px"
+      });
+    };
+    
+    
+        // ------------ Users button to show friends list
+     $('#users-button').on('click', function(){
+        if ($('.ui.purple.segment').hasClass('hidden')) {
+            $('.ui.purple.segment').removeClass('hidden');
+            showlist();
+            userlistanimate().delay(100);
+        }
+        else {
+            $('.ui.purple.segment').addClass('hidden');
+            hidelist();
+        }
+           
+     });
+            
+
+ 
+
+    showlist = function() {
+       $('.ui.purple.segment').show( "fast" );
+    };
+
+    hidelist = function() {
+       $('.ui.purple.segment').hide("1000");
+    };
+        
+        
+    
+
     
      // When Chat connects for the first time?
      chatsocket.on('connect', function(socket){
