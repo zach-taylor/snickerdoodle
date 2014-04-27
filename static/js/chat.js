@@ -2,44 +2,19 @@
 (function (root, $) {
    var chatsocket = io.connect('/chat');
    var $chatList = $('.chat.list.overflowed');
-   //var clearplaypause = document.getElementById(".chat.list.overflowed.pauseplay").innerHTML = "Haha"; 
    var $userlist = $('.user.list');
    var vidsocket = io.connect('/video');
    var $videoStatus = $('#video-status');
    
     
-   var firstName = null;
-   var lastName =  null;
-   //var firstNameT = {{user.first_name}};
-   //var lastNameT =  {{user.last_name}};
-   //var fullNameT =  $('a[href="/logout"]');  
-   var fullName = null;
-   var textcolor = null;
-  
- // {'username': u'Will Park', 'user_id': u'570048281', u'data': u'sdf'}
-
-/*   getnames = function () { 
-      // if (firstNameT == null && lastNameT == null)
-      if (fullNameT == null)
-       {
-           firstName = "Anonymous";
-           lastName = "123";
-           //fullName = firstName +"#"+ lastName;
-           fullName = "Anonymous#1";
-       }
-       else {
-           //firstName  = firstNameT;
-           //lastName = lastNameT;
-           //fullName = firstName + " " + lastName;
-           fullName = fullNameT;
-        }
-   }
    
-   */
- 
-   //div.scrollTop = div.scrollHeight;
+  // ---- Information for Will    (The chat division contains 59 spaces)
+ // {'username': u'Will Park', 'user_id': u'570048281', u'data': u'sdf'}
+ // 
 
- //------- Auto scroll feature for the chat log. doesnt work currently will fix
+
+
+ //------- Auto scroll feature for the chat log.
     autoscroll = function () {
          $chatList.get(0).scrollTop = 1000000;
     };
@@ -142,6 +117,7 @@
             $chatList.append(str.fontcolor('red'));
             autoscroll();
             } else {
+                 //$chatList.addClass('word-wrap:break-word');
                  $chatList.append(str.fontcolor('black'));
                   autoscroll();
             }
@@ -162,6 +138,9 @@
     // Whisper function
          
          
+         
+         
+      // ---- Function for recording pause and play events in the PlayPause Division   
      vidsocket.on('player', function (data) {
         //console.log('SocketIO response:'    );
         //console.log(data);
@@ -171,14 +150,14 @@
         var action = data.action;
         var ppsstring = null;
         if (action === 'play') {
-            ppsstring = '<p>' + data.username + ' has STARTED the video.</p>';
+            ppsstring = '<p>' + data.username + ' has PLAYED the video.</p>';
             clearplaypause();
             $videoStatus.append(ppsstring.fontcolor('purple'));
              playpauseanimate();
         } else if (action === 'pause') {
             ppsstring = '<p>' + data.username + ' has PAUSED the video.</p>';
             clearplaypause();
-            $videoStatus.append(ppsstring.fontcolor('orange'));
+            $videoStatus.append(ppsstring.fontcolor('red'));
              playpauseanimate();
         } else if (action === 'change') {
             ppsstring = '<p>' + data.username + ' has SKIPPED the video.</p>';
