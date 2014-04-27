@@ -31,7 +31,7 @@ def on_leave(data):
 def video_message(data):
     room = 36
     insert_user_info(data)
-    socketio.emit('player', data, namespace='/video', broadcast=True, room=room)
+    socketio.emit('player', data, namespace='/video', broadcast=True)
 
     # Add the video to the database
     if data['action'] == 'playlist':
