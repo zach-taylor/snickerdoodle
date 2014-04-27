@@ -208,7 +208,7 @@
                          },
             error: snicker.searchError,
         });
-    }
+    };
     
     snicker.VimeoInfo = function(val) {
             console.log("VimeoInfo");
