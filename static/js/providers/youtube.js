@@ -17,8 +17,8 @@
          * YouTube API asynchronously.
          */
         YouTube.prototype.init = function () {
-            console.log("initialized");
-            this.$player = $('.player .video');
+            console.log('initialized');
+            this.$player = $('#player');
 
             // Grab YT player template
             var source = $('#player-template').html(),
@@ -29,7 +29,7 @@
 
             this.$player
                 .empty()
-                .append(html);
+                .html(html);
 
             // Asynchronously load YT scripts
             var tag = document.createElement('script');
@@ -40,9 +40,9 @@
 
         YouTube.prototype.checkUrl = function (url) {
             // TODO: More robust checking
-            if (url.split(".",2)[1] === "youtube"){
+            if (url.split('.',2)[1] === 'youtube'){
                 return true;
-            } else if (url.split(".",2)[1] === "ytimg") {
+            } else if (url.split('.',2)[1] === 'ytimg') {
                 return true;
             } else {
                 return false;
@@ -90,7 +90,7 @@
         YouTube.prototype.playlist = function (video, oldProvider){
            console.log("YouTube.prototype.playlist");
            console.log(oldProvider);
-            if (oldProvider === "YouTube" ) {
+            if (oldProvider === 'YouTube' ) {
            var youtube = this,
            playlist = function () {
             if ( (1 == this.player.getPlayerState()) || (2 == this.player.getPlayerState())) {

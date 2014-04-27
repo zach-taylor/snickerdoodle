@@ -9,7 +9,7 @@
     var snicker = {},
         invited = {};
     var resultList;
-    var oldProvider = "none";
+    var oldProvider = 'none';
     var playlist = [];
     var listIndex = 0;
 
@@ -69,7 +69,6 @@
         });
 
         root.Friends.retrieveFriends();
-        //root.Friends.retrieveSnickerdoodleFriends();
     };
 
     snicker.bind = function () {
@@ -89,15 +88,15 @@
 
             var providerName = root.Snicker.parseUrl(val);
 
-            if (providerName == "Vimeo" || providerName == "YouTube"){
+            if (providerName == 'Vimeo' || providerName == 'YouTube'){
                 console.log(val);
-                if (!(oldProvider === providerName) && (oldProvider === "none")) {
+                if (!(oldProvider === providerName) && (oldProvider === 'none')) {
                         snicker.changeProvider(providerName);
                     }
-                if (providerName === "YouTube") {
+                if (providerName === 'YouTube') {
                     console.log(providerName);
                     snicker.YTInfo(val);
-                }else if (providerName === "Vimeo"){
+                }else if (providerName === 'Vimeo'){
                     console.log(providerName);
                     snicker.VimeoInfo(val);
                 }
@@ -109,13 +108,13 @@
             var $this = $(this),
                 $parent = $this.closest('.result'),
                 index = $parent.attr('data-id');
-                if (resultList.results[index].provider === "YouTube") {
+                if (resultList.results[index].provider === 'YouTube') {
                     console.log(resultList.results[index].provider);
-                    if (!(oldProvider === resultList.results[index].provider)  && (oldProvider === "none")) {
+                    if (!(oldProvider === resultList.results[index].provider)  && (oldProvider === 'none')) {
                         snicker.changeProvider(resultList.results[index].provider);
                     }
 
-                    snicker.providers["YouTube"].playlist(resultList.results[index], oldProvider);
+                    snicker.providers['YouTube'].playlist(resultList.results[index], oldProvider);
                 }
         });
 
@@ -229,7 +228,7 @@
     
     snicker.getInfo = function(data) {
         console.log(data);
-        if (!(oldProvider === data.provider)  && (oldProvider === "none")) {
+        if (!(oldProvider === data.provider)  && (oldProvider === 'none')) {
                         snicker.changeProvider(data.provider);
                     }
 
@@ -268,7 +267,7 @@
     };
 
     snicker.addVideoToPlaylist = function (video) {
-        console.log("addVideoToPlaylist");
+        console.log('addVideoToPlaylist');
         playlist.push(video);
         listIndex++;
         console.log(playlist);
@@ -281,7 +280,7 @@
         //console.log('display list');
         $('.displayplaylist').empty();
         var source = $('#display-playlist').html(),
-         template = Handlebars.compile(source);
+            template = Handlebars.compile(source);
         if (playlist.length == 0) {
             var html = template();
         } else if (playlist.length ==1) {
@@ -297,11 +296,11 @@
 
     snicker.currentVideo = function() {
        $('.controls .current').empty();
-        var curvideo = playlist.shift();
-        console.log('current video');
-        console.log(curvideo.title);
+       var curvideo = playlist.shift();
+       console.log('current video');
+       console.log(curvideo.title);
        var source = $('#current-template').html(),
-         template = Handlebars.compile(source);
+           template = Handlebars.compile(source);
 
         // Render template, add to html
         var html = template({current: curvideo.title});
@@ -411,7 +410,7 @@
             console.log("change");
            // $(".chat.list.overflowed.log").append("<p>A User: has SKIPPED the video.</p>");
             // TODO: Error check
-             if (playlist[0].provider === "YouTube"  || playlist[0].provider === "Vimeo") {
+             if (playlist[0].provider === 'YouTube'  || playlist[0].provider === 'Vimeo') {
                     console.log(oldProvider);
                     console.log(playlist[0].provider);
                     if (!(oldProvider === playlist[0].provider )) {
@@ -425,7 +424,7 @@
             snicker.addVideoToPlaylist(data.video);
         } else if (action === 'load') {
             playlist.push(data.video);
-            console.log("playlist" + playlist[0].provider  + playlist[0].id);
+            console.log('playlist' + playlist[0].provider  + playlist[0].id);
             if (playlist[0].provider  === 'YouTube' || playlist[0].provider === 'Vimeo') {
                     if (!(oldProvider === playlist[0].provider )) {
                         console.log('changing provider');

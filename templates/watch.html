@@ -58,7 +58,7 @@
         <div class="ui top attached header">Topic: {{ room.name }}</div>
         <div class="ui attached segment">
            <div class="ui attached green segment">
-               <div class="player">
+               <div id="player">
                    <img id="video" class="ui huge" src="/static/img/video.jpg">
                </div>
            </div>
@@ -110,7 +110,7 @@
         <div class="ui attached top header">Playlist</div>
 
         <div class="ui attached green segment">
-           <div id="video-status">Please add a Video to watch!</div>
+           <div id="video-status">Please add a video to watch!</div>
         </div>
 
         <div class="ui center aligned attached green segment">
@@ -124,7 +124,7 @@
         <div class="ui attached segment overflowed tall">
             <div class="ui animated list">
                 <div class="displayplaylist">
-                    <p></p>
+                    <p>No videos added yet</p>
                 </div>
             </div>
         </div>
@@ -161,7 +161,7 @@
     </script>
 
     <script id="vimeo-template" type ="text/x-handlebars-template">
-        <iframe id="vimeoPlayer" src="http://player.vimeo.com/video/{{video}}?api=1&player_id=vimeoPlayer" type="text/html" width="720" height="480" ></iframe>
+        <iframe id="vimeoPlayer" src="http://player.vimeo.com/video/{{video}}?api=1&player_id=vimeoPlayer" type="text/html" width="100%" ></iframe>
     </script>
 
     <script id="player-template" type="text/x-handlebars-template">
