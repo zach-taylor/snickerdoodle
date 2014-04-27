@@ -38,6 +38,6 @@ def generate_room_name(adjectives=2):
 
 # Insert a user's id and name into the message
 def insert_user_info(data):
-    print data
     data['username'] = session['user']['name']
     data['user_id'] = session['user']['id']
+    print data

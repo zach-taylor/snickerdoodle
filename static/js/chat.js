@@ -1,10 +1,11 @@
 
 (function (root, $) {
-   var chatsocket = io.connect("/chat");
-   var div = document.getElementById(".chat.list.overflowed.log");
+   var chatsocket = io.connect('/chat');
+   var $chatList = $('.chat.list.overflowed');
    //var clearplaypause = document.getElementById(".chat.list.overflowed.pauseplay").innerHTML = "Haha"; 
-   var userlist = "hidden";
-   var vidsocket = io.connect("/video");
+   var $userlist = $('.user.list');
+   var vidsocket = io.connect('/video');
+   var $videoStatus = $('#video-status');
    
     
    var firstName = null;
@@ -40,8 +41,7 @@
 
  //------- Auto scroll feature for the chat log. doesnt work currently will fix
     autoscroll = function () {
-         //divi.scrollIntoView(true);
-         $('.chat.list.overflowed.log').get(0).scrollTop = 1000000;
+         $chatList.get(0).scrollTop = 1000000;
     };
 
 
@@ -53,58 +53,58 @@
     
     // ------ Clears the Play pause Message list 
     clearplaypause = function () {
-        jQuery(".chat.list.overflowed.pauseplay").empty();
+        $videoStatus.empty();
     };
     
     // --------- Animation for PausePlayLog
     playpauseanimate = function () {
-        $('.chat.list.overflowed.pauseplay').animate({
+        $videoStatus.animate({
             'marginLeft' : "-=30px"
         });
-        $('.chat.list.overflowed.pauseplay').animate({
+        $videoStatus.animate({
             'marginLeft' : "+=30px"
         });
-        $('.chat.list.overflowed.pauseplay').animate({
+        $videoStatus.animate({
             'marginLeft' : "-=30px"
         });
-        $('.chat.list.overflowed.pauseplay').animate({
+        $videoStatus.animate({
             'marginLeft' : "+=30px"
         });
     }; 
     
     userlistanimate = function () {
-      $('.user.list.log').animate({
+      $userlist.animate({
          'marginTop' : "+=60px"
       });
-      $('.user.list.log').animate({
+      $userlist.animate({
          'marginTop' : "-=60px"
       });
     };
     
     
         // ------------ Users button to show friends list
-     $('#users-button').on('click', function(){
-        if ($('.ui.purple.segment').hasClass('hidden')) {
-            $('.ui.purple.segment').removeClass('hidden');
-            //showlist();
-            userlistanimate().delay(100);
-        }
-        else {
-            $('.ui.purple.segment').addClass('hidden');
-            //hidelist();
-        }
-           
-     });
+//     $('#users-button').on('click', function(){
+//        if ($('.ui.purple.segment').hasClass('hidden')) {
+//            $('.ui.purple.segment').removeClass('hidden');
+//            //showlist();
+//            userlistanimate().delay(100);
+//        }
+//        else {
+//            $('.ui.purple.segment').addClass('hidden');
+//            //hidelist();
+//        }
+//
+//     });
             
 
  
 
     showlist = function() {
-       $('.ui.purple.segment').show( "fast" );
+       $('.ui.purple.segment').show('fast');
     };
 
     hidelist = function() {
-       $('.ui.purple.segment').hide("1000");
+       $('.ui.purple.segment').hide('1000');
     };
         
         
@@ -132,17 +132,17 @@
         console.log('Server: ' + msg.data);
         //getnames();
         fullName = msg.username;        
-        var str = "<p>" + msg.username  + msg.data + "</p>";
-        var strhello = "<p>" + msg.username  + " has JOINED the room." + "</p>"
-        var strbye = "<p>" + msg.username  + " has LEFT the room." + "</p>"
+        var str = '<p>' + msg.username  + msg.data + '</p>';
+        var strhello = '<p>' + msg.username  + ' has JOINED the room.' + '</p>';
+        var strbye = '<p>' + msg.username  + ' has LEFT the room.' + '</p>';
         if (str == strhello){
-            $(".chat.list.overflowed.log").append(str.fontcolor("blue"));
+            $chatList.append(str.fontcolor('blue'));
             autoscroll();
         } else if (str == strbye){
-            $(".chat.list.overflowed.log").append(str.fontcolor("red"));
+            $chatList.append(str.fontcolor('red'));
             autoscroll();
             } else {
-                 $(".chat.list.overflowed.log").append(str.fontcolor("black"));
+                 $chatList.append(str.fontcolor('black'));
                   autoscroll();
             }
     });
@@ -153,7 +153,7 @@
     $('#reply-button').on('click', function(event){
         var msg = $('#reply-msg');
         console.log('Message: ' + msg.val());
-        emit('chat', {data : ": " + msg.val()});
+        emit('chat', {data : ': ' + msg.val()});
         msg.val('');
        autoscroll();
     });
@@ -171,19 +171,19 @@
         var action = data.action;
         var ppsstring = null;
         if (action === 'play') {
-            ppsstring = "<p>" + data.username + " has STARTED the video.</p>";
+            ppsstring = '<p>' + data.username + ' has STARTED the video.</p>';
             clearplaypause();
-            $(".chat.list.overflowed.pauseplay").append(ppsstring.fontcolor("purple"));
+            $videoStatus.append(ppsstring.fontcolor('purple'));
              playpauseanimate();
         } else if (action === 'pause') {
-            ppsstring = "<p>" + data.username + " has PAUSED the video.</p>";
+            ppsstring = '<p>' + data.username + ' has PAUSED the video.</p>';
             clearplaypause();
-            $(".chat.list.overflowed.pauseplay").append(ppsstring.fontcolor("orange"));
+            $videoStatus.append(ppsstring.fontcolor('orange'));
              playpauseanimate();
         } else if (action === 'change') {
-            ppsstring = "<p>" + data.username + " has SKIPPED the video.</p>";
+            ppsstring = '<p>' + data.username + ' has SKIPPED the video.</p>';
             clearplaypause();
-            $(".chat.list.overflowed.pauseplay").append(ppsstring.fontcolor("green"));
+            $videoStatus.append(ppsstring.fontcolor('green'));
              playpauseanimate();
         }
      });

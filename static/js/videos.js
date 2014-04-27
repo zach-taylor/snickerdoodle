@@ -1,5 +1,5 @@
 (function (root, $) {
-    var $addMovie = $('.attached.button.add');
+    var $addMovie = $('.attached.button.add'),
         $videoSidebar = $('.sidebar.video-search'),
         $friendSidebar = $('.sidebar.friends'),
         $addFriend = $('.js-friends-toggle'),
@@ -426,9 +426,9 @@
         } else if (action === 'load') {
             playlist.push(data.video);
             console.log("playlist" + playlist[0].provider  + playlist[0].id);
-            if (playlist[0].provider  === "YouTube" || playlist[0].provider === "Vimeo") {
+            if (playlist[0].provider  === 'YouTube' || playlist[0].provider === 'Vimeo') {
                     if (!(oldProvider === playlist[0].provider )) {
-                        console.log("changing provider");
+                        console.log('changing provider');
                         snicker.changeProvider(playlist[0].provider );
                     }
                     snicker.provider.onChangeVideo(playlist[0].id);
@@ -445,7 +445,7 @@
     // Helper for hasOwnProperty
     root.__hasProp = Object.prototype.hasOwnProperty;
 
-    // Helper function from CofeeScript for extending a "class"
+    // Helper function from CoffeeScript for extending a "class"
     root.__extends = function(child, parent) {
         for (var key in parent) {
             if (root.__hasProp.call(parent, key)) child[key] = parent[key];
