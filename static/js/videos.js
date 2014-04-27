@@ -2,7 +2,7 @@
     var $addMovie = $('.attached.button.add'),
         $videoSidebar = $('.sidebar.video-search'),
         $friendSidebar = $('.sidebar.friends'),
-        $addFriend = $('.js-friends-toggle'),
+        $addFriend = $('.attached.button.invite'),
         $invited = $('.friends.invited'),
         $input = $('input.search.friends');
 
