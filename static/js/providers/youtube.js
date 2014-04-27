@@ -88,33 +88,33 @@
         };
         
         YouTube.prototype.playlist = function (video, oldProvider){
-           console.log("YouTube.prototype.playlist");
+           console.log('YouTube.prototype.playlist');
            console.log(oldProvider);
-            if (oldProvider === 'YouTube' ) {
-           var youtube = this,
-           playlist = function () {
-            if ( (1 == this.player.getPlayerState()) || (2 == this.player.getPlayerState())) {
-                Snicker.emit('video', {
-                action: 'playlist',
-                video: video
-            });
-            } else {
-                YouTube.prototype.swapVideo(video);
-            }
-           };
+           if (oldProvider === 'YouTube' ) {
+               var youtube = this,
+               playlist = function () {
+                   if ( (1 == this.player.getPlayerState()) || (2 == this.player.getPlayerState())) {
+                       Snicker.emit('video', {
+                           action: 'playlist',
+                           video: video
+                       });
+                   } else {
+                       YouTube.prototype.swapVideo(video);
+                   }
+               };
 
-            if (this.hasLoaded){
-                console.log('API had Loaded');
-                playlist.call(this);
-            } else {
-                console.log('API Not Loaded, Waiting');
-                this.waiting = playlist.bind(this);
-            }
+               if (this.hasLoaded){
+                   console.log('API had Loaded');
+                   playlist.call(this);
+               } else {
+                   console.log('API Not Loaded, Waiting');
+                   this.waiting = playlist.bind(this);
+               }
            } else {
-            Snicker.emit('video', {
-                action: 'playlist',
-                video: video
-            });
+               Snicker.emit('video', {
+                   action: 'playlist',
+                   video: video
+               });
            }
         };
 

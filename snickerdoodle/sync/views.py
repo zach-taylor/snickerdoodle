@@ -10,7 +10,7 @@ from ..extensions import db
 
 def on_join(data):
     insert_user_info(data)
-    room_id = data['room']
+    room_id = 36
     if rooms[room_id]:
         socketio.join_room(room_id)
         message = {'data': data['username'] + ' joined the room!'}
@@ -21,7 +21,7 @@ def on_join(data):
 
 def on_leave(data):
     insert_user_info(data)
-    room_id = data['room']
+    room_id = 36
     if rooms[room_id]:
         socketio.leave_room(room_id)
         message = {'data': data['username'] + ' left the room!'}
@@ -29,7 +29,7 @@ def on_leave(data):
 
 
 def video_message(data):
-    room = data['room']
+    room = 36
     insert_user_info(data)
     socketio.emit('player', data, namespace='/video', broadcast=True, room=room)
 

@@ -402,13 +402,10 @@
 
         if (action === 'play') {
             snicker.provider.onPlay();
-            //$(".chat.list.overflowed.log").append("<p>A User: has STARTED the video.</p>");
         } else if (action === 'pause') {
             snicker.provider.onPause();
-           // $(".chat.list.overflowed.log").append("<p>A User: has PAUSED the video.</p>");
         } else if (action === 'change') {
-            console.log("change");
-           // $(".chat.list.overflowed.log").append("<p>A User: has SKIPPED the video.</p>");
+            console.log('change');
             // TODO: Error check
              if (playlist[0].provider === 'YouTube'  || playlist[0].provider === 'Vimeo') {
                     console.log(oldProvider);
