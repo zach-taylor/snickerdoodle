@@ -31,64 +31,14 @@
 }
 
 .overflowed {
-    max-height: 200px;
+    height: 200px;
     overflow: auto;
 }
 
-.ui.blue.segment {
-     width: 500px;
-     height: 300px;
-}
-.ui.green.segment {
-     width: 500px;
-     height: 50px;
-     right: 0%;
-     top: 20px;
-}
-.chat.list.overflowed.pauseplay {
-     width: 500px;
-     height: 50px;
-
-}
-.chat.list.overflowed.log {
-     width: 500px;
-     height: 200px;
-     overflow: auto;
+.overflowed.tall {
+    height: 500px;
 }
 
-.ui.action.input {
-     top: -6%;
-     right: 3%;
-     width: 500px;
-     height: 45px;
-}
-
-.ui.users.input {
-    top: -108px;
-    right: -439px;
-    position: relative;
-}
-
-
-.ui.purple.segment {
-     width: 200px;
-     height: 300px;
-     bottom: 334px;
-     right: -46%;
-
-}
-.videoinput{
-     position: relative;
-     top: -95%;
-     right: 42%;
-}
-.ui.users.close{
-    top: 1%;
-    position: relative;
-    right: -75%;
-
-}
-
-.controls.ui.bottom.attached.segment {
-    top: 1%;
+#video {
+    width: 100%;
 }

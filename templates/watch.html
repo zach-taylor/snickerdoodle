@@ -49,100 +49,87 @@
 <div class="js-friends-toggle ui green huge launch attached button right">
     <i class="icon inverted circular users"></i>
 </div>
-<div class="ui black massive launch attached button circular add" style="">
+<div class="ui black massive launch attached button circular add">
     <i class="icon add"></i>
 </div>
 
-
-<div>
-    <h2 class="ui top attached header">Topic: {{ room.name }} </h2>
-</div>
-
-<div class="player">
-    <div class="controls ui bottom attached segment">
-        <div class="current video">
-            <h3>Carly Rae Jepsen - Call Me Maybe</h3>
-        </div>
-
-    </div>
-    <div class="video ui top attached segment">
-        <img class="ui huge" src="/static/img/video.jpg">
-    </div>
-
-    
-</div>
-
-
-
-
 <div class="ui grid">
-    <div class="ten wide column">
-        <div class="ui green segment">
-           <div class="chat list overflowed pauseplay"> Please add a Video to watch!
-           </div>
-        </div>
-        <div class="ui blue segment">
-           <div class="ui tiny list">
-               <div class="item">
-                  <h5 class="ui header">
-                     <i class="icon inverted circular blue comment"></i> Chat
-                  </h5>
-               </div>
-               <div class="item">
-                  <div class="chat list overflowed log">
-                         {% if not user %}
-                         Please Sign In! <img class="ui avatar image" src="/static/img/doge.jpeg">
-                         {% else %}
-                         Welcome to chat, {{user.first_name}} {{user.last_name}}!
-                         {% endif %}
-                  </div>
+    <div class="eleven wide column">
+        <div class="ui top attached header">Topic: {{ room.name }}</div>
+        <div class="ui attached segment">
+           <div class="ui attached green segment">
+               <div class="player">
+                   <img id="video" class="ui huge" src="/static/img/video.jpg">
                </div>
            </div>
-             <div class="ui action input">
-                 <input type="text" name="reply-msg" id="reply-msg" placeholder="Enter Message Here">
-                 <div class="ui blue button reply" id="reply-button">Reply</div>
-             </div>
-              <div class="ui users input">
-                 <div class="mini red inverted ui icon button" id="users-button">
-                     <i class="icon inverted circular red users"></i>
-                 </div>
-              </div>
+
+           <div class="ui attached green segment">
+               <div class="ui grid">
+                   <div class="ten wide column">
+                       <div class="ui tiny list">
+                           <div class="item">
+                              <h5 class="ui header">
+                                 <i class="icon small inverted circular blue comment"></i> Chat
+                              </h5>
+                           </div>
+                           <div class="ui segment blue item">
+                              <div class="chat list overflowed">
+                                 {% if not user %}
+                                 Please Sign In! <img class="ui avatar image" src="/static/img/doge.jpeg">
+                                 {% else %}
+                                 Welcome to chat, {{user.first_name}} {{user.last_name}}!
+                                 {% endif %}
+                              </div>
+                           </div>
+                       </div>
+                       <div class="ui fluid action input">
+                           <input type="text" name="reply-msg" id="reply-msg" placeholder="Enter Message Here">
+                           <div class="ui blue button reply" id="reply-button">Reply</div>
+                       </div>
+                   </div>
+                   <div class="six wide column">
+                       <div class="ui tiny list">
+                           <div class="item">
+                              <h5 class="ui header">
+                                 <i class="icon small inverted circular purple users"></i> Watching
+                              </h5>
+                           </div>
+                           <div class="ui purple segment item">
+                               <div class="user list overflowed">
+                                   <img class="ui avatar image" src="/static/img/doge.jpeg"> Doge
+                               </div>
+                           </div>
+                       </div>
+                   </div>
+               </div>
+           </div>
         </div>
     </div>
-    <div class="chat six wide column">
-        <div class="ui inverted segment">
-            <h4 class="ui header">
-                Playlist
-            </h4>
+
+    <div class="five wide column">
+        <div class="ui attached top header">Playlist</div>
+
+        <div class="ui attached green segment">
+           <div class="">Please add a Video to watch!</div>
         </div>
-        <div class="ui segment">
+
+        <div class="ui center aligned attached green segment">
+            <div class="ui icon buttons center">
+                <div class="ui black button"><i class="add icon"></i></div>
+                <div class="ui black button"><i class="step forward icon"></i></div>
+                <div class="ui black button"><i class="list icon"></i></div>
+            </div>
+        </div>
+
+        <div class="ui attached segment overflowed tall">
             <div class="ui animated list">
-                    <div class = "displayplaylist">
-                        <p>  </p>
-                    </div>
+                <div class="displayplaylist">
+                    <p></p>
                 </div>
             </div>
         </div>
     </div>
 </div>
-
- <div class="videoinput">
-    <div class="float-right">
-       <div class="ui icon buttons">
-          <div class="ui black button"><i class="add icon"></i></div>
-          <div class="ui black button"><i class="step forward icon"></i></div>
-          <div class="ui black button"><i class="list icon"></i></div>
-       </div>
-    </div>
- </div>
- 
-
-<div class="ui purple segment">
-     <div class="user list log"> 
-        <img class="ui avatar image" src="/static/img/doge.jpeg"> Doge
-     </div>
-</div>
-
 
 {% endblock %}
 
@@ -174,9 +161,7 @@
     </script>
 
     <script id="vimeo-template" type ="text/x-handlebars-template">
-        <div class="player">
-            <iframe id="vimeoPlayer" src="http://player.vimeo.com/video/{{video}}?api=1&player_id=vimeoPlayer" type="text/html" width="720" height="480" ></iframe>
-        </div>
+        <iframe id="vimeoPlayer" src="http://player.vimeo.com/video/{{video}}?api=1&player_id=vimeoPlayer" type="text/html" width="720" height="480" ></iframe>
     </script>
 
     <script id="player-template" type="text/x-handlebars-template">
@@ -185,40 +170,40 @@
 
     <script id="current-template" type="text/x-handlebars-template">
         <div class="left">
-        <h3>{{current}}</h3>
+            <h3>{{current}}</h3>
         </div>
     </script>
 
     <script id="display-playlist" type="text/x-handlebars-template">
          <div class="item">
-                    <div class="content">
-                        <img class="ui image rounded small left floated" src="{{ icon1 }}">
-                        <p>{{ one }}</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="content">
-                        <img class="ui image rounded small left floated" src="{{ icon2 }}">
-                        <p>{{ two }}</p>
-                    </div>
-                </div>
-                <div class="item">
-                    <div class="content">
-                        <img class="ui image rounded small left floated" src="{{ icon3 }}">
-                        <p>{{ three }}</p>
-                    </div>
-                </div>
+            <div class="content">
+                <img class="ui image rounded small left floated" src="{{ icon1 }}">
+                    <p>{{ one }}</p>
+            </div>
+         </div>
+         <div class="item">
+            <div class="content">
+                <img class="ui image rounded small left floated" src="{{ icon2 }}">
+                <p>{{ two }}</p>
+            </div>
+         </div>
+         <div class="item">
+            <div class="content">
+                <img class="ui image rounded small left floated" src="{{ icon3 }}">
+                <p>{{ three }}</p>
+            </div>
+         </div>
     </script>
 
     <script id="search-results-template" type="text/x-handlebars-template">
         {{#each results}}
         <div data-id="{{@index}}" class="result ui attached segment {{#if @first }}top{{/if}}{{#if @last }}bottom{{/if}}">
-                <img class="ui image rounded small left floated" src="{{ icon }}">
-                <p>{{ title }}</p>
-                <div class="float-right">
-                  <div class="ui black button"><i class="add icon"></i></div>
-                </div>
+            <img class="ui image rounded small left floated" src="{{ icon }}">
+            <p>{{ title }}</p>
+            <div class="float-right">
+                <div class="ui black button"><i class="add icon"></i></div>
             </div>
+        </div>
         {{/each}}
     </script>
     {% endraw %}
