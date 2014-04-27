@@ -148,6 +148,7 @@
 
 {% block templates %}
     {% include 'jsplates/friends_list.html' %}
+    {% include 'jsplates/providers.html' %}
 
     {% raw %}
     <script id="message-template" type="text/x-handlebars-template">
@@ -158,14 +159,6 @@
                 </div>
             </div>
         </div>
-    </script>
-
-    <script id="vimeo-template" type ="text/x-handlebars-template">
-        <iframe id="vimeoPlayer" src="http://player.vimeo.com/video/{{video}}?api=1&player_id=vimeoPlayer" type="text/html" width="100%" ></iframe>
-    </script>
-
-    <script id="player-template" type="text/x-handlebars-template">
-        <div id="player"></div>
     </script>
 
     <script id="current-template" type="text/x-handlebars-template">

@@ -47,9 +47,9 @@
             } else {
                 return false;
             }
-        
+
         };
-        
+
         YouTube.prototype.playlistUrl = function(url){
             var video = {
                 "provider" : "None",
@@ -86,7 +86,7 @@
                 video: video
             });
         };
-        
+
         YouTube.prototype.playlist = function (video, oldProvider){
            console.log('YouTube.prototype.playlist');
            console.log(oldProvider);
@@ -131,7 +131,7 @@
                         'startSeconds': '0'
                     });
             };
-            
+
             this.id = id;
 
             if (this.hasLoaded) {
@@ -200,7 +200,7 @@
                 });
             }
         }
-        
+
 
         return YouTube;
     }());

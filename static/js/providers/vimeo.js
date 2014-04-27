@@ -12,12 +12,12 @@
         //
         // Snickerdoodle API
         //
-        
+
         Vimeo.prototype.init = function () {
-            
+
         }
-        
-        
+
+
         Vimeo.prototype.playlist = function(video, oldProvider){
             if (oldProvider === "Vimeo") {
             if ( (1 == statusOwn) || (2 == statusOwn)) {
@@ -44,7 +44,7 @@
             return (check);
 
         };
-        
+
 
         Vimeo.prototype.onPlay = function () {
             console.log('vimeo onPlay');
@@ -71,18 +71,26 @@
         Vimeo.prototype.onChangeVideo = function (id) {
             console.log('This: ');
             console.log(id);
-            this.$player = $('.player .video');
+            var $player = $('#player');
 
             var source = $('#vimeo-template').html(),
-            template = Handlebars.compile(source);
-            // Render template, add to html
-            var html = template({video: id});
-            this.$player
+                options,
+                template = Handlebars.compile(source),
+                options = {};
+
+            options.video = id;
+            options.width = $player.width();
+            options.height = $player.width() / (16/9);
+
+            var html = template(options);
+
+            $player
                 .empty()
                 .append(html);
-            var f = $('iframe'),
-            urlPost = f.attr('src').split('?')[0],
-            status = $('.status');
+
+            //var f = $player.children('iframe'),
+                //urlPost = f.attr('src').split('?')[0],
+                //status = $('.status');
 
             // Listen for messages from the player
             if (window.addEventListener){
@@ -91,7 +99,7 @@
                 window.attachEvent('onmessage', Vimeo.prototype.onMessageRecieved, false);
             }
         };
-        
+
         Vimeo.prototype.emitPause = function(){
             statusOwn = 2;
             console.log('pause');
@@ -99,21 +107,21 @@
                 action: 'pause',
             });
         }
-        
+
         Vimeo.prototype.emitPlay = function(){
             statusOwn = 1;
             Snicker.emit('watch',{
                 action: 'play',
             });
         }
-        
+
         Vimeo.prototype.emitEnded = function(){
             statusOwn  = -1;
             Snicker.emit('video', {
                 action: 'change'
             });
         }
-        
+
         // Handle messages received from the player
         Vimeo.prototype.onMessageRecieved  = function(e){
            var data = JSON.parse(e.data);
@@ -142,7 +150,7 @@
         Vimeo.prototype.onReady = function(){
             console.log('ready');
             statusOwn = 0;
-            Vimeo.prototype.ready();    
+            Vimeo.prototype.ready();
         }
 
         /**
@@ -161,8 +169,8 @@
                 });
             });
          };
-         
-         
+
+
 
         Vimeo.prototype.status = function () {
             console.log('vimeo Status');
@@ -175,7 +183,7 @@
 
         Vimeo.prototype.onPlayerState = function(event) {
         };
-        
+
 
         return Vimeo;
     }());
