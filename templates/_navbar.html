@@ -10,6 +10,7 @@
         </a>
         {% else %}
         <a class="right floated text item status" href="/logout" id="getusername">
+            <img class="ui avatar image tiny profile" src="https://graph.facebook.com/{{ user.username }}/picture?type=square">
             {{ user.first_name }} {{ user.last_name }}
         </a>
         {% endif %}
