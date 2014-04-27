@@ -104,7 +104,7 @@
         });
 
         // Add video from search.
-        $('body').on('click', '.video-search .button.add', function (){
+        $('body').on('click', '.video-search .item', function (){
             var $this = $(this),
                 $parent = $this.closest('.result'),
                 index = $parent.attr('data-id');

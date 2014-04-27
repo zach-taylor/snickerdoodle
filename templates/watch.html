@@ -189,15 +189,17 @@
     </script>
 
     <script id="search-results-template" type="text/x-handlebars-template">
+        <div class="ui relaxed divided list results">
         {{#each results}}
-        <div data-id="{{@index}}" class="result ui attached segment {{#if @first }}top{{/if}}{{#if @last }}bottom{{/if}}">
-            <img class="ui image rounded small left floated" src="{{ icon }}">
-            <p>{{ title }}</p>
-            <div class="float-right">
-                <div class="ui black button add"><i class="add icon"></i></div>
+            <div class="item result" data-id="{{@index}}">
+                <div class="img">
+                    <img class="ui rounded image" src="{{ icon }}">
+                    <div class="overlay"><i class="icon large add"></i></div>
+                </div>
+                <p class="description">{{ title }}</p>
             </div>
-        </div>
         {{/each}}
+        </div>
     </script>
     {% endraw %}
 {% endblock %}
