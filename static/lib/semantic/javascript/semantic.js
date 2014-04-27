@@ -9652,7 +9652,7 @@ $.fn.sidebar = function(parameters) {
             if(direction !== className.bottom) {
               style = ''
                 + '<style title="' + namespace + '">'
-                + 'body.pushed {'
+                + 'body.pushed.' + direction + ' {'
                 + '  margin-' + direction + ': ' + distance + 'px !important;'
                 + '}'
                 + '</style>'
