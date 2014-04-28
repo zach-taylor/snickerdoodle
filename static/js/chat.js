@@ -1,9 +1,9 @@
 
 (function (root, $) {
    var chatsocket = io.connect('/chat');
+   var vidsocket = Snicker.socket;
    var $chatList = $('.chat.list.overflowed');
    var $userlist = $('.user.list');
-   var vidsocket = io.connect('/video');
    var $videoStatus = $('#video-status');
    
     
@@ -22,9 +22,8 @@
 
    //------- Send a message to the server using Socket.io
    emit = function (event, msg) {
-
-        chatsocket.emit(event, msg);
-    };
+       chatsocket.emit(event, {data: msg, room : Snicker.room});
+   };
     
     // ------ Clears the Play pause Message list 
     clearplaypause = function () {
@@ -81,57 +80,45 @@
     hidelist = function() {
        $('.ui.purple.segment').hide('1000');
     };
-        
-        
-    
 
-    
      // When Chat connects for the first time?
-     chatsocket.on('connect', function(socket){
-          console.log('Server: Connected!');
-          emit('chat', {data: ' has JOINED the room.'});
-          
-         
-           chatsocket.on('disconnect', function(){
-           console.log('Server: Disconnected!');
-           emit('chat', {data: ' has LEFT the room.'});
-            });
-  
+     chatsocket.on('connect', function(){
+         emit('join', '');
      });
-     
 
-     
-     
+    chatsocket.on('disconnect', function(){
+         emit('chat', 'disconnected');
+    });
+
+    chatsocket.on('userJoin', function(msg){
+        var str = '<p>' + msg.username + ' has JOINED the room.' + '</p>';
+        $chatList.append(str.fontcolor('blue'));
+        autoscroll();
+    });
+
+    chatsocket.on('userLeave', function(msg){
+        var str = '<p>' + msg.username + ' has LEFT the room.' + '</p>';
+        $chatList.append(str.fontcolor('red'));
+        autoscroll();
+    });
+
     //------- When a message is received from the server
     chatsocket.on('reply', function(msg) {
         console.log('Server: ' + msg.data);
-        //getnames();
-        fullName = msg.username;        
-        var str = '<p>' + msg.username  + msg.data + '</p>';
-        var strhello = '<p>' + msg.username  + ' has JOINED the room.' + '</p>';
-        var strbye = '<p>' + msg.username  + ' has LEFT the room.' + '</p>';
-        if (str == strhello){
-            $chatList.append(str.fontcolor('blue'));
-            autoscroll();
-        } else if (str == strbye){
-            $chatList.append(str.fontcolor('red'));
-            autoscroll();
-            } else {
-                 //$chatList.addClass('word-wrap:break-word');
-                 $chatList.append(str.fontcolor('black'));
-                  autoscroll();
-            }
+        var str = '<p>' + msg.username + ': ' + msg.data + '</p>';
+        $chatList.append(str.fontcolor('black'));
+        autoscroll();
     });
     
     
 
     // When the reply button is clicked
-    $('#reply-button').on('click', function(event){
+    $('#reply-button').on('click', function(){
         var msg = $('#reply-msg');
         console.log('Message: ' + msg.val());
-        emit('chat', {data : ': ' + msg.val()});
+        emit('chat', msg.val());
         msg.val('');
-       autoscroll();
+        autoscroll();
     });
 
 

@@ -40,15 +40,39 @@ def clean_rooms():
     for id in to_delete:
         rooms.pop(id)
 
+def on_join(data):
+    socketio.join_room(data['room'])
+    message = {}
+    insert_user_info(message)
+    socketio.emit('userJoin', message, namespace='/chat', room=data['room'])
+
+def on_leave(data):
+    socketio.leave_room(data['room'])
+    message = {}
+    insert_user_info(message)
+    socketio.emit('userLeave', message, namespace='/chat', room=data['room'])
+
+def on_connect():
+    print 'connected'
+
+def on_disconnect():
+    print 'disconnected'
 
 def chat_message(data):
     insert_user_info(data)
-    socketio.emit('reply', data, namespace='/chat', broadcast=True)
-
+    socketio.emit('reply', data, namespace='/chat', room=data['room'])
 
 def attach_views_with_socket(app, socket):
-    chat_socket = socket.on('chat', namespace='/chat', broadcast=True)
-    chat_socket(chat_message)
+    chat_socket = socket.on('chat', namespace='/chat')
+    join_socket = socket.on('join', namespace='/chat')
+    leave_socket = socket.on('leave', namespace='/chat')
+    connect_socket = socket.on('connect', namespace='/chat')
+    disconnect_socket = socket.on('disconnect', namespace='/chat')
 
+    chat_socket(chat_message)
+    join_socket(on_join)
+    leave_socket(on_leave)
+    connect_socket(on_connect)
+    disconnect_socket(on_disconnect)
 
 

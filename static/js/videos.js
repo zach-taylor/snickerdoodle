@@ -72,7 +72,11 @@
     };
 
     snicker.bind = function () {
-        //console.log('Binding video actions');
+        console.log('Binding video actions');
+        snicker.socket.on('connect', function() {
+            console.log('connected');
+            snicker.emit('join', {});
+        });
 
         // Button to skip to next video in list
         $('body').on('click', '.video-search .button.add-video', function () {
@@ -137,7 +141,7 @@
 
 
         $('body').on('click', '.step.forward.icon', function () {
-            Snicker.emit('video', {
+            snicker.emit('video', {
                 action: 'change'
             });
         });
@@ -375,11 +379,12 @@
     };
 
     //
-    // SockertIO Functions
+    // SocketIO Functions
     //
 
     snicker.emit = function (event, data) {
         // Send a message to the server using Socket.io
+        data['room'] = snicker.room;
         snicker.socket.emit(event, data);
     };
 
