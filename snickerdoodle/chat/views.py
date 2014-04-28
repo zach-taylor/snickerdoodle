@@ -19,11 +19,33 @@ def create_room(id, user):
     room = {}
 
     room['users'] = [user]
-    room['sockets'] = []
 
     rooms[id] = room
     print rooms
 
+def join_room(id, user):
+    """
+    Add a user to a chat room with the given id and user, or create one if it doesn't exist
+
+    """
+
+    if id in rooms:
+        room = rooms[id]
+        room['users'].append(user)
+    else:
+        create_room(id, user)
+
+    print rooms
+
+def leave_room(id, user):
+    """
+    Add a user to a chat room with the given id and user, or create one if it doesn't exist
+
+    """
+
+    if id in rooms:
+        room = rooms[id]
+        room['users'].pop(user)
 
 def clean_rooms():
     """
@@ -40,16 +62,20 @@ def clean_rooms():
     for id in to_delete:
         rooms.pop(id)
 
+
+
 def on_join(data):
     socketio.join_room(data['room'])
     message = {}
     insert_user_info(message)
+    join_room(data['room'], message['user_id'])
     socketio.emit('userJoin', message, namespace='/chat', room=data['room'])
 
 def on_leave(data):
     socketio.leave_room(data['room'])
     message = {}
     insert_user_info(message)
+    leave_room(data['room'], message['user_id'])
     socketio.emit('userLeave', message, namespace='/chat', room=data['room'])
 
 def on_connect():
