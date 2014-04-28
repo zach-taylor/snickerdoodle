@@ -56,8 +56,8 @@
 <div class="ui grid">
     <div class="eleven wide column">
         <div class="ui top attached header">Topic: {{ room.name }}</div>
-        <div class="ui attached segment">
-           <div class="ui attached green segment">
+        <div class="ui attached green segment">
+           <div class="ui attached segment">
                <div id="player">
                    <img id="video" class="ui huge" src="/static/img/video.jpg">
                </div>
@@ -171,24 +171,14 @@
     </script>
 
     <script id="display-playlist" type="text/x-handlebars-template">
-         <div class="item">
-            <div class="content">
-                <img class="ui image rounded small left floated" src="{{ icon1 }}">
-                    <p>{{ one }}</p>
-            </div>
-         </div>
-         <div class="item">
-            <div class="content">
-                <img class="ui image rounded small left floated" src="{{ icon2 }}">
-                <p>{{ two }}</p>
-            </div>
-         </div>
-         <div class="item">
-            <div class="content">
-                <img class="ui image rounded small left floated" src="{{ icon3 }}">
-                <p>{{ three }}</p>
-            </div>
-         </div>
+        {{#each videos}}
+            <div class="item">
+                <div class="content">
+                    <img class="ui image rounded small left floated" src="{{ icon }}">
+                        <p>{{ title }}</p>
+                </div>
+             </div>
+        {{/each}}
     </script>
 
     <script id="search-results-template" type="text/x-handlebars-template">

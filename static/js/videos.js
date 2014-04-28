@@ -4,7 +4,8 @@
         $friendSidebar = $('.sidebar.friends'),
         $addFriend = $('.attached.button.invite'),
         $invited = $('.friends.invited'),
-        $input = $('input.search.friends');
+        $input = $('input.search.friends'),
+        $playlist = $('.displayplaylist');
 
     var snicker = {},
         invited = {};
@@ -78,9 +79,7 @@
             snicker.emit('join', {});
         });
 
-        // Button to skip to next video in list
-        $('body').on('click', '.video-search .button.add-video', function () {
-        });
+        snicker.getRoomVideos();
 
         // Close sidebars
         $('body').on('click', '.sidebar .icon.close', snicker.closeSidebars);
@@ -196,6 +195,19 @@
         $addFriend.on('click', snicker.showFriends);
     };
 
+    snicker.getRoomVideos = function() {
+        $.ajax({
+            type: 'GET',
+            url: '/api/rooms/' + snicker.room + '/videos',
+            success: function(data){
+                console.log(data['videos']);
+                playlist = data['videos'];
+                snicker.displayPlaylist();
+            },
+            error: snicker.searchError
+        });
+    };
+
     snicker.YTInfo = function(val) {
             $.ajax({
             type: 'GET',
@@ -233,10 +245,10 @@
     snicker.getInfo = function(data) {
         console.log(data);
         if (!(oldProvider === data.provider)  && (oldProvider === 'none')) {
-                        snicker.changeProvider(data.provider);
-                    }
+            snicker.changeProvider(data.provider);
+        }
 
-                    snicker.providers[data.provider].playlist(data, oldProvider);
+        snicker.providers[data.provider].playlist(data, oldProvider);
     }
     
     snicker.closeSidebars = function () {
@@ -273,42 +285,28 @@
     snicker.addVideoToPlaylist = function (video) {
         console.log('addVideoToPlaylist');
         playlist.push(video);
-        listIndex++;
-        console.log(playlist);
-        if (playlist.length <= 4) {
-            snicker.displayPlaylist();
-        }
+        snicker.displayPlaylist();
     };
 
     snicker.displayPlaylist = function() {
-        //console.log('display list');
-        $('.displayplaylist').empty();
         var source = $('#display-playlist').html(),
             template = Handlebars.compile(source);
-        if (playlist.length == 0) {
-            var html = template();
-        } else if (playlist.length ==1) {
-            var html = template({one : playlist[0].title, icon1 : playlist[0].icon});
-        } else if (playlist.length ==2) {
-            var html = template({one:playlist[0].title, icon1:playlist[0].icon, two:playlist[1].title, icon2:playlist[1].icon });
-        } else {
-            // Render template, add to html
-            var html = template({one:playlist[0].title, icon1:playlist[0].icon, two:playlist[1].title, icon2:playlist[1].icon, three:playlist[2].title, icon3:playlist[2].icon});
-        }
-        $('.displayplaylist').append(html);
+
+        var html = template({videos: playlist});
+        $playlist.html(html);
+        $playlist.children().first().addClass('ui green');
     };
 
     snicker.currentVideo = function() {
-       $('.controls .current').empty();
-       var curvideo = playlist.shift();
+       listIndex++;
+       var curvideo = playlist[listIndex];
        console.log('current video');
-       console.log(curvideo.title);
        var source = $('#current-template').html(),
            template = Handlebars.compile(source);
 
         // Render template, add to html
         var html = template({current: curvideo.title});
-        $('.controls .current').append(html);
+        $('.controls .current').html(html);
     };
 
     snicker.searchEvent = function (e) {
@@ -352,8 +350,6 @@
     };
 
     snicker.parseUrl = function (url) {
-        //console.log('Providers: ');
-        //console.debug(snicker.providers);
 
         for (var name in snicker.providers) {
             var provider = snicker.providers[name];
@@ -412,13 +408,13 @@
         } else if (action === 'change') {
             console.log('change');
             // TODO: Error check
-             if (playlist[0].provider === 'YouTube'  || playlist[0].provider === 'Vimeo') {
+             if (playlist[listIndex].provider === 'YouTube'  || playlist[listIndex].provider === 'Vimeo') {
                     console.log(oldProvider);
-                    console.log(playlist[0].provider);
-                    if (!(oldProvider === playlist[0].provider )) {
-                        snicker.changeProvider(playlist[0].provider );
+                    console.log(playlist[listIndex].provider);
+                    if (!(oldProvider === playlist[listIndex].provider )) {
+                        snicker.changeProvider(playlist[listIndex].provider );
                     }
-                    snicker.provider.onChangeVideo(playlist[0].id);
+                    snicker.provider.onChangeVideo(playlist[listIndex].id);
                     snicker.currentVideo();
                     snicker.displayPlaylist();
             }
@@ -426,13 +422,13 @@
             snicker.addVideoToPlaylist(data.video);
         } else if (action === 'load') {
             playlist.push(data.video);
-            console.log('playlist' + playlist[0].provider  + playlist[0].id);
-            if (playlist[0].provider  === 'YouTube' || playlist[0].provider === 'Vimeo') {
-                    if (!(oldProvider === playlist[0].provider )) {
+            console.log('playlist' + playlist[listIndex].provider  + playlist[listIndex].id);
+            if (playlist[listIndex].provider  === 'YouTube' || playlist[listIndex].provider === 'Vimeo') {
+                    if (!(oldProvider === playlist[listIndex].provider )) {
                         console.log('changing provider');
-                        snicker.changeProvider(playlist[0].provider );
+                        snicker.changeProvider(playlist[listIndex].provider );
                     }
-                    snicker.provider.onChangeVideo(playlist[0].id);
+                    snicker.provider.onChangeVideo(playlist[listIndex].id);
             }
             snicker.currentVideo();
             snicker.displayPlaylist();

@@ -42,3 +42,7 @@ h1 {
   display: inline;
   margin: 0 8px;
 }
+
+.ui.green.item {
+  border-bottom: 0.2em solid #D95C5C;
+}

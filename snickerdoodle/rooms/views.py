@@ -29,7 +29,7 @@ class WatchView(MethodView):
 
         context = helpers.default_context()
 
-        return render_template('watch.html', room=room, **context)
+        return render_template('watch.html', room=room, videos=room.videos, **context)
 
 class RoomAPI(MethodView):
 

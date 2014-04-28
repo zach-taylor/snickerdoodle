@@ -3,6 +3,7 @@ from flask.ext import socketio
 from ..helpers import insert_user_info
 
 from ..videos.models import Video
+from ..rooms.models import Room
 
 from ..extensions import db
 
@@ -10,6 +11,7 @@ from ..extensions import db
 def on_join(data):
     insert_user_info(data)
     socketio.join_room(data['room'])
+
 
 def on_leave(data):
     insert_user_info(data)
@@ -26,9 +28,17 @@ def video_message(data):
     insert_user_info(data)
     socketio.emit('player', data, namespace='/video', broadcast=True, room=data['room'])
 
+    room = Room.query.filter(Room.id == data['room']).first()
+    print room.name
+
+
     # Add the video to the database
     if data['action'] == 'playlist':
-        video = Video(site=data['video']['provider'], vid=data['video']['id'], title=data['video']['title'], icon=data['video']['icon'])
+        video = Video(site=data['video']['provider'],
+                      vid=data['video']['id'],
+                      title=data['video']['title'],
+                      icon=data['video']['icon'],
+                      room_id=data['room'])
         db.session.add(video)
         db.session.commit()
 

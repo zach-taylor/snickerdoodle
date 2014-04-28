@@ -86,9 +86,8 @@ class RoomVideosView(MethodView):
 
         for v in room.videos:
             video_json = {
-                'id': v.id,
-                'site': v.site,
-                'vid': v.vid,
+                'id': v.vid,
+                'provider': v.site,
                 'title': v.title,
                 'icon': v.icon,
                 'status': v.status
