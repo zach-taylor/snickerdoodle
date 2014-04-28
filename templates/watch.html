@@ -82,10 +82,12 @@
                               </div>
                            </div>
                        </div>
-                       <div class="ui fluid action input">
-                           <input type="text" name="reply-msg" id="reply-msg" placeholder="Enter Message Here">
-                           <div class="ui blue button reply" id="reply-button">Reply</div>
-                       </div>
+                           <div class="ui fluid action input">
+                               <form id="chat-form">
+                                   <input type="text" name="reply-msg" id="reply-msg" placeholder="Enter Message Here">
+                                   <input type="submit" class="ui positive button reply" id="reply-button" form="chat-form" value="Reply">
+                               </form>
+                           </div>
                    </div>
                    <div class="six wide column">
                        <div class="ui tiny list">

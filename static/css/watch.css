@@ -82,3 +82,11 @@
 .results .item:hover .icon {
     padding-top: 35px;
 }
+
+#reply-msg {
+    width: 79%;
+}
+
+#reply-button {
+    width: 20%;
+}

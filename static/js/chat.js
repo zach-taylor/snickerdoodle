@@ -5,12 +5,13 @@
    var $chatList = $('.chat.list.overflowed');
    var $userlist = $('.user.list');
    var $videoStatus = $('#video-status');
-   
-    
-   
+   var $chat = $('#chat-form');
+
+
+
   // ---- Information for Will    (The chat division contains 59 spaces)
  // {'username': u'Will Park', 'user_id': u'570048281', u'data': u'sdf'}
- // 
+ //
 
 
 
@@ -24,12 +25,12 @@
    emit = function (event, msg) {
        chatsocket.emit(event, {data: msg, room : Snicker.room});
    };
-    
-    // ------ Clears the Play pause Message list 
+
+    // ------ Clears the Play pause Message list
     clearplaypause = function () {
         $videoStatus.empty();
     };
-    
+
     // --------- Animation for PausePlayLog
     playpauseanimate = function () {
         $videoStatus.animate({
@@ -44,8 +45,8 @@
         $videoStatus.animate({
             'marginLeft' : "+=30px"
         });
-    }; 
-    
+    };
+
     userlistanimate = function () {
       $userlist.animate({
          'marginTop' : "+=60px"
@@ -54,8 +55,8 @@
          'marginTop' : "-=60px"
       });
     };
-    
-    
+
+
         // ------------ Users button to show friends list
 //     $('#users-button').on('click', function(){
 //        if ($('.ui.purple.segment').hasClass('hidden')) {
@@ -69,9 +70,9 @@
 //        }
 //
 //     });
-            
 
- 
+
+
 
     showlist = function() {
        $('.ui.purple.segment').show('fast');
@@ -109,25 +110,31 @@
         $chatList.append(str.fontcolor('black'));
         autoscroll();
     });
-    
-    
 
-    // When the reply button is clicked
-    $('#reply-button').on('click', function(){
+
+    function sendMessage(e) {
         var msg = $('#reply-msg');
         console.log('Message: ' + msg.val());
         emit('chat', msg.val());
         msg.val('');
         autoscroll();
-    });
+        msg.focus();
+
+        e.preventDefault();
+    }
+
+
+    // Reply button stuff
+    $('#reply-button').on('click', sendMessage);
+    $chat.on('submit', sendMessage);
 
 
     // Whisper function
-         
-         
-         
-         
-      // ---- Function for recording pause and play events in the PlayPause Division   
+
+
+
+
+      // ---- Function for recording pause and play events in the PlayPause Division
      vidsocket.on('player', function (data) {
         //console.log('SocketIO response:'    );
         //console.log(data);
@@ -153,7 +160,7 @@
              playpauseanimate();
         }
      });
-     
+
          // $(".chat.list.overflowed.log").append("<p>" + fullName + " has STARTED the video.</p>");
          //$(".chat.list.overflowed.log").append("<p>" + data.username + " has STARTED the video.</p>");
           //$(".chat.list.overflowed.log").append("<p>" + data.username + " has PAUSED the video.</p>");
