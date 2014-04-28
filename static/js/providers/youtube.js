@@ -1,8 +1,12 @@
 (function (root, $) {
     var Snicker = root.Snicker;
     var id;
+    var SeekTime = 0;
+    var TempSeektime = 0;
     var YouTube = (function () {
         __extends(YouTube, root.Snicker.Base);
+        
+    
 
         function YouTube() {
             YouTube.__super__.constructor.call(this);
@@ -65,14 +69,18 @@
             return video;
         }
 
-        YouTube.prototype.onPlay = function () {
+        YouTube.prototype.onPlay = function (time) {
             console.log('YT onPlay');
+            
+            this.player.seekTo(time, true);
             this.player.playVideo();
+            
+            
         };
 
         YouTube.prototype.onPause = function () {
-            console.log('YT onPAuse');
-            this.player.pauseVideo();
+             
+             this.player.pauseVideo();
         };
 
         YouTube.prototype.onFinish = function () {
@@ -84,6 +92,18 @@
             Snicker.emit('video', {
                 action: 'load',
                 video: video
+            });
+        };
+        
+        YouTube.prototype.curTime = function () {
+            console.log("getting current time");
+            Snicker.emit('video', {
+                action: 'curtime',
+                
+            });
+              Snicker.emit('video', {
+                action:  this.player.getCurrentTime(),
+                
             });
         };
 
@@ -186,18 +206,27 @@
                 console.log('YT Video added');
             } else if (YT.PlayerState.PAUSED == event.data) {
                 console.log('YT Paused');
-
+                
+             
                 Snicker.emit('video', {
                     action: 'pause'
+                    //seektime: this.player.getCurrentTime()
                 });
+                
+
             } else if (YT.PlayerState.BUFFERING == event.data) {
                 console.log('YT Buffering');
             } else if (YT.PlayerState.PLAYING == event.data) {
                 console.log('YT Playing');
+                
 
                 Snicker.emit('video', {
                     action: 'play'
+                    //seektime: this.player.getCurrentTime()
                 });
+                
+
+                
             }
         }
 

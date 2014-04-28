@@ -14,6 +14,8 @@
     var playlist = [];
     var listIndex = 0;
 
+    
+
     //
     // Snickerdoodle Values
     //
@@ -402,7 +404,10 @@
         var action = data.action;
 
         if (action === 'play') {
-            snicker.provider.onPlay();
+            snicker.provider.curTime();
+             var Seektime = data.action;
+            
+            snicker.provider.onPlay(Seektime);
         } else if (action === 'pause') {
             snicker.provider.onPause();
         } else if (action === 'change') {
