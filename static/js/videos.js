@@ -294,7 +294,7 @@
 
         var html = template({videos: playlist});
         $playlist.html(html);
-        $playlist.children().first().addClass('ui green');
+        //$playlist.children()[listIndex].addClass('ui green');
     };
 
     snicker.currentVideo = function() {

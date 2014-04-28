@@ -3,7 +3,7 @@
    var chatsocket = io.connect('/chat');
    var vidsocket = Snicker.socket;
    var $chatList = $('.chat.list.overflowed');
-   var $userlist = $('.user.list');
+   var $userlist = $('.watching.list');
    var $videoStatus = $('#video-status');
    var $chat = $('#chat-form');
 
@@ -82,26 +82,35 @@
        $('.ui.purple.segment').hide('1000');
     };
 
-     // When Chat connects for the first time?
-     chatsocket.on('connect', function(){
-         emit('join', '');
-     });
-
-    chatsocket.on('disconnect', function(){
-         emit('chat', 'disconnected');
+    // When Chat connects for the first time?
+    chatsocket.on('connect', function(){
+        emit('join', '');
     });
 
-    chatsocket.on('userJoin', function(msg){
-        var str = '<p>' + msg.username + ' has JOINED the room.' + '</p>';
+    chatsocket.on('disconnect', function(){
+        emit('chat', 'disconnected');
+    });
+
+    chatsocket.on('userJoin', function(data){
+        var str = '<p>' + data.username + ' has JOINED the room.' + '</p>';
         $chatList.append(str.fontcolor('blue'));
         autoscroll();
     });
 
-    chatsocket.on('userLeave', function(msg){
-        var str = '<p>' + msg.username + ' has LEFT the room.' + '</p>';
+    chatsocket.on('userLeave', function(data){
+        var str = '<p>' + data.username + ' has LEFT the room.' + '</p>';
         $chatList.append(str.fontcolor('red'));
         autoscroll();
     });
+
+    chatsocket.on('users', function(data){
+        var source = $('#watching-template').html(),
+            template = Handlebars.compile(source);
+        console.log(data.users);
+        var html = template({users: data.users});
+        $userlist.html(html);
+    });
+
 
     //------- When a message is received from the server
     chatsocket.on('reply', function(msg) {

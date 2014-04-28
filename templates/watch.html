@@ -97,7 +97,7 @@
                               </h5>
                            </div>
                            <div class="ui purple segment item">
-                               <div class="user list overflowed">
+                               <div class="watching list overflowed">
                                    <img class="ui avatar image" src="/static/img/doge.jpeg"> Doge
                                </div>
                            </div>
@@ -193,6 +193,17 @@
             </div>
         {{/each}}
         </div>
+    </script>
+
+    <script id="watching-template" type="text/x-handlebars-template">
+        {{#each users}}
+            <div class="item">
+                <div class="content">
+                    <img class="ui avatar image" src="/static/img/doge.jpeg">
+                        <p>{{ id }}</p>
+                </div>
+             </div>
+        {{/each}}
     </script>
     {% endraw %}
 {% endblock %}

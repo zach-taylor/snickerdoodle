@@ -65,11 +65,14 @@ def clean_rooms():
 
 
 def on_join(data):
-    socketio.join_room(data['room'])
+    room = data['room']
+    socketio.join_room(room)
     message = {}
     insert_user_info(message)
     join_room(data['room'], message['user_id'])
-    socketio.emit('userJoin', message, namespace='/chat', room=data['room'])
+    socketio.emit('userJoin', message, namespace='/chat', room=room)
+    socketio.emit('users', {'users': rooms[room]['users']}, namespace='/chat', room=room)
+
 
 def on_leave(data):
     socketio.leave_room(data['room'])
