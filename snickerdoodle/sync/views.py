@@ -28,8 +28,8 @@ def video_message(data):
     insert_user_info(data)
     socketio.emit('player', data, namespace='/video', broadcast=True, room=data['room'])
 
-    room = Room.query.filter(Room.id == data['room']).first()
-    print room.name
+    #room = Room.query.filter(Room.id == data['room']).first()
+    #print room.name
 
 
     # Add the video to the database

@@ -23,6 +23,7 @@ def create_room(id, user):
     rooms[id] = room
     print rooms
 
+
 def join_room(id, user):
     """
     Add a user to a chat room with the given id and user, or create one if it doesn't exist
@@ -37,6 +38,7 @@ def join_room(id, user):
 
     print rooms
 
+
 def leave_room(id, user):
     """
     Add a user to a chat room with the given id and user, or create one if it doesn't exist
@@ -46,6 +48,7 @@ def leave_room(id, user):
     if id in rooms:
         room = rooms[id]
         room['users'].pop(user)
+
 
 def clean_rooms():
     """
@@ -63,7 +66,6 @@ def clean_rooms():
         rooms.pop(id)
 
 
-
 def on_join(data):
     room = data['room']
     socketio.join_room(room)
@@ -75,21 +77,26 @@ def on_join(data):
 
 
 def on_leave(data):
-    socketio.leave_room(data['room'])
+    room = data['room']
+    socketio.leave_room(room)
     message = {}
     insert_user_info(message)
-    leave_room(data['room'], message['user_id'])
-    socketio.emit('userLeave', message, namespace='/chat', room=data['room'])
+    leave_room(room, message['user_id'])
+    socketio.emit('userLeave', message, namespace='/chat', room=room)
+
 
 def on_connect():
     print 'connected'
 
+
 def on_disconnect():
     print 'disconnected'
+
 
 def chat_message(data):
     insert_user_info(data)
     socketio.emit('reply', data, namespace='/chat', room=data['room'])
+
 
 def attach_views_with_socket(app, socket):
     chat_socket = socket.on('chat', namespace='/chat')
@@ -103,5 +110,3 @@ def attach_views_with_socket(app, socket):
     leave_socket(on_leave)
     connect_socket(on_connect)
     disconnect_socket(on_disconnect)
-
-

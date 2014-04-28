@@ -85,10 +85,10 @@
     // When Chat connects for the first time?
     chatsocket.on('connect', function(){
         emit('join', '');
-    });
 
-    chatsocket.on('disconnect', function(){
-        emit('chat', 'disconnected');
+        chatsocket.on('disconnect', function(){
+            emit('chat', 'whyyyyyy');
+        });
     });
 
     chatsocket.on('userJoin', function(data){
