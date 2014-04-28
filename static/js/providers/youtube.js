@@ -1,7 +1,6 @@
 (function (root, $) {
     var Snicker = root.Snicker;
     var id;
-    var SeekTime = 0;
     var TempSeektime = 0;
     var YouTube = (function () {
         __extends(YouTube, root.Snicker.Base);
@@ -71,15 +70,19 @@
 
         YouTube.prototype.onPlay = function (time) {
             console.log('YT onPlay');
-            
-            this.player.seekTo(time, true);
-            this.player.playVideo();
-            
-            
+           /* if (Math.abs(time - this.player.getCurrentTime())>5){
+               time = player.getCurrentTime();
+             }
+             
+             this.player.seekTo(Math.floor(time), true); */
+             this.player.playVideo();
+             
+
         };
 
-        YouTube.prototype.onPause = function () {
+        YouTube.prototype.onPause = function (time) {
              
+             this.player.seekTo(Math.floor(time), true);
              this.player.pauseVideo();
         };
 
@@ -96,15 +99,15 @@
         };
         
         YouTube.prototype.curTime = function () {
+             var SeekTime = this.player.getCurrentTime();
             console.log("getting current time");
-            Snicker.emit('video', {
+
+             Snicker.emit('video', {
                 action: 'curtime',
+                time: SeekTime
                 
             });
-              Snicker.emit('video', {
-                action:  this.player.getCurrentTime(),
-                
-            });
+
         };
 
         YouTube.prototype.playlist = function (video, oldProvider){
@@ -207,10 +210,10 @@
             } else if (YT.PlayerState.PAUSED == event.data) {
                 console.log('YT Paused');
                 
-             
+                var SeekTime = this.player.getCurrentTime();
                 Snicker.emit('video', {
-                    action: 'pause'
-                    //seektime: this.player.getCurrentTime()
+                    action: 'pause',
+                    time: SeekTime
                 });
                 
 
@@ -219,10 +222,10 @@
             } else if (YT.PlayerState.PLAYING == event.data) {
                 console.log('YT Playing');
                 
-
+                var SeekTime = this.player.getCurrentTime();
                 Snicker.emit('video', {
-                    action: 'play'
-                    //seektime: this.player.getCurrentTime()
+                    action: 'play',
+                    time: SeekTime
                 });
                 
 

@@ -405,11 +405,12 @@
 
         if (action === 'play') {
             snicker.provider.curTime();
-             var Seektime = data.action;
-            
+             var Seektime = data.time;           
             snicker.provider.onPlay(Seektime);
         } else if (action === 'pause') {
-            snicker.provider.onPause();
+             snicker.provider.curTime();
+             var Seektime = data.time;     
+            snicker.provider.onPause(Seektime);
         } else if (action === 'change') {
             console.log('change');
             // TODO: Error check
