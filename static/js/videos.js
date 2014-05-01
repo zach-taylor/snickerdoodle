@@ -31,6 +31,30 @@
     snicker.init = function () {
         snicker.bind();
         snicker.setupFriends();
+        snicker.checkUrl();
+    };
+
+    snicker.checkUrl = function () {
+        var id,
+            qs = (function(a) {
+            if (a == "") return {};
+            var b = {};
+            for (var i = 0; i < a.length; ++i) {
+                var p=a[i].split('=');
+                if (p.length != 2) continue;
+                b[p[0]] = decodeURIComponent(p[1].replace(/\+/g, " "));
+            }
+            return b;
+        })(window.location.search.substr(1).split('&'));
+
+        id = qs['trending'];
+
+        if (!id) return;
+
+        snicker.changeProvider('YouTube');
+        snicker.provider.onChangeVideo(id);
+        snicker.currentVideo();
+        snicker.displayPlaylist();
     };
 
     snicker.friendClicked = function (friend) {

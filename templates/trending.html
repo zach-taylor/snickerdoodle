@@ -11,9 +11,9 @@
 
 <div class="trending ui three items">
 {% for video in videos %}
-    <div class="item">
-        <div class="overlay"><i class="icon huge play"></i></div>
+    <div class="video item" data-id="{{ video.id }}">
         <div class="image">
+            <div class="overlay"><i class="icon huge play"></i></div>
             <img src="{{ video.icon }}" width="200">
         </div>
         <div class="content">
@@ -23,9 +23,15 @@
     </div>
 {% endfor %}
 </div>
+
+<form id="trending" action="/rooms" method="post">
+    <input type="hidden" name="trending" value="" id="input-trending">
+    <input type="hidden" name="name" value="Trending Video" id="input-name">
+</form>
 {% endblock %}
 
 {%block js %}
+    <script src="/static/js/trending.js"></script>
     <script src="/static/js/friends.js"></script>
     <script src="/static/js/videos.js"></script>
     <script src="/static/js/chat.js"></script>

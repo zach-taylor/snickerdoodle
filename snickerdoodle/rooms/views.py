@@ -10,11 +10,15 @@ from snickerdoodle import helpers
 class CreateRoomView(MethodView):
     def post(self):
         form = RoomForm()
+
+        # Grab trending
+        trending = request.form.get('trending', '')
+
         if form.validate_on_submit():
             room = Room(form.name.data, session.get('user_id'))
             db.session.add(room)
             db.session.commit()
-            return redirect(url_for('watch_view', room_id=room.id))
+            return redirect(url_for('watch_view', room_id=room.id) + '?trending=' + trending)
         else:
             flash('Room could not be created. :(')
             return redirect(url_for('home'))
